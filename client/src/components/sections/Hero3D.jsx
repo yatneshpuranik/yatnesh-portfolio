@@ -1,92 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
-
-// Skills node specifications around the portrait coordinates (0-500 viewBox space)
-const skillNodes = [
-  { 
-    name: 'React', 
-    color: '#00d8ff', 
-    projects: '8+', 
-    experience: 'Modern Frontend',
-    x: 90, y: 90,
-    anchorX: 160, anchorY: 160,
-    icon: (
-      <svg viewBox="-11.5 -10.23 23 20.46" className="w-8 h-8">
-        <circle cx="0" cy="0" r="1.8" fill="#00d8ff" />
-        <g stroke="#00d8ff" strokeWidth="0.8" fill="none">
-          <ellipse rx="10" ry="3.8" />
-          <ellipse rx="10" ry="3.8" transform="rotate(60)" />
-          <ellipse rx="10" ry="3.8" transform="rotate(120)" />
-        </g>
-      </svg>
-    )
-  },
-  { 
-    name: 'MongoDB', 
-    color: '#13aa52', 
-    projects: '5+', 
-    experience: 'NoSQL Databases',
-    x: 410, y: 90,
-    anchorX: 340, anchorY: 160,
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none" stroke="#13aa52" strokeWidth="1.8">
-        <path d="M12 2C12 2 7 7 7 12C7 16 10 19 12 22C14 19 17 16 17 12C17 7 12 2 12 2Z" fill="#13aa52" fillOpacity="0.2" />
-        <path d="M12 2V22" />
-      </svg>
-    )
-  },
-  { 
-    name: 'Node.js', 
-    color: '#339933', 
-    projects: '6+', 
-    experience: 'Backend Engine',
-    x: 440, y: 250,
-    anchorX: 340, anchorY: 250,
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none" stroke="#339933" strokeWidth="1.8">
-        <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" fill="#339933" fillOpacity="0.15" />
-        <circle cx="12" cy="12" r="3" fill="#339933" />
-      </svg>
-    )
-  },
-  { 
-    name: 'Express', 
-    color: '#828282', 
-    projects: '7+', 
-    experience: 'REST Endpoints',
-    x: 410, y: 410,
-    anchorX: 340, anchorY: 340,
-    icon: (
-      <div className="text-zinc-400 font-extrabold text-[13px] font-mono leading-none tracking-tighter">ex</div>
-    )
-  },
-  { 
-    name: 'Git', 
-    color: '#f03c2e', 
-    projects: '12+', 
-    experience: 'VCS Operations',
-    x: 90, y: 410,
-    anchorX: 160, anchorY: 340,
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none" stroke="#f03c2e" strokeWidth="1.8">
-        <path d="M12 2L2 12L12 22L22 12L12 2Z" fill="#f03c2e" fillOpacity="0.15" />
-        <circle cx="12" cy="12" r="3.5" fill="#f03c2e" />
-        <path d="M12 7V17" />
-      </svg>
-    )
-  },
-  { 
-    name: 'JavaScript', 
-    color: '#f7df1e', 
-    projects: '9+', 
-    experience: 'Dynamic Logic',
-    x: 60, y: 250,
-    anchorX: 160, anchorY: 250,
-    icon: (
-      <div className="text-[#f7df1e] font-black text-[15px] font-mono leading-none tracking-tighter">JS</div>
-    )
-  }
-];
+import React, { useState, useMemo } from 'react';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 
 const getOptimizedCloudinaryUrl = (url, transformations = 'q_auto,f_auto') => {
   if (!url) return '';
@@ -97,9 +10,8 @@ const getOptimizedCloudinaryUrl = (url, transformations = 'q_auto,f_auto') => {
 };
 
 const Hero3D = ({ avatarUrl }) => {
-  const [hoveredNode, setHoveredNode] = useState(null);
+  const [hoveredLogo, setHoveredLogo] = useState(null);
   const [portraitHovered, setPortraitHovered] = useState(false);
-  const [activePulseIndex, setActivePulseIndex] = useState(null);
 
   // Parallax Mouse tracking values
   const mouseX = useMotionValue(0);
@@ -117,10 +29,8 @@ const Hero3D = ({ avatarUrl }) => {
   const connY = useTransform(smoothY, [-250, 250], [-4, 4]);
   const portraitX = useTransform(smoothX, [-250, 250], [-12, 12]);
   const portraitY = useTransform(smoothY, [-250, 250], [-12, 12]);
-  const logoX = useTransform(smoothX, [-250, 250], [-6, 6]);
-  const logoY = useTransform(smoothY, [-250, 250], [-6, 6]);
 
-  // Mouse 3D tilt transformations
+  // Mouse 3D tilt transformations for portrait
   const rotateX = useTransform(smoothY, [-250, 250], [8, -8]);
   const rotateY = useTransform(smoothX, [-250, 250], [-8, 8]);
 
@@ -143,245 +53,273 @@ const Hero3D = ({ avatarUrl }) => {
     return avatarUrl ? getOptimizedCloudinaryUrl(avatarUrl) : '/yatnesh.jpg';
   }, [avatarUrl]);
 
-  // Periodic network pulse animation trigger
-  useEffect(() => {
-    const pulseTimer = setInterval(() => {
-      const randomIndex = Math.floor(Math.random() * skillNodes.length);
-      setActivePulseIndex(randomIndex);
-      setTimeout(() => {
-        setActivePulseIndex(null);
-      }, 1600);
-    }, 4500);
-
-    return () => clearInterval(pulseTimer);
-  }, []);
-
   return (
     <div 
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="w-full h-full max-w-[500px] aspect-square relative flex items-center justify-center select-none z-10 mx-auto cursor-default"
+      className="w-full h-full max-w-[500px] aspect-square relative flex items-center justify-center select-none z-10 mx-auto cursor-default animate-in fade-in duration-1000"
       style={{ perspective: 1000 }}
     >
-      
-      {/* Layer 1: Background Drifting Particles / Soft Ambient Spotlight (z-0) */}
+      {/* Dynamic CSS styles for animations */}
+      <style>{`
+        @keyframes solar-spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        @keyframes solar-spin-reverse {
+          from { transform: rotate(360deg); }
+          to { transform: rotate(0deg); }
+        }
+        @keyframes solar-portrait-breathe {
+          0%, 100% {
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.12), 0 0 30px rgba(168, 85, 247, 0.1);
+          }
+          50% {
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.25), 0 0 60px rgba(168, 85, 247, 0.2);
+          }
+        }
+        .animate-solar-spin-1 {
+          animation: solar-spin 40s linear infinite;
+        }
+        .animate-solar-spin-reverse-1 {
+          animation: solar-spin-reverse 40s linear infinite;
+        }
+        .animate-solar-spin-2 {
+          animation: solar-spin 65s linear infinite;
+        }
+        .animate-solar-spin-reverse-2 {
+          animation: solar-spin-reverse 65s linear infinite;
+        }
+        .animate-solar-spin-3 {
+          animation: solar-spin 90s linear infinite;
+        }
+        .animate-solar-spin-reverse-3 {
+          animation: solar-spin-reverse 90s linear infinite;
+        }
+      `}</style>
+
+      {/* Layer 1: Background Drifting Particles & Ambient glow (z-0) */}
       <motion.div 
         style={{ x: bgX, y: bgY }}
         className="absolute inset-0 pointer-events-none z-0 overflow-hidden"
       >
         {/* Soft Spotlight behind image */}
-        <div className="absolute w-[300px] h-[300px] rounded-full bg-radial from-white/[0.015] to-transparent blur-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+        <div 
+          className="absolute w-[320px] h-[320px] rounded-full blur-[70px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" 
+          style={{ background: 'radial-gradient(circle, rgba(6, 182, 212, 0.05) 0%, rgba(168, 85, 247, 0.025) 45%, transparent 70%)' }}
+        />
 
         {/* Drifting Dust Particles */}
-        {Array.from({ length: 10 }).map((_, idx) => (
+        {Array.from({ length: 12 }).map((_, idx) => (
           <motion.div
             key={idx}
             animate={{
-              y: [0, -40 - (idx * 6), 0],
-              x: [0, 15 - (idx * 3), 0],
-              opacity: [0.03, 0.15, 0.03]
+              y: [0, -40 - (idx * 5), 0],
+              x: [0, 12 - (idx * 2), 0],
+              opacity: [0.03, 0.12, 0.03]
             }}
             transition={{
-              duration: 12 + idx * 3,
+              duration: 14 + idx * 2.5,
               repeat: Infinity,
               ease: 'easeInOut'
             }}
-            className="absolute w-[2px] h-[2px] sm:w-1 sm:h-1 rounded-full bg-white/20"
+            className="absolute w-[1px] h-[1px] sm:w-[2px] sm:h-[2px] rounded-full bg-white/20"
             style={{
-              left: `${10 + idx * 9}%`,
-              bottom: `${15 + idx * 8}%`
+              left: `${8 + idx * 8}%`,
+              bottom: `${12 + idx * 7}%`
             }}
           />
         ))}
       </motion.div>
 
-      {/* Layer 2: SVG Connections Canvas (z-10) */}
-      <motion.svg 
+      {/* Layer 2: Orbit system overlay (z-10) */}
+      <motion.div 
         style={{ x: connX, y: connY }}
-        viewBox="0 0 500 500" 
-        className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-visible"
+        className="absolute inset-0 w-full h-full pointer-events-none z-10 flex items-center justify-center"
       >
-        {skillNodes.map((node, index) => {
-          const isNodeHovered = hoveredNode === index;
-          const isPulseActive = activePulseIndex === index;
-          const isHighlight = isNodeHovered || isPulseActive || portraitHovered;
+        {/* Orbit 1 (Inner) */}
+        <div 
+          className="absolute rounded-full border border-white/[0.05] flex items-center justify-center animate-solar-spin-1"
+          style={{
+            width: '58%',
+            height: '58%',
+            animationDuration: portraitHovered ? '80s' : '40s',
+            animationPlayState: hoveredLogo !== null ? 'paused' : 'running'
+          }}
+        >
+          {/* React Node (Top) */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+            {/* Glowing Star/Jarvis Node */}
+            <div className="w-1.5 h-1.5 rounded-full bg-[#00d8ff] shadow-[0_0_8px_rgba(0,216,255,0.8)]" />
+            <div className="w-1.5 h-1.5 rounded-full bg-[#00d8ff] absolute inset-0 animate-ping opacity-60" />
+            
+            {/* React Capsule */}
+            <div 
+              className="logo-capsule pointer-events-auto cursor-pointer animate-solar-spin-reverse-1 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-[#00d8ff]/20 bg-[#0a0a0a]/80 backdrop-blur-md flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-115 hover:shadow-[0_0_20px_rgba(0,216,255,0.22)] hover:border-[#00d8ff]/45 absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-1 sm:mt-1.5"
+              onMouseEnter={() => setHoveredLogo('react')}
+              onMouseLeave={() => setHoveredLogo(null)}
+              style={{
+                animationDuration: portraitHovered ? '80s' : '40s',
+                animationPlayState: hoveredLogo !== null ? 'paused' : 'running'
+              }}
+            >
+              <svg viewBox="-11.5 -10.23 23 20.46" className="w-5 h-5 sm:w-6 sm:h-6 text-[#00d8ff] fill-none stroke-current stroke-[1.2]">
+                <circle cx="0" cy="0" r="2.05" className="fill-current" />
+                <ellipse rx="11" ry="4.2" />
+                <ellipse rx="11" ry="4.2" transform="rotate(60)" />
+                <ellipse rx="11" ry="4.2" transform="rotate(120)" />
+              </svg>
+            </div>
+          </div>
 
-          // Draw custom organic S-curves from node center (x, y) to anchor points on card
-          const controlX1 = (node.x + node.anchorX) / 2;
-          const controlY1 = node.y;
-          const controlX2 = (node.x + node.anchorX) / 2;
-          const controlY2 = node.anchorY;
-          const pathData = `M ${node.x} ${node.y} C ${controlX1} ${controlY1}, ${controlX2} ${controlY2}, ${node.anchorX} ${node.anchorY}`;
+          {/* Express Node (Bottom) */}
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 pointer-events-none">
+            {/* Glowing Star/Jarvis Node */}
+            <div className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+            <div className="w-1.5 h-1.5 rounded-full bg-white absolute inset-0 animate-ping opacity-60" />
+            
+            {/* Express Capsule */}
+            <div 
+              className="logo-capsule pointer-events-auto cursor-pointer animate-solar-spin-reverse-1 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-white/20 bg-[#0a0a0a]/80 backdrop-blur-md flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-115 hover:shadow-[0_0_20px_rgba(255,255,255,0.18)] hover:border-white/45 absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 mb-1 sm:mb-1.5"
+              onMouseEnter={() => setHoveredLogo('express')}
+              onMouseLeave={() => setHoveredLogo(null)}
+              style={{
+                animationDuration: portraitHovered ? '80s' : '40s',
+                animationPlayState: hoveredLogo !== null ? 'paused' : 'running'
+              }}
+            >
+              <div className="text-white font-extrabold text-[12px] sm:text-[14px] font-mono leading-none tracking-tighter">ex</div>
+            </div>
+          </div>
+        </div>
 
-          return (
-            <g key={index}>
-              {/* Backing glow on active path (2px thickness, 45% opacity) */}
-              <motion.path
-                d={pathData}
-                stroke={node.color}
-                strokeWidth="2"
-                strokeOpacity={isHighlight ? 0.45 : 0.15}
-                fill="none"
-                className="transition-all duration-500"
-              />
+        {/* Orbit 2 (Middle) */}
+        <div 
+          className="absolute rounded-full border border-white/[0.04] flex items-center justify-center animate-solar-spin-2"
+          style={{
+            width: '78%',
+            height: '78%',
+            animationDuration: portraitHovered ? '130s' : '65s',
+            animationPlayState: hoveredLogo !== null ? 'paused' : 'running'
+          }}
+        >
+          {/* Node.js Node (Left) */}
+          <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+            {/* Glowing Star/Jarvis Node */}
+            <div className="w-1.5 h-1.5 rounded-full bg-[#339933] shadow-[0_0_8px_rgba(51,153,51,0.8)]" />
+            <div className="w-1.5 h-1.5 rounded-full bg-[#339933] absolute inset-0 animate-ping opacity-60" />
+            
+            {/* Node.js Capsule */}
+            <div 
+              className="logo-capsule pointer-events-auto cursor-pointer animate-solar-spin-reverse-2 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-[#339933]/20 bg-[#0a0a0a]/80 backdrop-blur-md flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-115 hover:shadow-[0_0_20px_rgba(51,153,51,0.22)] hover:border-[#339933]/45 absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 ml-1 sm:ml-1.5"
+              onMouseEnter={() => setHoveredLogo('node')}
+              onMouseLeave={() => setHoveredLogo(null)}
+              style={{
+                animationDuration: portraitHovered ? '130s' : '65s',
+                animationPlayState: hoveredLogo !== null ? 'paused' : 'running'
+              }}
+            >
+              <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 text-[#339933] fill-current">
+                <path d="M12.42 21h-.84c-.45 0-.9-.23-1.12-.62l-6-10.4a1.29 1.29 0 0 1 0-1.28l6-10.4c.22-.39.67-.62 1.12-.62h.84c.45 0 .9.23 1.12.62l6 10.4a1.29 1.29 0 0 1 0 1.28l-6 10.4c-.22.39-.67.62-1.12.62zm-5.26-11.23l4.84 8.39V8.58l-4.84 1.19zm10.52 0l-4.84-1.19v10.78l4.84-8.39-.01.01z" />
+              </svg>
+            </div>
+          </div>
 
-              {/* Dynamic traveling pulse line */}
-              <motion.path
-                d={pathData}
-                stroke={node.color}
-                strokeWidth="2"
-                strokeOpacity={isHighlight ? 0.95 : 0.55}
-                fill="none"
-                strokeDasharray="10 60"
-                animate={{ strokeDashoffset: [140, 0] }}
-                transition={{
-                  duration: isHighlight ? 2.0 : 3.5,
-                  repeat: Infinity,
-                  ease: 'linear'
-                }}
-              />
+          {/* JavaScript Node (Right) */}
+          <div className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 pointer-events-none">
+            {/* Glowing Star/Jarvis Node */}
+            <div className="w-1.5 h-1.5 rounded-full bg-[#f7df1e] shadow-[0_0_8px_rgba(247,223,30,0.8)]" />
+            <div className="w-1.5 h-1.5 rounded-full bg-[#f7df1e] absolute inset-0 animate-ping opacity-60" />
+            
+            {/* JavaScript Capsule */}
+            <div 
+              className="logo-capsule pointer-events-auto cursor-pointer animate-solar-spin-reverse-2 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-[#f7df1e]/20 bg-[#0a0a0a]/80 backdrop-blur-md flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-115 hover:shadow-[0_0_20px_rgba(247,223,30,0.22)] hover:border-[#f7df1e]/45 absolute right-0 top-1/2 -translate-x-1/2 -translate-y-1/2 mr-1 sm:mr-1.5"
+              onMouseEnter={() => setHoveredLogo('javascript')}
+              onMouseLeave={() => setHoveredLogo(null)}
+              style={{
+                animationDuration: portraitHovered ? '130s' : '65s',
+                animationPlayState: hoveredLogo !== null ? 'paused' : 'running'
+              }}
+            >
+              <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 text-[#f7df1e] fill-current rounded">
+                <path d="M3 3h18v18H3V3zm10.57 14.28c.36.63.78 1.16 1.48 1.16.66 0 1.08-.33 1.08-.84 0-.58-.45-.78-1.22-1.11l-.42-.18c-1.23-.51-2.04-1.17-2.04-2.61 0-1.35 1.05-2.4 2.76-2.4 1.32 0 2.13.54 2.58 1.41l-1.32.84c-.3-.54-.69-.81-1.23-.81-.6 0-.87.33-.87.75 0 .51.36.72 1.08 1.02l.42.18c1.47.63 2.22 1.26 2.22 2.73 0 1.59-1.23 2.64-3.12 2.64-1.89 0-2.91-1.02-3.39-2.13l1.41-.88zm-5.91-.04c.15.39.48.69.96.69.45 0 .72-.21.72-.81V9.5h1.74v7.71c0 1.95-1.14 2.79-2.82 2.79-1.62 0-2.49-.87-2.85-1.89l1.41-.8c.24.48.51.69.84.69z" />
+              </svg>
+            </div>
+          </div>
+        </div>
 
-              {/* Traveling energy particle - GPU-accelerated path follower */}
-              <motion.circle
-                r="2.5"
-                fill={node.color}
-                style={{
-                  offsetPath: `path('${pathData}')`,
-                  filter: `drop-shadow(0 0 4px ${node.color})`
-                }}
-                animate={{
-                  offsetDistance: ["0%", "100%"]
-                }}
-                transition={{
-                  duration: isHighlight ? 2.8 : 4.5,
-                  repeat: Infinity,
-                  ease: 'linear',
-                  delay: index * 0.35
-                }}
-              />
-            </g>
-          );
-        })}
-      </motion.svg>
+        {/* Orbit 3 (Outer) */}
+        <div 
+          className="absolute rounded-full border border-white/[0.03] flex items-center justify-center animate-solar-spin-3"
+          style={{
+            width: '98%',
+            height: '98%',
+            animationDuration: portraitHovered ? '180s' : '90s',
+            animationPlayState: hoveredLogo !== null ? 'paused' : 'running'
+          }}
+        >
+          {/* MongoDB Node (Top) */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+            {/* Glowing Star/Jarvis Node */}
+            <div className="w-1.5 h-1.5 rounded-full bg-[#13aa52] shadow-[0_0_8px_rgba(19,170,82,0.8)]" />
+            <div className="w-1.5 h-1.5 rounded-full bg-[#13aa52] absolute inset-0 animate-ping opacity-60" />
+            
+            {/* MongoDB Capsule */}
+            <div 
+              className="logo-capsule pointer-events-auto cursor-pointer animate-solar-spin-reverse-3 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-[#13aa52]/20 bg-[#0a0a0a]/80 backdrop-blur-md flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-115 hover:shadow-[0_0_20px_rgba(19,170,82,0.22)] hover:border-[#13aa52]/45 absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-1 sm:mt-1.5"
+              onMouseEnter={() => setHoveredLogo('mongodb')}
+              onMouseLeave={() => setHoveredLogo(null)}
+              style={{
+                animationDuration: portraitHovered ? '180s' : '90s',
+                animationPlayState: hoveredLogo !== null ? 'paused' : 'running'
+              }}
+            >
+              <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 text-[#13aa52] fill-current">
+                <path d="M17.15 11.2c-.3-.4-2.8-3.4-3.5-4.2-.7-.8-1.1-1.6-1.3-2.3a8.9 8.9 0 0 1-.3-1.8 8.8 8.8 0 0 1-.3 1.8c-.2.7-.6 1.5-1.3 2.3-.7.8-3.2 3.8-3.5 4.2C6 12.3 5.4 13.7 5.4 15.2c0 3.7 3 6.7 6.6 6.7s6.6-3 6.6-6.7c0-1.5-.6-2.9-1.5-4zM12 20.3c-2.8 0-5.1-2.3-5.1-5.1 0-.9.2-1.7.7-2.4l4.4-5.6V20.3z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </motion.div>
 
-      {/* Layer 3: Central Portrait Card with larger rounded corners & 3D tilt (z-20) */}
+      {/* Layer 3: Central Circular Portrait (z-20) */}
       <motion.div
         style={{ x: portraitX, y: portraitY, rotateX, rotateY, transformStyle: 'preserve-3d' }}
         onMouseEnter={() => setPortraitHovered(true)}
         onMouseLeave={() => setPortraitHovered(false)}
-        animate={{
-          y: [0, -3, 0],
-          scale: [1, 1.015, 1]
-        }}
-        transition={{
-          duration: 6.5,
-          repeat: Infinity,
-          ease: 'easeInOut'
-        }}
-        className="w-[178px] h-[247px] sm:w-[195px] sm:h-[270px] rounded-3xl border-[0.5px] border-white/25 bg-white overflow-hidden flex items-center justify-center relative z-20 transition-all duration-500 hover:border-white/40 origin-center shadow-[0_25px_60px_-10px_rgba(0,0,0,0.95),0_0_20px_rgba(6,182,212,0.02)]"
+        className="relative z-20 pointer-events-auto"
       >
-        {/* Dynamic clean portrait photo showing its original white background (using object-contain to prevent cutout) */}
-        <img
-          src={imageUrl}
-          alt="Yatnesh Puranik Portrait"
-          className="w-full h-full object-contain bg-white transition-all duration-500 filter brightness-95 rounded-3xl"
-          loading="lazy"
-        />
-
-        {/* Occasional eye-level shine sweep (diagonal sweep every 10 seconds) */}
-        <motion.div
-          animate={{ x: ['-140%', '140%'] }}
-          transition={{
-            duration: 1.6,
-            repeat: Infinity,
-            repeatDelay: 8.4,
-            ease: 'easeInOut'
+        {/* circular portrait frame with neon gradient border & breathing glow */}
+        <div 
+          className="w-[185px] h-[185px] sm:w-[210px] sm:h-[210px] rounded-full p-[2px] bg-gradient-to-tr from-cyan-500/35 via-white/5 to-purple-500/35 transition-all duration-700 shadow-2xl relative flex items-center justify-center origin-center cursor-pointer"
+          style={{
+            animation: 'solar-portrait-breathe 7.5s infinite ease-in-out',
+            transform: portraitHovered ? 'scale(1.06)' : 'scale(1)'
           }}
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/8 to-transparent skew-x-12 pointer-events-none z-20"
-        />
-      </motion.div>
-
-      {/* Layer 4: Skills Network Pill Nodes (z-30) (increased size to w-16 h-16) */}
-      {skillNodes.map((node, index) => {
-        const isHovered = hoveredNode === index;
-        const isPulse = activePulseIndex === index;
-        const brightnessClass = isHovered || isPulse || portraitHovered
-          ? 'border-white/25 bg-[#171717]/90 opacity-100' 
-          : 'border-white/5 bg-[#111111]/70 opacity-60';
-
-        return (
-          <motion.div
-            key={index}
-            className="absolute z-30"
-            style={{ 
-              left: `${node.x / 5}%`, 
-              top: `${node.y / 5}%`,
-              x: logoX,
-              y: logoY,
-              translateX: '-50%',
-              translateY: '-50%'
-            }}
-            onMouseEnter={() => setHoveredNode(index)}
-            onMouseLeave={() => setHoveredNode(null)}
-          >
-            {/* Soft breathing container */}
+        >
+          {/* Inner portrait container */}
+          <div className="w-full h-full rounded-full overflow-hidden bg-white relative">
+            <img
+              src={imageUrl}
+              alt="Yatnesh Puranik Portrait"
+              className="w-full h-full object-cover filter brightness-[0.98] contrast-[1.02] rounded-full transition-transform duration-500"
+              style={{ transform: portraitHovered ? 'scale(1.04)' : 'scale(1)' }}
+              loading="lazy"
+            />
+            {/* Stark UI diagonal shimmer sweep */}
             <motion.div
-              animate={{
-                scale: isHovered ? 1.08 : [1, 1.025, 1],
-                y: isHovered ? -2 : [0, -3, 0]
-              }}
+              animate={{ x: ['-140%', '140%'] }}
               transition={{
-                duration: isHovered ? 0.2 : (4.0 + (index % 3) * 0.6),
-                repeat: isHovered ? 0 : Infinity,
+                duration: 2.0,
+                repeat: Infinity,
+                repeatDelay: 5.5,
                 ease: 'easeInOut'
               }}
-              className={`flex items-center justify-center rounded-full border cursor-pointer transition-all duration-300 w-16 h-16 ${brightnessClass}`}
-              style={{
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-                boxShadow: isHovered || isPulse || portraitHovered 
-                  ? `0 0 20px ${node.color}25, inset 0 1px 1px rgba(255, 255, 255, 0.08)` 
-                  : 'inset 0 1px 1px rgba(255, 255, 255, 0.04)'
-              }}
-            >
-              {/* SVG / HTML Colored Icon (40% larger) */}
-              {node.icon}
-
-              {/* Colored Active Pulse dot */}
-              <span 
-                className="absolute bottom-1 right-1 w-2.5 h-2.5 rounded-full border border-[#050505] transition-all duration-300"
-                style={{ 
-                  backgroundColor: node.color,
-                  boxShadow: `0 0 6px ${node.color}` 
-                }} 
-              />
-            </motion.div>
-
-            {/* Micro details Tooltip (expand on hover) */}
-            <AnimatePresence>
-              {isHovered && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 5, scale: 0.95 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute bottom-full mb-2.5 left-1/2 -translate-x-1/2 z-30 pointer-events-none"
-                >
-                  <div 
-                    className="border rounded-lg px-3 py-1.5 shadow-[0_12px_30px_rgba(0,0,0,0.9)] text-center min-w-[130px] bg-[#141414]/95 backdrop-blur-md transition-colors"
-                    style={{ borderColor: `${node.color}33` }}
-                  >
-                    <div className="text-[9px] font-bold text-white uppercase tracking-wider font-mono">{node.name}</div>
-                    <div className="text-[7.5px] text-zinc-400 mt-0.5">{node.projects} Projects</div>
-                    <div className="text-[7.5px] text-zinc-500">{node.experience}</div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        );
-      })}
-
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 pointer-events-none z-10"
+            />
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
 };

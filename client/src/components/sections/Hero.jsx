@@ -58,7 +58,7 @@ const Hero = React.memo(({ profile, settings, socials }) => {
   };
 
   return (
-    <section id="hero" className="min-h-[calc(100vh-6rem)] flex items-center relative py-20 select-none overflow-hidden">
+    <section id="hero" className="min-h-[calc(100vh-6rem)] flex items-center relative pt-10 pb-16 lg:pt-12 lg:pb-20 select-none overflow-hidden">
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center w-full relative z-10">
 
