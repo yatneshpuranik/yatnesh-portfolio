@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import axios from 'axios';
 import {
-  Sparkles, X, Mic, MicOff, Send, Volume2,
-  VolumeX, Power, Terminal, MonitorPlay
+  Sparkles, X, Mic, MicOff, Send, Terminal
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
 import { fetchProfile } from '../../services/api';
-import { getIdleVideoUrl } from '../../services/avatarService';
 import Avatar3D from './Avatar3D';
 
 // Sound effects generator using Web Audio API
@@ -57,7 +55,6 @@ const playSynthSound = (type) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.frequency.setValueAtTime(700, now);
-      osc.frequency.setValueAtTime(700, now);
       gain.gain.setValueAtTime(0.012, now);
       gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.08);
       osc.connect(gain);
@@ -77,10 +74,10 @@ const playSynthSound = (type) => {
           gain2.connect(ctx2.destination);
           osc2.start();
           osc2.stop(ctx2.currentTime + 0.08);
-        } catch (e) { }
+        } catch { }
       }, 70);
     }
-  } catch (e) {
+  } catch {
     // Audio contexts blocked by autoplay
   }
 };
@@ -112,38 +109,37 @@ const AIAssistant = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  // Voice states
+  // Core functional states
   const [voiceActive, setVoiceActive] = useState(false);
-  const [needActivation, setNeedActivation] = useState(true);
-  const [hasMicPermission, setHasMicPermission] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
   const [latency, setLatency] = useState(0);
 
-  // Talking Avatar states
-  const [avatarMode, setAvatarMode] = useState('vrm'); // 'vrm' | 'video' | 'orb'
-  const [avatarState, setAvatarState] = useState('idle'); // 'idle' | 'listening' | 'thinking' | 'speaking' | 'error'
-  const [speakingUrl, setSpeakingUrl] = useState(null);
-
-  // Streaming dialogue list state (Step 10 Refactored Queue System)
+  // Dialogue UI list state
   const [visibleSentences, setVisibleSentences] = useState([]);
   const activeSentenceIdRef = useRef(null);
   const sentencesQueueRef = useRef([]);
 
-  const idleVideoRef = useRef(null);
-  const speakingVideoRef = useRef(null);
-  const orbCanvasRef = useRef(null);
   const messageEndRef = useRef(null);
   const currentUtteranceRef = useRef(null);
   const typewriterTimeoutsRef = useRef([]);
 
-  // Auto-scroll on dialogue updates
-  useEffect(() => {
-    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [visibleSentences]);
+  // Memoized avatarState derived dynamically from primary states
+  const avatarState = useMemo(() => {
+    if (isThinking) return 'thinking';
+    if (isSpeaking) return 'speaking';
+    if (isListening) return 'listening';
+    return 'idle';
+  }, [isThinking, isSpeaking, isListening]);
 
-  // Terminal Logs
+  // Sync isThinking status to mutable reference for async timer check
+  const isThinkingRef = useRef(isThinking);
+  useEffect(() => {
+    isThinkingRef.current = isThinking;
+  }, [isThinking]);
+
+  // Terminal Logs state
   const [logs, setLogs] = useState([
     '> INITIALIZING NEURAL PORTAL SYSTEM...',
     '> YATNESH DIGITAL PROFILE LINKED',
@@ -152,29 +148,30 @@ const AIAssistant = () => {
 
   const [input, setInput] = useState('');
 
+  // Add Terminal Log callback
   const addLog = useCallback((msg) => {
     setLogs((prev) => [...prev.slice(-8), msg]);
   }, []);
 
+  // Abort speech and clear timers callback
   const abortActiveSpeech = useCallback(() => {
     if (window.speechSynthesis) {
       window.speechSynthesis.cancel();
     }
     setIsSpeaking(false);
-    setAvatarState('idle');
     typewriterTimeoutsRef.current.forEach(id => clearTimeout(id));
     typewriterTimeoutsRef.current = [];
     sentencesQueueRef.current = [];
     setVisibleSentences(prev => prev.map(s => ({ ...s, status: 'completed' })));
   }, []);
 
+  // Deactivate voice mode link callback
   const deactivateVoiceMode = useCallback(() => {
     setVoiceActive(false);
-    setNeedActivation(true);
     if (globalRecognition && isListening) {
       try {
         globalRecognition.stop();
-      } catch (e) { }
+      } catch { }
     }
     setIsListening(false);
     abortActiveSpeech();
@@ -182,12 +179,13 @@ const AIAssistant = () => {
     toast.success('Voice mode deactivated.');
   }, [isListening, abortActiveSpeech, addLog]);
 
+  // Microphone toggle & flow start callbacks
   const startListening = useCallback(() => {
     const rec = initGlobalRecognition();
     if (rec && !isListening && !isSpeaking && !isThinking) {
       try {
         rec.start();
-      } catch (err) {
+      } catch {
         // already active
       }
     }
@@ -198,13 +196,13 @@ const AIAssistant = () => {
     if (rec && isListening) {
       try {
         rec.stop();
-      } catch (err) {
+      } catch {
         // already stopped
       }
     }
   }, [isListening]);
 
-  // 1. Mutable reference to avoid stale closures in event handlers
+  // Mutable reference to avoid stale closures in event handlers
   const recognitionCallbacksRef = useRef({
     onStart: null,
     onResult: null,
@@ -215,7 +213,6 @@ const AIAssistant = () => {
   recognitionCallbacksRef.current = {
     onStart: () => {
       setIsListening(true);
-      setAvatarState('listening');
       addLog('> SPEECH CAPTURE ENGINE STANDBY');
     },
     onResult: (e) => {
@@ -246,7 +243,7 @@ const AIAssistant = () => {
             try {
               const rec = initGlobalRecognition();
               if (rec) rec.start();
-            } catch (err) {
+            } catch {
               // already running
             }
           }
@@ -256,7 +253,7 @@ const AIAssistant = () => {
     }
   };
 
-  // Bind single-mount callbacks
+  // Bind single-mount callbacks for Speech Recognition
   useEffect(() => {
     const rec = initGlobalRecognition();
     if (!rec) return;
@@ -279,52 +276,29 @@ const AIAssistant = () => {
     const rec = initGlobalRecognition();
     if (!rec) return;
 
-    if (voiceActive && isOpen && !isThinking) {
+    if (voiceActive && isOpen && !isThinking && !isSpeaking) {
       try {
         rec.start();
-      } catch (err) {
+      } catch {
         // already active
       }
     } else {
       try {
         rec.stop();
-      } catch (err) {
+      } catch {
         // already stopped
       }
     }
-  }, [voiceActive, isOpen, isThinking]);
+  }, [voiceActive, isOpen, isThinking, isSpeaking]);
 
-  // Trigger Welcome Speech, Chirp and dispatch active state on Modal Open
+  // Clean up all timers and speech on unmount
   useEffect(() => {
-    window.dispatchEvent(new CustomEvent('ai-assistant-state', { detail: { open: isOpen } }));
-    if (isOpen) {
-      playSynthSound('activation');
-
-      const welcomeText = "Hi, I'm Yatnesh Puranik. I build MERN apps, high-performance backends, and AI products. Ask me anything about my work.";
-      const sentences = splitIntoSentences(welcomeText);
-
-      sentencesQueueRef.current = sentences;
-      setVisibleSentences([]);
-
-      const startupTimeout = setTimeout(() => {
-        if (isOpen) {
-          playNextSentence();
-        }
-      }, 600);
-
-      return () => clearTimeout(startupTimeout);
-    } else {
-      abortActiveSpeech();
-    }
-  }, [isOpen, abortActiveSpeech]);
-
-  // Listen for navigation CTA triggers to open AI console
-  useEffect(() => {
-    const handleOpenConsole = () => {
-      setIsOpen(true);
+    return () => {
+      typewriterTimeoutsRef.current.forEach(id => clearTimeout(id));
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
     };
-    window.addEventListener('open-ai-chat', handleOpenConsole);
-    return () => window.removeEventListener('open-ai-chat', handleOpenConsole);
   }, []);
 
   // ESC key listener to close modal
@@ -352,8 +326,13 @@ const AIAssistant = () => {
     };
   }, [isOpen]);
 
-  // 6. Character-by-Character Typewriter
-  const typeSentence = (text, id) => {
+  // Auto-scroll on dialogue updates
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [visibleSentences]);
+
+  // Character-by-Character Typewriter callback
+  const typeSentence = useCallback((text, id) => {
     let charIndex = 0;
     let accumulated = '';
 
@@ -387,63 +366,25 @@ const AIAssistant = () => {
     };
 
     typeChar();
-  };
+  }, []);
 
-  const advanceAfterSpeech = () => {
+  // Post-speech state transition callback
+  const advanceAfterSpeech = useCallback(() => {
     const activeId = activeSentenceIdRef.current;
 
-    // Force active sentence to be fully completed and remove cursor
     setVisibleSentences(prev => prev.map(s =>
       s.id === activeId ? { ...s, typedText: s.fullText, status: 'completed' } : s
     ));
 
-    // Next queue shift with a slight pause representing natural spacing
     const paragraphPause = 750;
     const timeoutId = setTimeout(() => {
-      playNextSentence();
+      flowRef.current.playNextSentence();
     }, paragraphPause);
     typewriterTimeoutsRef.current.push(timeoutId);
-  };
+  }, []);
 
-  // 4. Refactored Dialogue Queue Player
-  const playNextSentence = () => {
-    if (sentencesQueueRef.current.length === 0) {
-      setIsSpeaking(false);
-      setAvatarState('idle');
-      addLog('> PROFILE EMISSION TERMINATED');
-
-      // Clear cursors on speech end
-      setVisibleSentences(prev => prev.map(s => ({ ...s, status: 'completed' })));
-
-      if (voiceActive && isOpen) {
-        setTimeout(() => startListening(), 500);
-      }
-      return;
-    }
-
-    const currentText = sentencesQueueRef.current.shift();
-    const newId = Date.now().toString() + '_' + Math.random().toString();
-    activeSentenceIdRef.current = newId;
-
-    // Shift window boundary (maintain max 3 items in DOM)
-    setVisibleSentences(prev => {
-      const updatedPrev = prev.map(s => ({ ...s, status: 'completed' }));
-      const next = [...updatedPrev, { id: newId, fullText: currentText, typedText: '', status: 'typing' }];
-      if (next.length > 3) {
-        return next.slice(1);
-      }
-      return next;
-    });
-
-    // Start TTS
-    speakSentence(currentText);
-
-    // Start Typewriter
-    typeSentence(currentText, newId);
-  };
-
-  // 5. Synthesizer Text-to-Speech Sentence Player
-  const speakSentence = (text) => {
+  // Synthesizer Text-to-Speech Sentence Player callback
+  const speakSentence = useCallback((text) => {
     if (!window.speechSynthesis) {
       const fallbackTimeout = setTimeout(() => {
         advanceAfterSpeech();
@@ -463,7 +404,6 @@ const AIAssistant = () => {
     const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.lang = 'en-US';
 
-    // Choose premium voice
     const voices = window.speechSynthesis.getVoices();
     const premiumVoice = voices.find(v =>
       v.lang.startsWith('en') &&
@@ -473,11 +413,10 @@ const AIAssistant = () => {
       utterance.voice = premiumVoice;
     }
 
-    utterance.rate = 1.05; // Jarvis pace
+    utterance.rate = 1.05;
 
     utterance.onstart = () => {
       setIsSpeaking(true);
-      setAvatarState('speaking');
     };
 
     utterance.onend = () => {
@@ -491,37 +430,85 @@ const AIAssistant = () => {
 
     currentUtteranceRef.current = utterance;
     window.speechSynthesis.speak(utterance);
-  };
+  }, [stopListening, advanceAfterSpeech]);
 
-  const activateVoiceMode = async () => {
-    try {
-      setNeedActivation(false);
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      setHasMicPermission(true);
-      setVoiceActive(true);
-      stream.getTracks().forEach(track => track.stop());
+  // Dialogue Queue Player callback
+  const playNextSentence = useCallback(() => {
+    if (sentencesQueueRef.current.length === 0) {
+      setIsSpeaking(false);
+      addLog('> PROFILE EMISSION TERMINATED');
 
-      abortActiveSpeech();
-      addLog('> MIC ENCRYPTED LINK ACQUIRED');
+      setVisibleSentences(prev => prev.map(s => ({ ...s, status: 'completed' })));
 
-      const welcomeText = "Connecting voice stream. Hi, I'm Yatnesh. Let's talk about my background and projects.";
+      if (voiceActive && isOpen) {
+        setTimeout(() => startListening(), 500);
+      }
+      return;
+    }
+
+    const currentText = sentencesQueueRef.current.shift();
+    const newId = Date.now().toString() + '_' + Math.random().toString();
+    activeSentenceIdRef.current = newId;
+
+    setVisibleSentences(prev => {
+      const updatedPrev = prev.map(s => ({ ...s, status: 'completed' }));
+      const next = [...updatedPrev, { id: newId, fullText: currentText, typedText: '', status: 'typing' }];
+      if (next.length > 3) {
+        return next.slice(1);
+      }
+      return next;
+    });
+
+    speakSentence(currentText);
+    typeSentence(currentText, newId);
+  }, [voiceActive, isOpen, startListening, speakSentence, typeSentence, addLog]);
+
+  // Keep references updated to bypass circular dependency hooks
+  const flowRef = useRef({});
+  useEffect(() => {
+    flowRef.current = {
+      playNextSentence,
+      speakSentence,
+      typeSentence,
+      advanceAfterSpeech
+    };
+  }, [playNextSentence, speakSentence, typeSentence, advanceAfterSpeech]);
+
+  // Welcome speech and setup on modal open
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent('ai-assistant-state', { detail: { open: isOpen } }));
+    if (isOpen) {
+      playSynthSound('activation');
+
+      const welcomeText = "Hi, I'm Yatnesh Puranik. I build MERN apps, high-performance backends, and AI products. Ask me anything about my work.";
       const sentences = splitIntoSentences(welcomeText);
 
       sentencesQueueRef.current = sentences;
       setVisibleSentences([]);
-      playNextSentence();
 
-    } catch (err) {
-      console.error('Microphone access denied:', err);
-      toast.error('Microphone permission denied. Voice mode deactivated.');
-      setNeedActivation(true);
-      setHasMicPermission(false);
-      setVoiceActive(false);
+      const startupTimeout = setTimeout(() => {
+        if (isOpen) {
+          flowRef.current.playNextSentence();
+        }
+      }, 600);
+
+      return () => clearTimeout(startupTimeout);
+    } else {
+      abortActiveSpeech();
     }
-  };
+  }, [isOpen, abortActiveSpeech]);
 
-  // Enforce Navigation Jumps
-  const handleNavCommand = (elementId, replyMsg, resumeUrl = null) => {
+  // Listen for external trigger events to open console
+  useEffect(() => {
+    const handleOpenConsole = () => {
+      setIsOpen(true);
+    };
+    window.addEventListener('open-ai-chat', handleOpenConsole);
+    return () => window.removeEventListener('open-ai-chat', handleOpenConsole);
+  }, []);
+
+  // Enforce Navigation transitions
+  const handleNavCommand = useCallback((elementId, replyMsg, resumeUrl = null) => {
     addLog(`> INITIATING PORTAL TRANSITION: ${elementId.toUpperCase()}`);
     setIsOpen(false);
     deactivateVoiceMode();
@@ -534,10 +521,11 @@ const AIAssistant = () => {
     setTimeout(() => {
       document.getElementById(elementId)?.scrollIntoView({ behavior: 'smooth' });
     }, 300);
-  };
+  }, [addLog, deactivateVoiceMode]);
 
-  const handleSend = async (textToSend = input) => {
-    const query = textToSend.trim();
+  // Send request query callback (main API pipeline)
+  const handleSend = useCallback(async (queryText) => {
+    const query = queryText?.trim();
     if (!query) return;
 
     const startTime = Date.now();
@@ -547,14 +535,11 @@ const AIAssistant = () => {
     setVisibleSentences([]);
     sentencesQueueRef.current = [];
 
-    setInput('');
     setIsThinking(true);
-    setAvatarState('thinking');
     stopListening();
 
     const lowercaseQuery = query.toLowerCase();
 
-    // OS Thinking logs
     const thinkingStates = [
       '> Accessing memories...',
       '> Retrieving project indexes...',
@@ -564,7 +549,7 @@ const AIAssistant = () => {
 
     thinkingStates.forEach((stateLog, idx) => {
       const logTimeout = setTimeout(() => {
-        if (isThinking) {
+        if (isThinkingRef.current) {
           addLog(stateLog);
           playSynthSound('beep');
         }
@@ -638,7 +623,7 @@ const AIAssistant = () => {
 
         const sentences = splitIntoSentences(replyText);
         sentencesQueueRef.current = sentences;
-        playNextSentence();
+        flowRef.current.playNextSentence();
       } else {
         throw new Error('Connection failed');
       }
@@ -650,16 +635,39 @@ const AIAssistant = () => {
 
       const sentences = splitIntoSentences(fallbackMsg);
       sentencesQueueRef.current = sentences;
-      playNextSentence();
+      flowRef.current.playNextSentence();
     }
-  };
+  }, [abortActiveSpeech, addLog, stopListening, handleNavCommand]);
 
-  const getOrbStateClass = () => {
-    if (isThinking || avatarState === 'thinking') return 'bg-[#141414] border-white/20 scale-105 shadow-md';
-    if (isSpeaking || avatarState === 'speaking') return 'bg-white border-white scale-105 shadow-lg';
+  const activateVoiceMode = useCallback(async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      setVoiceActive(true);
+      stream.getTracks().forEach(track => track.stop());
+
+      abortActiveSpeech();
+      addLog('> MIC ENCRYPTED LINK ACQUIRED');
+
+      const welcomeText = "Connecting voice stream. Hi, I'm Yatnesh. Let's talk about my background and projects.";
+      const sentences = splitIntoSentences(welcomeText);
+
+      sentencesQueueRef.current = sentences;
+      setVisibleSentences([]);
+      flowRef.current.playNextSentence();
+
+    } catch (err) {
+      console.error('Microphone access denied:', err);
+      toast.error('Microphone permission denied. Voice mode deactivated.');
+      setVoiceActive(false);
+    }
+  }, [abortActiveSpeech, addLog]);
+
+  const getOrbStateClass = useCallback(() => {
+    if (isThinking) return 'bg-[#141414] border-white/20 scale-105 shadow-md';
+    if (isSpeaking) return 'bg-white border-white scale-105 shadow-lg';
     if (isListening) return 'bg-[#4da3ff] border-[#4da3ff] scale-110 shadow-lg';
     return 'bg-black border-[#2a2a2a] hover:border-white shadow-md';
-  };
+  }, [isThinking, isSpeaking, isListening]);
 
   // Memoized orb button render
   const orbButton = useMemo(() => {
@@ -670,13 +678,13 @@ const AIAssistant = () => {
         className={`fixed bottom-6 right-6 w-14 h-14 rounded-full border shadow-2xl flex items-center justify-center transition-all duration-300 relative group shrink-0 ${getOrbStateClass()}`}
         aria-label="Toggle AI Voice Assistant"
       >
-        {(isListening || isSpeaking || isThinking || avatarState === 'speaking') && (
+        {(isListening || isSpeaking || isThinking) && (
           <span className="absolute -inset-1.5 rounded-full bg-white/10 blur-sm animate-ping pointer-events-none" />
         )}
-        <Sparkles className={`w-5 h-5 animate-pulse ${isSpeaking || avatarState === 'speaking' ? 'text-black' : 'text-white'}`} />
+        <Sparkles className={`w-5 h-5 animate-pulse ${isSpeaking ? 'text-black' : 'text-white'}`} />
       </button>
     );
-  }, [isOpen, isListening, isSpeaking, isThinking, avatarState]);
+  }, [isOpen, isListening, isSpeaking, isThinking, getOrbStateClass]);
 
   return (
     <div className="z-50">
@@ -691,13 +699,11 @@ const AIAssistant = () => {
             deactivateVoiceMode();
           }}
         >
-
           {/* 3-Column Glass HUD panel wrapper */}
           <div
             className="w-full max-w-6xl h-[90vh] md:h-[80vh] rounded-2xl border border-[#2a2a2a] bg-[#050505]/95 overflow-hidden grid grid-cols-1 lg:grid-cols-12 relative shadow-[0_30px_70px_rgba(0,0,0,0.95)]"
             onClick={(e) => e.stopPropagation()}
           >
-
             {/* Close Overlay Control */}
             <button
               onClick={() => {
@@ -725,7 +731,6 @@ const AIAssistant = () => {
 
             {/* COLUMN 2 (CENTER): Dialogue Stream & Input bar */}
             <div className="lg:col-span-6 flex flex-col justify-between p-6 md:p-8 min-w-0 bg-[#050505] relative z-10">
-
               <div className="flex flex-col justify-center text-left min-w-0 flex-1">
                 <div className="text-white/40 text-[9px] font-mono uppercase tracking-widest font-black mb-4">
                   &gt; Dialogue Stream
@@ -784,7 +789,7 @@ const AIAssistant = () => {
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' && !e.shiftKey) {
                       e.preventDefault();
-                      handleSend();
+                      handleSend(input);
                     }
                   }}
                   rows={1}
@@ -813,7 +818,7 @@ const AIAssistant = () => {
                 )}
 
                 <button
-                  onClick={() => handleSend()}
+                  onClick={() => handleSend(input)}
                   disabled={isThinking || !input.trim()}
                   className="p-3.5 rounded-lg bg-white hover:bg-zinc-200 border border-white text-black disabled:opacity-30 disabled:hover:bg-white transition-all duration-300 cursor-pointer shrink-0 shadow-md"
                   aria-label="Send Input Parameters"
@@ -821,12 +826,10 @@ const AIAssistant = () => {
                   <Send className="w-4 h-4" />
                 </button>
               </div>
-
             </div>
 
             {/* COLUMN 3 (RIGHT): HUD Logs & System Status Indicators */}
             <div className="w-full lg:col-span-3 border-t lg:border-t-0 lg:border-l border-[#2a2a2a] p-6 md:p-8 flex flex-col justify-between bg-[#0b0b0b]/60 shrink-0 font-mono text-[9px] text-zinc-400">
-
               {/* Header Status */}
               <div className="space-y-4 w-full">
                 <div className="flex items-center space-x-1.5 text-white pb-2 border-b border-[#2a2a2a] uppercase font-black tracking-widest text-[8px] font-mono">
@@ -842,8 +845,8 @@ const AIAssistant = () => {
                   </div>
                   <div className="flex justify-between">
                     <span>AI_STATUS:</span>
-                    <span className={`font-bold ${speaking ? 'text-white' : (listening ? 'text-[#4da3ff]' : 'text-zinc-400')}`}>
-                      {speaking ? 'SPEAKING' : (listening ? 'LISTENING' : 'ONLINE')}
+                    <span className={`font-bold ${isSpeaking ? 'text-white' : (isListening ? 'text-[#4da3ff]' : 'text-zinc-400')}`}>
+                      {isSpeaking ? 'SPEAKING' : (isListening ? 'LISTENING' : 'ONLINE')}
                     </span>
                   </div>
                   <div className="flex justify-between">
@@ -863,9 +866,7 @@ const AIAssistant = () => {
                 <span>SECURE MODE:</span>
                 <span className="text-white">ON</span>
               </div>
-
             </div>
-
           </div>
         </div>
       )}
