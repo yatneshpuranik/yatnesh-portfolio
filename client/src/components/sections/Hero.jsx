@@ -111,7 +111,7 @@ const Hero = React.memo(({ profile, settings, socials }) => {
               variants={itemVariants}
               className="text-sm sm:text-base leading-relaxed text-gray-400 max-w-md font-light font-sans mx-auto lg:mx-0 mb-6 w-full box-border"
             >
-              3+ years building web systems — from a self-initiated Multi-Tenant SaaS CRM project engineered to production-grade scalability standards, to advanced interactive AI tools. I ship fast and think in systems.
+              2+ years building web systems — from a self-initiated Multi-Tenant SaaS CRM project engineered to production-grade scalability standards, to advanced interactive AI tools. I ship fast and think in systems.
             </motion.p>
 
             {/* Buttons Row: margin-bottom 16px */}
@@ -182,7 +182,7 @@ const Hero = React.memo(({ profile, settings, socials }) => {
                 About Me
               </span>
               <p className="text-xs text-gray-400 font-sans leading-relaxed pl-3">
-                3+ years engineering web systems. Currently building a production-ready multi-tenant SaaS CRM project, engineering microservices, and designing interactive AI-powered dashboards with JavaScript/MERN.
+                Engineering web systems. Currently building a production-ready multi-tenant SaaS CRM project, engineering microservices, and working on a personal project that is inspired from Github,Discord and Trello .
               </p>
               <a
                 href="#about"
@@ -192,7 +192,7 @@ const Hero = React.memo(({ profile, settings, socials }) => {
                 }}
                 className="text-xs font-mono font-bold text-white hover:underline inline-flex items-center gap-1 pt-1 cursor-pointer"
               >
-                <span>Learn More</span>
+                <span>More</span>
                 <span className="text-xs">→</span>
               </a>
             </div>
@@ -216,7 +216,7 @@ const Hero = React.memo(({ profile, settings, socials }) => {
                 }}
                 className="text-xs font-mono font-bold text-white hover:underline inline-flex items-center gap-1 pt-1 cursor-pointer"
               >
-                <span>Browse Portfolio</span>
+                <span>Browse Projects</span>
                 <span className="text-xs">→</span>
               </a>
             </div>
@@ -228,7 +228,7 @@ const Hero = React.memo(({ profile, settings, socials }) => {
             {socials && socials.length > 0 && (
               <div className="space-y-3">
                 <span className="text-[10px] font-mono tracking-widest text-gray-500 uppercase block font-bold">
-                  Follow Me
+                  Contact
                 </span>
                 <div className="flex items-center justify-center lg:justify-start space-x-5 pt-1">
                   {socials.map((link) => (
