@@ -13,9 +13,9 @@ const Avatar3D = ({ isSpeaking, isListening, isThinking, avatarState }) => {
 
   return (
     <div className="flex flex-col items-center justify-center relative w-full select-none pointer-events-none py-8">
-      
+
       {/* Outer Glow Backdrop */}
-      <div 
+      <div
         className="absolute rounded-full blur-[35px] bg-[#00d8ff] transition-all duration-1000"
         style={{
           width: '180px',
@@ -53,7 +53,7 @@ const Avatar3D = ({ isSpeaking, isListening, isThinking, avatarState }) => {
       )}
 
       {/* Main Reactor Body Container */}
-      <motion.div 
+      <motion.div
         animate={{
           y: speaking ? [0, -3, 0] : [0, -2, 0],
           scale: speaking ? [1, 1.03, 1] : [1, 1.01, 1]
@@ -65,12 +65,11 @@ const Avatar3D = ({ isSpeaking, isListening, isThinking, avatarState }) => {
         }}
         className="relative w-44 h-44 sm:w-48 sm:h-48 flex items-center justify-center"
       >
-        
+
         {/* Inner Glowing Core */}
-        <div 
-          className={`rounded-full bg-white flex items-center justify-center z-20 border border-cyan-300 shadow-[0_0_20px_#00d8ff,inset_0_0_8px_#00d8ff] transition-all duration-500 ${
-            speaking ? 'w-13 h-13' : (listening ? 'w-14 h-14' : 'w-12 h-12')
-          } ${listening ? 'animate-pulse' : ''}`}
+        <div
+          className={`rounded-full bg-white flex items-center justify-center z-20 border border-cyan-300 shadow-[0_0_20px_#00d8ff,inset_0_0_8px_#00d8ff] transition-all duration-500 ${speaking ? 'w-13 h-13' : (listening ? 'w-14 h-14' : 'w-12 h-12')
+            } ${listening ? 'animate-pulse' : ''}`}
         >
           {/* Reactor Inner Triangular Nodes detail */}
           <div className="w-4 h-4 rounded-full border border-cyan-400/20 opacity-30" />
@@ -90,8 +89,8 @@ const Avatar3D = ({ isSpeaking, isListening, isThinking, avatarState }) => {
                 }}
                 animate={{
                   rotate: [i * 90, i * 90 + 360],
-                  x: [40 * Math.cos((i * 90 * Math.PI)/180), 40 * Math.cos(((i * 90 + 360) * Math.PI)/180)],
-                  y: [40 * Math.sin((i * 90 * Math.PI)/180), 40 * Math.sin(((i * 90 + 360) * Math.PI)/180)],
+                  x: [40 * Math.cos((i * 90 * Math.PI) / 180), 40 * Math.cos(((i * 90 + 360) * Math.PI) / 180)],
+                  y: [40 * Math.sin((i * 90 * Math.PI) / 180), 40 * Math.sin(((i * 90 + 360) * Math.PI) / 180)],
                 }}
                 transition={{
                   duration: 2.0,
@@ -104,21 +103,21 @@ const Avatar3D = ({ isSpeaking, isListening, isThinking, avatarState }) => {
         )}
 
         {/* Rotating Coils and Outer Tracks Layer */}
-        <motion.div 
-          animate={{ 
-            rotate: thinking ? 360 : (listening ? -360 : 360) 
+        <motion.div
+          animate={{
+            rotate: thinking ? 360 : (listening ? -360 : 360)
           }}
-          transition={{ 
-            duration: thinking ? 4.5 : (listening ? 8.0 : 25.0), 
-            repeat: Infinity, 
-            ease: "linear" 
+          transition={{
+            duration: thinking ? 4.5 : (listening ? 8.0 : 25.0),
+            repeat: Infinity,
+            ease: "linear"
           }}
           className="absolute inset-0 w-full h-full z-10"
         >
           <svg viewBox="0 0 100 100" className="w-full h-full">
             {/* Core track ring */}
             <circle cx="50" cy="50" r="23" fill="none" stroke="#00d8ff" strokeWidth="0.6" strokeOpacity="0.3" />
-            
+
             {/* 10 copper spokes/coils details */}
             {Array.from({ length: 10 }).map((_, i) => {
               const angle = (i * 36) * Math.PI / 180;
@@ -127,11 +126,11 @@ const Avatar3D = ({ isSpeaking, isListening, isThinking, avatarState }) => {
               const x2 = 50 + 33 * Math.cos(angle);
               const y2 = 50 + 33 * Math.sin(angle);
               return (
-                <line 
-                  key={i} 
-                  x1={x1} y1={y1} x2={x2} y2={y2} 
-                  stroke="#00d8ff" 
-                  strokeWidth="2.2" 
+                <line
+                  key={i}
+                  x1={x1} y1={y1} x2={x2} y2={y2}
+                  stroke="#00d8ff"
+                  strokeWidth="2.2"
                   strokeOpacity={speaking ? 0.95 : (listening ? 0.85 : 0.65)}
                   style={{ filter: 'drop-shadow(0 0 1.5px #00d8ff)' }}
                 />
@@ -139,14 +138,14 @@ const Avatar3D = ({ isSpeaking, isListening, isThinking, avatarState }) => {
             })}
 
             {/* Middle Outer Segmented Ring */}
-            <circle 
-              cx="50" 
-              cy="50" 
-              r="40" 
-              fill="none" 
-              stroke="#00d8ff" 
-              strokeWidth="1.2" 
-              strokeDasharray="18 8 36 8" 
+            <circle
+              cx="50"
+              cy="50"
+              r="40"
+              fill="none"
+              stroke="#00d8ff"
+              strokeWidth="1.2"
+              strokeDasharray="18 8 36 8"
               strokeOpacity="0.4"
             />
 
@@ -156,26 +155,26 @@ const Avatar3D = ({ isSpeaking, isListening, isThinking, avatarState }) => {
         </motion.div>
 
         {/* Counter-rotating Outer Ring Layer */}
-        <motion.div 
-          animate={{ 
-            rotate: thinking ? -360 : (listening ? 360 : -360) 
+        <motion.div
+          animate={{
+            rotate: thinking ? -360 : (listening ? 360 : -360)
           }}
-          transition={{ 
-            duration: thinking ? 7.0 : (listening ? 12.0 : 35.0), 
-            repeat: Infinity, 
-            ease: "linear" 
+          transition={{
+            duration: thinking ? 7.0 : (listening ? 12.0 : 35.0),
+            repeat: Infinity,
+            ease: "linear"
           }}
           className="absolute inset-0 w-full h-full z-0"
         >
           <svg viewBox="0 0 100 100" className="w-full h-full">
-            <circle 
-              cx="50" 
-              cy="50" 
-              r="46" 
-              fill="none" 
-              stroke="#00d8ff" 
-              strokeWidth="0.6" 
-              strokeDasharray="5 15 10 10" 
+            <circle
+              cx="50"
+              cy="50"
+              r="46"
+              fill="none"
+              stroke="#00d8ff"
+              strokeWidth="0.6"
+              strokeDasharray="5 15 10 10"
               strokeOpacity="0.25"
             />
           </svg>

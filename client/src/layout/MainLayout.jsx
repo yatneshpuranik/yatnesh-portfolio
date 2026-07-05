@@ -313,16 +313,7 @@ const MainLayout = ({ children }) => {
         <div className="h-full max-w-[1400px] mx-auto px-6 md:px-12 xl:px-20 flex items-center justify-between w-full">
 
           {/* Logo brand */}
-          <a href="#home" onClick={(e) => handleNavClick(e, '#home')} className="flex items-center space-x-2.5 text-base font-mono font-black tracking-wider text-white hover:opacity-80 transition-opacity cursor-pointer">
-            {settings?.profilePhoto && (
-              <div className="relative w-7 h-7 rounded-full overflow-hidden border border-white/20 shadow shrink-0">
-                <img
-                  src={getOptimizedCloudinaryUrl(settings.profilePhoto)}
-                  alt="Avatar Logo"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            )}
+          <a href="#home" onClick={(e) => handleNavClick(e, '#home')} className="flex items-center text-base font-mono font-black tracking-wider text-white hover:opacity-80 transition-opacity cursor-pointer">
             <span>YATNESH<span className="text-white">.</span></span>
           </a>
 
