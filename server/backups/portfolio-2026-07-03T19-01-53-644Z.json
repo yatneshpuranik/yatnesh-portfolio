@@ -1,0 +1,813 @@
+{
+  "users": [
+    {
+      "_id": "6a45740609cd03fb357709c0",
+      "username": "yatnesh",
+      "email": "yatneshpuranik@gmail.com",
+      "password": "$2a$10$qtRbJso0Imt45/UyA2EFLuBwR0v01Sq8wC8Hp2yQeYURgyNi2Aata",
+      "createdAt": "2026-07-01T20:09:42.294Z",
+      "updatedAt": "2026-07-02T12:08:19.285Z",
+      "__v": 0
+    }
+  ],
+  "settings": [
+    {
+      "_id": "6a4654b3a3063200c329d863",
+      "siteName": "Yatnesh Puranik Portfolio",
+      "title": "Yatnesh Puranik | Full Stack Developer (MERN)",
+      "tagline": "Building scalable production-grade SaaS applications using MERN, Next.js and TypeScript.",
+      "aboutMe": "I'm Yatnesh Puranik, a Full Stack Developer focused on building scalable MERN applications and AI-powered products. During my internship at Three Syntax, I've contributed to a production-grade Multi-Tenant CRM while also building personal projects like an AI Interview Platform and intelligent web applications. I enjoy turning complex ideas into clean, performant user experiences and continuously improving through real-world engineering challenges.",
+      "profilePhoto": "https://res.cloudinary.com/bpv3iunv/image/upload/v1783104592/yatnesh-Photoroom_mwiudd.png",
+      "resumeUrl": "https://res.cloudinary.com/bpv3iunv/image/upload/v1782990790/ResumeYatneshMERN_2_sul1q7.pdf",
+      "contactEmail": "yatneshpuranik@gmail.com",
+      "seoTitle": "Yatnesh Puranik | Portfolio",
+      "seoDescription": "Full Stack Developer (MERN) Portfolio & Resume website. Built with React 19, Tailwind CSS v4, Express and MongoDB.",
+      "seoKeywords": [
+        "Yatnesh Puranik",
+        "MERN Stack Developer",
+        "Full Stack Engineer",
+        "NextJS Developer",
+        "Indore"
+      ],
+      "createdAt": "2026-07-02T12:08:19.710Z",
+      "updatedAt": "2026-07-02T12:08:19.710Z",
+      "__v": 0
+    }
+  ],
+  "profiles": [
+    {
+      "_id": "6a4654b3a3063200c329d861",
+      "fullName": "Yatnesh Puranik",
+      "title": "Full Stack Developer (MERN)",
+      "subTitle": "Building scalable SaaS products.",
+      "bio": "Full Stack Developer building scalable MERN applications and AI-powered products. Currently contributing to a Multi-Tenant SaaS CRM at Three Syntax.",
+      "avatarUrl": "https://res.cloudinary.com/bpv3iunv/image/upload/v1783104592/yatnesh-Photoroom_mwiudd.png",
+      "location": "India",
+      "createdAt": "2026-07-02T12:08:19.470Z",
+      "updatedAt": "2026-07-02T12:08:19.470Z",
+      "__v": 0
+    }
+  ],
+  "skills": [
+    {
+      "_id": "6a4654b6a3063200c329d867",
+      "name": "Java",
+      "proficiency": 85,
+      "category": "Programming Languages",
+      "icon": "Code",
+      "order": 0,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.720Z",
+      "updatedAt": "2026-07-02T12:08:22.720Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d868",
+      "name": "JavaScript",
+      "proficiency": 92,
+      "category": "Programming Languages",
+      "icon": "Code",
+      "order": 1,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.720Z",
+      "updatedAt": "2026-07-02T12:08:22.720Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d869",
+      "name": "TypeScript",
+      "proficiency": 88,
+      "category": "Programming Languages",
+      "icon": "Code",
+      "order": 2,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.720Z",
+      "updatedAt": "2026-07-02T12:08:22.720Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d86a",
+      "name": "C++",
+      "proficiency": 75,
+      "category": "Programming Languages",
+      "icon": "Code",
+      "order": 3,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d86b",
+      "name": "SQL",
+      "proficiency": 82,
+      "category": "Programming Languages",
+      "icon": "Database",
+      "order": 4,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d86c",
+      "name": "React",
+      "proficiency": 92,
+      "category": "Frontend",
+      "icon": "Atom",
+      "order": 0,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d86d",
+      "name": "Next.js",
+      "proficiency": 88,
+      "category": "Frontend",
+      "icon": "Layers",
+      "order": 1,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d86e",
+      "name": "Vite",
+      "proficiency": 85,
+      "category": "Frontend",
+      "icon": "Zap",
+      "order": 2,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d86f",
+      "name": "Tailwind CSS",
+      "proficiency": 92,
+      "category": "Frontend",
+      "icon": "Wind",
+      "order": 3,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d870",
+      "name": "Redux Toolkit",
+      "proficiency": 85,
+      "category": "Frontend",
+      "icon": "Cpu",
+      "order": 4,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d871",
+      "name": "HTML5",
+      "proficiency": 95,
+      "category": "Frontend",
+      "icon": "FileCode",
+      "order": 5,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d872",
+      "name": "CSS3",
+      "proficiency": 90,
+      "category": "Frontend",
+      "icon": "Palette",
+      "order": 6,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d873",
+      "name": "Responsive Design",
+      "proficiency": 92,
+      "category": "Frontend",
+      "icon": "Smartphone",
+      "order": 7,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d874",
+      "name": "Node.js",
+      "proficiency": 88,
+      "category": "Backend",
+      "icon": "Cpu",
+      "order": 0,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d875",
+      "name": "Express.js",
+      "proficiency": 90,
+      "category": "Backend",
+      "icon": "Server",
+      "order": 1,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d876",
+      "name": "REST APIs",
+      "proficiency": 92,
+      "category": "Backend",
+      "icon": "Braces",
+      "order": 2,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d877",
+      "name": "JWT Authentication",
+      "proficiency": 90,
+      "category": "Backend",
+      "icon": "Key",
+      "order": 3,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d878",
+      "name": "Socket.io",
+      "proficiency": 82,
+      "category": "Backend",
+      "icon": "Activity",
+      "order": 4,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d879",
+      "name": "MongoDB",
+      "proficiency": 85,
+      "category": "Databases",
+      "icon": "Database",
+      "order": 0,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d87a",
+      "name": "Mongoose",
+      "proficiency": 85,
+      "category": "Databases",
+      "icon": "Link",
+      "order": 1,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d87b",
+      "name": "MySQL",
+      "proficiency": 80,
+      "category": "Databases",
+      "icon": "Database",
+      "order": 2,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d87c",
+      "name": "Data Structures",
+      "proficiency": 85,
+      "category": "CSE Fundamentals",
+      "icon": "Binary",
+      "order": 0,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.721Z",
+      "updatedAt": "2026-07-02T12:08:22.721Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d87d",
+      "name": "Algorithms",
+      "proficiency": 85,
+      "category": "CSE Fundamentals",
+      "icon": "GitCommit",
+      "order": 1,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.722Z",
+      "updatedAt": "2026-07-02T12:08:22.722Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d87e",
+      "name": "Object Oriented Programming",
+      "proficiency": 88,
+      "category": "CSE Fundamentals",
+      "icon": "Box",
+      "order": 2,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.722Z",
+      "updatedAt": "2026-07-02T12:08:22.722Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d87f",
+      "name": "Operating Systems",
+      "proficiency": 75,
+      "category": "CSE Fundamentals",
+      "icon": "Terminal",
+      "order": 3,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.722Z",
+      "updatedAt": "2026-07-02T12:08:22.722Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d880",
+      "name": "Database Management Systems",
+      "proficiency": 82,
+      "category": "CSE Fundamentals",
+      "icon": "Database",
+      "order": 4,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.722Z",
+      "updatedAt": "2026-07-02T12:08:22.722Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d881",
+      "name": "Computer Networks",
+      "proficiency": 75,
+      "category": "CSE Fundamentals",
+      "icon": "Network",
+      "order": 5,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.722Z",
+      "updatedAt": "2026-07-02T12:08:22.722Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d882",
+      "name": "Git",
+      "proficiency": 88,
+      "category": "Tools & Platforms",
+      "icon": "GitFork",
+      "order": 0,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.722Z",
+      "updatedAt": "2026-07-02T12:08:22.722Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d883",
+      "name": "GitHub",
+      "proficiency": 90,
+      "category": "Tools & Platforms",
+      "icon": "Github",
+      "order": 1,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.722Z",
+      "updatedAt": "2026-07-02T12:08:22.722Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d884",
+      "name": "Postman",
+      "proficiency": 88,
+      "category": "Tools & Platforms",
+      "icon": "Eye",
+      "order": 2,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.722Z",
+      "updatedAt": "2026-07-02T12:08:22.722Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d885",
+      "name": "Cloudinary",
+      "proficiency": 80,
+      "category": "Tools & Platforms",
+      "icon": "Image",
+      "order": 3,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.722Z",
+      "updatedAt": "2026-07-02T12:08:22.722Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d886",
+      "name": "VS Code",
+      "proficiency": 92,
+      "category": "Tools & Platforms",
+      "icon": "Code",
+      "order": 4,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.722Z",
+      "updatedAt": "2026-07-02T12:08:22.722Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d887",
+      "name": "Figma",
+      "proficiency": 78,
+      "category": "Tools & Platforms",
+      "icon": "Figma",
+      "order": 5,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.722Z",
+      "updatedAt": "2026-07-02T12:08:22.722Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d888",
+      "name": "npm",
+      "proficiency": 85,
+      "category": "Tools & Platforms",
+      "icon": "FolderArchive",
+      "order": 6,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.722Z",
+      "updatedAt": "2026-07-02T12:08:22.722Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d889",
+      "name": "Vercel",
+      "proficiency": 85,
+      "category": "Tools & Platforms",
+      "icon": "Globe",
+      "order": 7,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.722Z",
+      "updatedAt": "2026-07-02T12:08:22.722Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d88a",
+      "name": "Render",
+      "proficiency": 80,
+      "category": "Tools & Platforms",
+      "icon": "Server",
+      "order": 8,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.722Z",
+      "updatedAt": "2026-07-02T12:08:22.722Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d88b",
+      "name": "Docker",
+      "proficiency": 70,
+      "category": "Currently Learning",
+      "icon": "Box",
+      "order": 0,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.722Z",
+      "updatedAt": "2026-07-02T12:08:22.722Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d88c",
+      "name": "CI/CD",
+      "proficiency": 65,
+      "category": "Currently Learning",
+      "icon": "Workflow",
+      "order": 1,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.723Z",
+      "updatedAt": "2026-07-02T12:08:22.723Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d88d",
+      "name": "AWS",
+      "proficiency": 60,
+      "category": "Currently Learning",
+      "icon": "Cloud",
+      "order": 2,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.723Z",
+      "updatedAt": "2026-07-02T12:08:22.723Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d88e",
+      "name": "System Design",
+      "proficiency": 72,
+      "category": "Currently Learning",
+      "icon": "LayoutGrid",
+      "order": 3,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.723Z",
+      "updatedAt": "2026-07-02T12:08:22.723Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d88f",
+      "name": "Microservices",
+      "proficiency": 65,
+      "category": "Currently Learning",
+      "icon": "Network",
+      "order": 4,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.723Z",
+      "updatedAt": "2026-07-02T12:08:22.723Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d890",
+      "name": "Redis",
+      "proficiency": 68,
+      "category": "Currently Learning",
+      "icon": "Zap",
+      "order": 5,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.723Z",
+      "updatedAt": "2026-07-02T12:08:22.723Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d891",
+      "name": "Kafka",
+      "proficiency": 55,
+      "category": "Currently Learning",
+      "icon": "Sliders",
+      "order": 6,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.723Z",
+      "updatedAt": "2026-07-02T12:08:22.723Z"
+    },
+    {
+      "_id": "6a4654b6a3063200c329d892",
+      "name": "Kubernetes",
+      "proficiency": 50,
+      "category": "Currently Learning",
+      "icon": "Compass",
+      "order": 7,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:22.723Z",
+      "updatedAt": "2026-07-02T12:08:22.723Z"
+    }
+  ],
+  "experiences": [
+    {
+      "_id": "6a4654b9a3063200c329d894",
+      "company": "Three Syntax",
+      "role": "Full Stack Developer Intern",
+      "location": "Remote",
+      "type": "Remote",
+      "startDate": "2026-06-01T00:00:00.000Z",
+      "currentlyWorking": true,
+      "description": "<ul class=\"list-disc pl-4 space-y-1.5 text-xs font-semibold text-[#94A3B8]\">\n      <li>Developed production-grade frontend modules for Multi-Tenant CRM.</li>\n      <li>Integrated backend APIs and authentication workflows.</li>\n      <li>Built reusable UI components improving development speed.</li>\n      <li>Collaborated with Agile team for feature planning and reviews.</li>\n      <li>Worked with React, Next.js, NestJS, PostgreSQL and Turborepo.</li>\n    </ul>",
+      "technologies": [
+        "Next.js",
+        "NestJS",
+        "PostgreSQL",
+        "Prisma",
+        "TurboRepo",
+        "Tailwind CSS"
+      ],
+      "order": 0,
+      "createdAt": "2026-07-02T12:08:25.839Z",
+      "updatedAt": "2026-07-02T12:08:25.839Z",
+      "__v": 0
+    }
+  ],
+  "projects": [
+    {
+      "_id": "6a4654bba3063200c329d896",
+      "title": "Multi-Tenant Sales CRM",
+      "slug": "multi-tenant-sales-crm",
+      "summary": "Production-grade SaaS CRM supporting multi-tenancy, authentication, role-based access control, sales pipelines, reusable dashboard modules and scalable architecture.",
+      "description": "This multi-tenant CRM is engineered for high performance, utilizing NestJS and Prisma to guarantee complete tenant isolation while delivering real-world sales metrics.",
+      "bannerImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+      "images": [],
+      "githubLink": "https://github.com/yatneshpuranik",
+      "liveLink": "",
+      "technologies": [
+        "Next.js",
+        "NestJS",
+        "PostgreSQL",
+        "Prisma",
+        "TurboRepo"
+      ],
+      "isFeatured": true,
+      "category": "Development",
+      "order": 0,
+      "problem": "Modern sales teams require modular pipelines and client management tools, but existing solutions often lack secure data isolation, cost-efficient scaling, and department-level modularity within a single deployment.",
+      "solution": "We designed a multi-tenant CRM featuring strict database-level isolation, granular Role-Based Access Control (RBAC), customizable sales pipelines, and departmental organization workspaces.",
+      "featuresList": "- **Tenant isolation**: Strong partitioning policies in PostgreSQL.\n- **JWT Authentication & RBAC**: Granular permission models for admins, managers, and agents.\n- **Department management**: Isolate workflows across different corporate divisions.\n- **Invitation workflows**: Secure member invitations using hash verification signatures.",
+      "architecture": "The system utilizes a modern monorepo layout:\n- **Monorepo Structure**: Managed via **Turborepo** for optimized caching and fast dependency sharing.\n- **Frontend**: Built with **Next.js** for SSR dashboard elements and fast data loading.\n- **Backend API**: Engineered with **NestJS** utilizing modular controllers and dependency injection.\n- **Database Layer**: **PostgreSQL** paired with **Prisma ORM** for type-safe queries.\n- **Caching**: **Redis** cache store for active user sessions and auth validation tokens.",
+      "challenges": "Structuring department-level invitation flows and secure database isolation without exposing boundaries or causing performance degradation.",
+      "learned": "Implementing PostgreSQL row-level isolation policies with Prisma and orchestrating clean pipeline workflows inside Turborepo monorepos.",
+      "timeline": "June 2026 - Present",
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:27.157Z",
+      "updatedAt": "2026-07-02T12:08:27.157Z"
+    },
+    {
+      "_id": "6a4654bba3063200c329d897",
+      "title": "WorkSync",
+      "slug": "worksync",
+      "summary": "A collaborative workspace platform inspired by Trello, GitHub and Discord.",
+      "description": "WorkSync provides real-time workspace sync across project tasks, active member feeds, and channel chats.",
+      "bannerImage": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+      "images": [],
+      "githubLink": "https://github.com/yatneshpuranik",
+      "liveLink": "",
+      "technologies": [
+        "MERN",
+        "Socket.io",
+        "TypeScript"
+      ],
+      "isFeatured": true,
+      "category": "Development",
+      "order": 1,
+      "problem": "Teams frequently split their focus across separate platforms (Trello for tasks, Discord for chat, GitHub for code). Switching contexts reduces output.",
+      "solution": "WorkSync unifies task management, live messaging, and VCS status feeds in a single web dashboard.",
+      "featuresList": "- **Kanban Board**: Drag-and-drop tasks, custom status flows, and assignee assignments.\n- **Real-time Workspace Chat**: Live team channels built with WebSockets.\n- **GitHub Integration**: Listen to repo webhooks to show commit status in the activity feed.\n- **Role Management**: Workspace creator can manage member invites and roles.\n- **Notifications**: Instant updates on task assignments and activity.",
+      "architecture": "- **Frontend**: Single Page React App leveraging **TypeScript** and tailwind CSS.\n- **Backend Server**: **Express.js** and **Node.js** running WebSocket protocols.\n- **Real-time Layer**: Synchronized via **Socket.io** connections for immediate cross-client DOM updates.\n- **Database**: **MongoDB** storing chat logs, user profiles, and active workspace boards.",
+      "challenges": "Maintaining consistent socket connection states across rapid route changes and synchronizing task positioning drag-and-drop state dynamically.",
+      "learned": "Optimizing WebSocket events to reduce network overhead and implementing React Query cache updates on live events.",
+      "timeline": "March 2026 - May 2026",
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:27.157Z",
+      "updatedAt": "2026-07-02T12:08:27.157Z"
+    },
+    {
+      "_id": "6a4654bba3063200c329d898",
+      "title": "AI Mock Interview Platform",
+      "slug": "ai-mock-interview",
+      "summary": "AI-powered interview preparation platform with resume analysis, AI-generated interview questions, voice interaction, interview history and personalized reports.",
+      "description": "AI Mock Interview uses artificial intelligence models to parse developer resumes and conduct interactive mock interviews, rendering final diagnostic reviews.",
+      "bannerImage": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80",
+      "images": [],
+      "githubLink": "https://github.com/yatneshpuranik",
+      "liveLink": "",
+      "technologies": [
+        "MERN",
+        "Speech APIs",
+        "OpenRouter AI"
+      ],
+      "isFeatured": true,
+      "category": "Development",
+      "order": 2,
+      "problem": "Mock interviews are hard to schedule, expensive, and rarely provide objective, granular reviews on communication vs. content correctness.",
+      "solution": "An automated AI interviewer that listens, transcribes speech, reviews replies, and grades using generative AI algorithms.",
+      "featuresList": "- **Resume Parsing**: Direct upload and text extraction.\n- **AI Question Generation**: Context-aware questions generated via OpenRouter AI.\n- **Voice Interview**: Speech-to-Text (STT) and Text-to-Speech (TTS) mock dialogues.\n- **Interview Report**: Detailed analytics on grammar, speed, and answer correctness.\n- **History Logs**: Review past sessions to analyze improvements.",
+      "architecture": "- **Frontend**: **React** incorporating browser-native Web Speech recognition API.\n- **Backend API**: **Express.js** handling resume text processing.\n- **AI Interface**: Communicates with **OpenRouter AI (GPT/Claude API)** to evaluate answers.\n- **Database**: **MongoDB** storing transcript records and performance scores.",
+      "challenges": "Processing live browser speech recognition streams and matching text results to AI prompt templates under low latency.",
+      "learned": "Tuning prompt instructions to minimize latency and designing responsive voice visualizers using Framer Motion.",
+      "timeline": "Jan 2026 - Feb 2026",
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:27.157Z",
+      "updatedAt": "2026-07-02T12:08:27.157Z"
+    }
+  ],
+  "educations": [
+    {
+      "_id": "6a4654bfa3063200c329d89a",
+      "institution": "Indore Institute of Science and Technology",
+      "degree": "B.Tech",
+      "fieldOfStudy": "Computer Science Engineering",
+      "startDate": "2023-07-01T00:00:00.000Z",
+      "endDate": "2027-06-30T00:00:00.000Z",
+      "grade": "7.95 CGPA",
+      "description": "",
+      "order": 0,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:31.686Z",
+      "updatedAt": "2026-07-02T12:08:31.686Z"
+    },
+    {
+      "_id": "6a4654bfa3063200c329d89b",
+      "institution": "CBSE School",
+      "degree": "Higher Secondary",
+      "fieldOfStudy": "Science",
+      "startDate": "2021-07-01T00:00:00.000Z",
+      "endDate": "2023-06-30T00:00:00.000Z",
+      "grade": "77.8%",
+      "description": "",
+      "order": 1,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:31.686Z",
+      "updatedAt": "2026-07-02T12:08:31.686Z"
+    },
+    {
+      "_id": "6a4654bfa3063200c329d89c",
+      "institution": "CBSE School",
+      "degree": "Secondary",
+      "fieldOfStudy": "General",
+      "startDate": "2020-07-01T00:00:00.000Z",
+      "endDate": "2021-06-30T00:00:00.000Z",
+      "grade": "86.4%",
+      "description": "",
+      "order": 2,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:31.686Z",
+      "updatedAt": "2026-07-02T12:08:31.686Z"
+    }
+  ],
+  "researchPapers": [
+    {
+      "_id": "6a4654c0a3063200c329d89e",
+      "title": "CostGuard AI: Dynamic Cloud Resource Optimization using Machine Learning",
+      "slug": "costguard-ai",
+      "abstract": "CostGuard AI introduces an intelligent framework for monitoring, predicting, and optimizing cloud infrastructure costs. By analyzing historical utilization patterns and billing metrics, the system dynamically adjusts resource allocations to maximize efficiency and minimize idle costs without compromising application performance.",
+      "authors": [
+        "Yatnesh Puranik"
+      ],
+      "journal": "Research Paper",
+      "volume": "",
+      "pages": "",
+      "year": 2025,
+      "pdfUrl": "https://res.cloudinary.com/bpv3iunv/image/upload/v1782903818/CostGaurdAi_2_cigdng.pdf",
+      "externalLink": "",
+      "problemStatement": "Organizations struggle with cloud over-provisioning and unpredictable scaling costs, leading to significant budget waste on idle compute resources.",
+      "methodology": "We developed time-series forecasting models (LSTM and Prophet) to predict resource demand patterns and auto-adjust server capacities in real-time.",
+      "architecture": "Microservice architecture collecting Prometheus metrics, analyzed via a Python machine learning engine, and orchestrated using Kubernetes scaling APIs.",
+      "results": "CostGuard AI achieved a 28% average reduction in monthly cloud infrastructure spend across simulated multi-tenant workloads.",
+      "conclusion": "Applying predictive ML models to cloud capacity management provides proactive cost protection and maintains application SLAs.",
+      "citation": "Puranik, Y. (2025). CostGuard AI: Dynamic Cloud Resource Optimization using Machine Learning. Research Archive.",
+      "presentedAt": "Research Paper",
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:32.328Z",
+      "updatedAt": "2026-07-02T12:08:32.328Z"
+    },
+    {
+      "_id": "6a4654c0a3063200c329d89f",
+      "title": "HydroBloom: Automated Hydroponic Systems",
+      "slug": "hydrobloom",
+      "abstract": "HydroBloom details algorithmic automation for water quality inspection and nutrient dosage cycles in indoor agricultural environments. It uses statistical models to secure crop health and maximize yield rates.",
+      "authors": [
+        "Yatnesh Puranik"
+      ],
+      "journal": "Research Paper",
+      "volume": "",
+      "pages": "",
+      "year": 2025,
+      "pdfUrl": "https://res.cloudinary.com/bpv3iunv/image/upload/v1782903817/researchpaper2.pdf",
+      "externalLink": "",
+      "problemStatement": "Urban indoor gardens and vertical farms often fail due to improper nutrient balance, lack of soil moisture monitoring, and inconsistent irrigation, which require manual labor and specialized knowledge.",
+      "methodology": "Designed an automated hydroponics sensory loop using microcontrollers that continuously checks pH values, electrical conductivity, and temperature, trigger-releasing precise water volumes.",
+      "architecture": "Sensory node microcontroller cluster sending telemetry over MQTT to a Node.js dashboard, coupled with automated relay pumps.",
+      "results": "Achieved a 30% reduction in water waste and completed automated harvesting cycles with 100% plant survival rate.",
+      "conclusion": "IoT-driven closed-loop sensory irrigation lowers operating costs and secures high growth rates for urban agricultural installations.",
+      "citation": "Puranik, Y. (2025). HydroBloom: Closed-Loop Automated Hydroponic Systems. Research Archive.",
+      "presentedAt": "Research Paper",
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:32.329Z",
+      "updatedAt": "2026-07-02T12:08:32.329Z"
+    }
+  ],
+  "certificates": [
+    {
+      "_id": "6a4654c1a3063200c329d8a1",
+      "title": "IgniteX Research Paper Participation",
+      "issuer": "IgniteX",
+      "credentialUrl": "",
+      "order": 0,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:33.106Z",
+      "updatedAt": "2026-07-02T12:08:33.106Z"
+    },
+    {
+      "_id": "6a4654c1a3063200c329d8a2",
+      "title": "ICAT Participation",
+      "issuer": "ICAT",
+      "credentialUrl": "",
+      "order": 1,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:33.106Z",
+      "updatedAt": "2026-07-02T12:08:33.106Z"
+    }
+  ],
+  "socials": [
+    {
+      "_id": "6a4654c2a3063200c329d8a4",
+      "name": "GitHub",
+      "url": "https://github.com/yatneshpuranik",
+      "icon": "Github",
+      "order": 0,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:34.145Z",
+      "updatedAt": "2026-07-02T12:08:34.145Z"
+    },
+    {
+      "_id": "6a4654c2a3063200c329d8a5",
+      "name": "LinkedIn",
+      "url": "https://linkedin.com/in/yatneshpuranik",
+      "icon": "Linkedin",
+      "order": 1,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:34.145Z",
+      "updatedAt": "2026-07-02T12:08:34.145Z"
+    },
+    {
+      "_id": "6a4654c2a3063200c329d8a6",
+      "name": "Email",
+      "url": "mailto:yatneshpuranik@gmail.com",
+      "icon": "Mail",
+      "order": 2,
+      "__v": 0,
+      "createdAt": "2026-07-02T12:08:34.145Z",
+      "updatedAt": "2026-07-02T12:08:34.145Z"
+    }
+  ],
+  "resumes": [
+    {
+      "_id": "6a4654b5a3063200c329d865",
+      "title": "Yatnesh Puranik - Resume (MERN)",
+      "url": "https://res.cloudinary.com/bpv3iunv/image/upload/v1782990790/ResumeYatneshMERN_2_sul1q7.pdf",
+      "isActive": true,
+      "createdAt": "2026-07-02T12:08:21.243Z",
+      "updatedAt": "2026-07-02T12:08:21.243Z",
+      "__v": 0
+    }
+  ]
+}

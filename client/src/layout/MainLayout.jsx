@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   Menu, X, ChevronUp, User, Cpu, Home,
-  FolderOpen, Terminal, Mail, Sun, Moon,
+  FolderOpen, Terminal, Mail,
   Sparkles, FileText, BookOpen
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -153,8 +153,8 @@ const MainLayout = ({ children }) => {
   const [aiOpen, setAiOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [theme, setTheme] = useState('dark');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
 
   // Mouse coordinates
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -309,15 +309,15 @@ const MainLayout = ({ children }) => {
       />
 
       {/* Floating Glassmorphic Navbar */}
-      <header className="fixed top-4 left-1/2 -translate-x-1/2 w-[90%] max-w-5xl h-14 rounded-full border border-white/[0.08] bg-[#090909]/60 backdrop-blur-xl z-30 select-none shadow-[0_12px_40px_rgba(0,0,0,0.8)]">
-        <div className="h-full px-8 flex items-center justify-between">
+      <header className="fixed top-0 left-0 right-0 w-full h-16 border-b border-white/[0.08] bg-[#090909]/60 backdrop-blur-xl z-30 select-none shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
+        <div className="h-full max-w-[1400px] mx-auto px-6 md:px-12 xl:px-20 flex items-center justify-between w-full">
 
           {/* Logo brand */}
           <a href="#home" onClick={(e) => handleNavClick(e, '#home')} className="flex items-center space-x-2.5 text-base font-mono font-black tracking-wider text-white hover:opacity-80 transition-opacity cursor-pointer">
-            {profile?.avatarUrl && (
+            {settings?.profilePhoto && (
               <div className="relative w-7 h-7 rounded-full overflow-hidden border border-white/20 shadow shrink-0">
                 <img
-                  src={getOptimizedCloudinaryUrl(profile.avatarUrl)}
+                  src={getOptimizedCloudinaryUrl(settings.profilePhoto)}
                   alt="Avatar Logo"
                   className="w-full h-full object-cover"
                 />
@@ -335,7 +335,7 @@ const MainLayout = ({ children }) => {
                   key={link.name}
                   href={link.path}
                   onClick={(e) => handleNavClick(e, link.path)}
-                  className={`text-xs font-mono font-bold uppercase tracking-widest relative py-1 cursor-pointer transition-colors ${isActive ? 'text-white' : 'text-gray-400 hover:text-white'
+                  className={`text-xs font-heading font-bold uppercase tracking-widest relative py-1 cursor-pointer transition-colors ${isActive ? 'text-white' : 'text-gray-400 hover:text-white'
                     }`}
                 >
                   <span>{link.name}</span>
@@ -354,12 +354,13 @@ const MainLayout = ({ children }) => {
           {/* Right Actions */}
           <div className="flex items-center space-x-4">
 
-            {/* Theme switch (Decorative in dark theme portfolio) */}
+            {/* Talk with AI premium button */}
             <button
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="p-2 rounded-lg border border-white/[0.04] bg-white/[0.01] hover:bg-white/5 text-gray-400 hover:text-white transition-colors cursor-pointer"
+              onClick={() => window.dispatchEvent(new CustomEvent('open-ai-chat'))}
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg border border-white/10 bg-white/[0.03] text-[10px] font-heading text-white hover:bg-white hover:text-black font-bold uppercase tracking-wider transition-all duration-300 hover:scale-105 hover:border-white/30 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] cursor-pointer"
             >
-              {theme === 'dark' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+              <Sparkles className="w-3 h-3 text-white" />
+              <span>Talk with AI</span>
             </button>
 
             {settings?.resumeUrl && (
@@ -395,6 +396,7 @@ const MainLayout = ({ children }) => {
           </div>
         </div>
       </header>
+
 
       {/* Slide-in Mobile Drawer Overlay */}
       <AnimatePresence>
@@ -462,8 +464,8 @@ const MainLayout = ({ children }) => {
       </AnimatePresence>
 
       {/* Main viewport */}
-      <main className="pt-24 min-h-screen relative z-10 select-text pb-20 md:pb-8">
-        <div className="max-w-6xl mx-auto px-6 sm:px-8 py-8">
+      <main className="pt-20 min-h-screen relative z-10 select-text pb-20 md:pb-8">
+        <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 xl:px-20 py-8">
           {children}
         </div>
       </main>

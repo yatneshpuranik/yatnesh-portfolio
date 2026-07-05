@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { User, Sparkles, MessageSquare, Mic } from 'lucide-react';
+import { User, MessageSquare, Mic, Briefcase, FolderOpen, Award } from 'lucide-react';
 import Reveal from '../UI/Reveal';
 
 // Custom CountUp helper triggered on viewport scroll
@@ -39,12 +39,12 @@ const About = ({ settings }) => {
 
   return (
     <section id="about" className="py-28 border-t border-white/[0.08] text-left select-none relative overflow-hidden">
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-        
+
         {/* Left Column: Heading, Biography and Stats */}
         <div className="lg:col-span-7 space-y-12">
-          
+
           {/* Header */}
           <div className="flex items-center space-x-4">
             <h2 className="text-3xl font-bold tracking-tight text-white flex items-center gap-2 font-heading">
@@ -60,92 +60,95 @@ const About = ({ settings }) => {
                 I'm <span className="font-semibold text-white">Yatnesh Puranik</span>, a Full Stack Developer building production-grade SaaS applications. Currently contributing to a Multi-Tenant CRM at <span className="text-white font-semibold">Three Syntax</span>, I focus on engineering secure tenant isolation models and highly optimized distributed backend architectures.
               </p>
               <p className="text-base leading-relaxed text-[#7C7C7C] font-normal font-sans">
-                My approach combines clean architectural patterns, deep database query optimization, and interactive client integrations to construct robust web products that scale effortlessly.
+                My approach combines clean architectural patterns, database optimization, and interactive client integrations to construct robust web products that scale effortlessly.
               </p>
+
+              {/* Working Philosophy Pull-quote */}
+              <div className="pl-4 border-l-2 border-zinc-500 italic my-6 space-y-1">
+                <p className="text-lg text-white font-sans font-light leading-relaxed">
+                  "I build independently, not because I have to, but because I want to understand systems deeply — from architecture to edge cases. Every project I build, I ask: how would this hold up at real-world scale?"
+                </p>
+                <p className="text-[10px] font-mono tracking-widest text-zinc-400 uppercase font-bold">WORKING PHILOSOPHY</p>
+              </div>
             </div>
           </Reveal>
 
           {/* Stats Section with CountUp trigger */}
-          <motion.div 
+          <motion.div
             onViewportEnter={() => setHasScrolledIntoView(true)}
             viewport={{ once: true }}
-            className="grid grid-cols-3 gap-6 pt-6 border-t border-white/10"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-white/10"
           >
             {/* Stat 1 */}
-            <div className="space-y-1 text-left">
-              <div className="text-3xl sm:text-4xl font-mono font-black text-white">
-                {hasScrolledIntoView ? <CountUp to={1} suffix="+" /> : "0"}
+            <div className="space-y-1.5 text-left flex items-start gap-3">
+              <div className="p-2.5 rounded-lg bg-white/[0.03] border border-white/[0.04] text-white mt-1">
+                <Briefcase className="w-4 h-4 text-white" />
               </div>
-              <div className="text-[10px] font-mono text-gray-500 uppercase tracking-widest font-bold">Years Experience</div>
+              <div className="space-y-0.5">
+                <div className="text-3xl sm:text-4xl font-heading font-black text-white">
+                  {hasScrolledIntoView ? <CountUp to={1} /> : "0"}
+                </div>
+                <div className="text-[10px] font-heading text-gray-550 uppercase tracking-widest font-bold">Internship</div>
+              </div>
             </div>
 
             {/* Stat 2 */}
-            <div className="space-y-1 text-left">
-              <div className="text-3xl sm:text-4xl font-mono font-black text-white">
-                {hasScrolledIntoView ? <CountUp to={15} suffix="+" /> : "0"}
+            <div className="space-y-1.5 text-left flex items-start gap-3">
+              <div className="p-2.5 rounded-lg bg-white/[0.03] border border-white/[0.04] text-white mt-1">
+                <FolderOpen className="w-4 h-4 text-white" />
               </div>
-              <div className="text-[10px] font-mono text-gray-500 uppercase tracking-widest font-bold">Projects Built</div>
+              <div className="space-y-0.5">
+                <div className="text-3xl sm:text-4xl font-heading font-black text-white">
+                  {hasScrolledIntoView ? <CountUp to={9} /> : "0"}
+                </div>
+                <div className="text-[10px] font-heading text-gray-550 uppercase tracking-widest font-bold">Projects Built</div>
+              </div>
             </div>
 
             {/* Stat 3 */}
-            <div className="space-y-1 text-left">
-              <div className="text-3xl sm:text-4xl font-mono font-black text-white">
-                {hasScrolledIntoView ? <CountUp to={100} suffix="%" /> : "0"}
+            <div className="space-y-1.5 text-left flex items-start gap-3">
+              <div className="p-2.5 rounded-lg bg-white/[0.03] border border-white/[0.04] text-white mt-1">
+                <Award className="w-4 h-4 text-white" />
               </div>
-              <div className="text-[10px] font-mono text-gray-500 uppercase tracking-widest font-bold">Dedication</div>
+              <div className="space-y-0.5">
+                <div className="text-3xl sm:text-4xl font-heading font-black text-white">
+                  {hasScrolledIntoView ? <CountUp to={2} /> : "0"}
+                </div>
+                <div className="text-[10px] font-heading text-gray-550 uppercase tracking-widest font-bold">Research Papers</div>
+              </div>
             </div>
           </motion.div>
 
         </div>
 
-        {/* Right Column: Orbiting Planet SVG & Sticky AI Chat Widget */}
+        {/* Right Column: Arc Reactor Core & Sticky AI Chat Widget */}
         <div className="lg:col-span-5 flex flex-col items-center justify-center relative min-h-[420px] space-y-6">
-          
-          {/* Planet SVG and floating particles */}
-          <div className="absolute inset-0 z-0 flex items-center justify-center lg:-translate-y-8">
-            <motion.div 
-              animate={{ rotate: 360 }}
-              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-              className="w-48 h-48 relative flex items-center justify-center opacity-30 lg:opacity-40"
-            >
-              <svg width="200" height="200" viewBox="0 0 200 200" className="absolute">
-                <circle cx="100" cy="100" r="24" fill="#050505" stroke="#ffffff" strokeWidth="1.2" strokeOpacity="0.3" />
-                <ellipse cx="100" cy="100" rx="70" ry="16" fill="none" stroke="#ffffff" strokeWidth="1" strokeDasharray="3 3" strokeOpacity="0.15" transform="rotate(-15 100 100)" />
-              </svg>
 
-              {/* Floating cubes/particles around the ring */}
-              <motion.div 
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-8 left-12 w-2 h-2 bg-white/10 rounded-sm"
-              />
-              <motion.div 
-                animate={{ y: [0, 6, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                className="absolute bottom-8 right-12 w-1.5 h-1.5 bg-zinc-700/20 rotate-45"
-              />
-            </motion.div>
+          {/* Large Glowing Arc Reactor Core (z-0) */}
+          <div className="absolute inset-0 z-0 flex items-center justify-center lg:-translate-y-8 select-none pointer-events-none">
+            {/* Ambient breathing glow */}
+            <div className="absolute w-44 h-44 rounded-full bg-cyan-500/5 blur-[40px] animate-pulse" />
 
-            {/* Floating glass caption card */}
-            <div className="absolute top-6 px-3 py-1.5 rounded-lg border border-white/[0.04] bg-[#101010]/75 backdrop-blur-sm text-[9px] font-mono text-gray-500 shadow-md">
-              "Building the future, one line of code at a time."
+            <div className="w-48 h-48 relative flex items-center justify-center">
+              {/* Inner glowing white-cyan core */}
+              <div />
+
+
             </div>
           </div>
 
           {/* Floating AI Chat Widget card */}
           <div className="w-full max-w-[285px] rounded-xl border border-[#2a2a2a] bg-[#101010]/85 backdrop-blur-md shadow-2xl p-5 space-y-4 relative z-10 hover:border-white/20 transition-all duration-300 lg:translate-y-8 lg:translate-x-4">
-            
+
             {/* Header */}
             <div className="flex items-center justify-between pb-2 border-b border-white/[0.04]">
               <div className="flex items-center gap-2">
-                <div className="relative w-7 h-7 rounded-full overflow-hidden bg-white/[0.02] border border-white/10 flex items-center justify-center shrink-0">
-                  <Sparkles className="w-3.5 h-3.5 text-white animate-pulse" />
-                  <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-[#4da3ff] border border-[#101010] animate-ping" />
-                  <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-[#4da3ff] border border-[#101010]" />
+                <div className="relative w-7 h-7 rounded-full bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(6,182,212,0.3)] animate-pulse">
+                  <div className="w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_6px_#00d8ff]" />
                 </div>
                 <div className="text-left">
                   <p className="font-bold text-xs text-white font-heading">Yatnesh AI</p>
-                  <p className="text-[8px] text-gray-500 uppercase tracking-widest font-bold font-mono">Agent standby</p>
+                  <p className="text-[8px] text-gray-500 uppercase tracking-widest font-bold font-mono">Speaker</p>
                 </div>
               </div>
             </div>
@@ -154,14 +157,14 @@ const About = ({ settings }) => {
             <div className="space-y-3 text-left">
               <div className="p-3.5 rounded-lg bg-[#050505] border border-white/[0.04]">
                 <p className="text-[10px] leading-relaxed text-[#B5B5B5] font-normal">
-                  "Hello! Ask me about Yatnesh's experience with multi-tenant architectures or check his case studies."
+                  "Hello! Ask me about Yatnesh's experience and work."
                 </p>
               </div>
             </div>
 
             {/* CTAs */}
             <div className="flex items-center gap-2">
-              <button 
+              <button
                 onClick={handleOrbClick}
                 className="flex-1 py-2 rounded-lg bg-white text-[#050505] hover:bg-zinc-200 text-[10px] font-mono font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1 cursor-pointer shadow-sm"
               >
@@ -169,7 +172,7 @@ const About = ({ settings }) => {
                 <span>Text chat</span>
               </button>
 
-              <button 
+              <button
                 onClick={handleOrbClick}
                 className="py-2 px-3.5 rounded-lg border border-[#2a2a2a] hover:bg-white/[0.03] hover:border-white/30 text-gray-400 hover:text-white transition-all flex items-center justify-center shrink-0 cursor-pointer"
                 title="Voice Interface"
@@ -181,6 +184,7 @@ const About = ({ settings }) => {
           </div>
 
         </div>
+
 
       </div>
     </section>

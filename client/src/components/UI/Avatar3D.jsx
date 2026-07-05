@@ -1,185 +1,191 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 
 /**
- * Avatar3D: Rebuilt as a premium Apple-inspired Voice Assistant Profile.
- * Features:
- *  - Dynamic client-side white background removal (chromakey) of yatnesh.jpg.
- *  - Circular waveform ripples expanding around the transparent portrait while speaking/listening.
- *  - Slow breathing animation and soft ambient cyan/purple glow layers.
- *  - Zero cyberpunk HUD telemetry overlays or rotation rings.
+ * Avatar3D: Rebuilt as a premium futuristic Iron Man Arc Reactor.
+ * Visualizes voice synthesis states: Idle, Listening, Thinking, Speaking.
  */
-const getOptimizedCloudinaryUrl = (url, transformations = 'q_auto,f_auto') => {
-  if (!url) return '';
-  const uploadIndex = url.indexOf('/upload/');
-  if (uploadIndex === -1) return url;
-  const insertPosition = uploadIndex + '/upload/'.length;
-  return `${url.slice(0, insertPosition)}${transformations}/${url.slice(insertPosition)}`;
-};
-
-const Avatar3D = ({ isSpeaking, isListening, isThinking, avatarState, avatarUrl }) => {
+const Avatar3D = ({ isSpeaking, isListening, isThinking, avatarState }) => {
   const speaking = isSpeaking || avatarState === 'speaking';
   const listening = isListening || avatarState === 'listening';
   const thinking = isThinking || avatarState === 'thinking';
 
-  const [processedImage, setProcessedImage] = useState('');
-
-  // Perform dynamic background removal on load
-  useEffect(() => {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.src = avatarUrl ? getOptimizedCloudinaryUrl(avatarUrl) : '/yatnesh.jpg';
-    img.onload = () => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.drawImage(img, 0, 0);
-
-      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const data = imgData.data;
-
-      // Filter out white/near-white pixels with soft edges
-      const thresholdMin = 210;
-      const thresholdMax = 245;
-      for (let i = 0; i < data.length; i += 4) {
-        const r = data[i];
-        const g = data[i + 1];
-        const b = data[i + 2];
-        const avg = (r + g + b) / 3;
-
-        if (avg > thresholdMin) {
-          const diff = Math.max(Math.abs(r - g), Math.abs(g - b), Math.abs(b - r));
-          if (diff < 15) {
-            // Apply soft edge falloff
-            const alphaFactor = Math.max(0, Math.min(1, (thresholdMax - avg) / (thresholdMax - thresholdMin)));
-            data[i + 3] = Math.min(data[i + 3], Math.floor(alphaFactor * 255));
-          }
-        }
-      }
-      ctx.putImageData(imgData, 0, 0);
-      setProcessedImage(canvas.toDataURL('image/png'));
-    };
-  }, [avatarUrl]);
 
   return (
-    <div className="flex flex-col items-center justify-center relative w-full select-none">
+    <div className="flex flex-col items-center justify-center relative w-full select-none pointer-events-none py-8">
       
-      {/* Siri / Voice mode animated circular ripple indicators */}
-      <div className="relative flex items-center justify-center w-44 h-44 sm:w-48 sm:h-48 z-10">
+      {/* Outer Glow Backdrop */}
+      <div 
+        className="absolute rounded-full blur-[35px] bg-[#00d8ff] transition-all duration-1000"
+        style={{
+          width: '180px',
+          height: '180px',
+          opacity: speaking ? 0.35 : (listening ? 0.25 : (thinking ? 0.20 : 0.12)),
+          transform: speaking ? 'scale(1.15)' : 'scale(1)'
+        }}
+      />
+
+      {/* Expanding Ripple Rings (Synchronized with Speaking / Voice Output) */}
+      {speaking && (
+        <>
+          <motion.div
+            className="absolute rounded-full border border-cyan-400/35"
+            initial={{ scale: 0.9, opacity: 0.9 }}
+            animate={{ scale: 1.6, opacity: 0 }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeOut' }}
+            style={{ width: '150px', height: '150px' }}
+          />
+          <motion.div
+            className="absolute rounded-full border border-cyan-500/20"
+            initial={{ scale: 0.9, opacity: 0.9 }}
+            animate={{ scale: 1.6, opacity: 0 }}
+            transition={{ duration: 1.5, delay: 0.5, repeat: Infinity, ease: 'easeOut' }}
+            style={{ width: '150px', height: '150px' }}
+          />
+          <motion.div
+            className="absolute rounded-full border border-purple-500/10"
+            initial={{ scale: 0.9, opacity: 0.9 }}
+            animate={{ scale: 1.6, opacity: 0 }}
+            transition={{ duration: 1.5, delay: 1.0, repeat: Infinity, ease: 'easeOut' }}
+            style={{ width: '150px', height: '150px' }}
+          />
+        </>
+      )}
+
+      {/* Main Reactor Body Container */}
+      <motion.div 
+        animate={{
+          y: speaking ? [0, -3, 0] : [0, -2, 0],
+          scale: speaking ? [1, 1.03, 1] : [1, 1.01, 1]
+        }}
+        transition={{
+          duration: speaking ? 2.5 : 5.0,
+          repeat: Infinity,
+          ease: 'easeInOut'
+        }}
+        className="relative w-44 h-44 sm:w-48 sm:h-48 flex items-center justify-center"
+      >
         
-        {/* SPEAKING / LISTENING: Expanding circular ripple rings */}
-        {(speaking || listening) && (
-          <>
-            <motion.div
-              className="absolute rounded-full border border-white/20 bg-white/[0.005] shadow-[0_0_15px_rgba(255,255,255,0.03)]"
-              initial={{ scale: 0.95, opacity: 0.8 }}
-              animate={{ scale: 1.5, opacity: 0 }}
-              transition={{ duration: 2.0, repeat: Infinity, ease: 'easeOut' }}
-              style={{ width: '130px', height: '130px' }}
-            />
-            <motion.div
-              className="absolute rounded-full border border-white/10 bg-white/[0.002]"
-              initial={{ scale: 0.95, opacity: 0.8 }}
-              animate={{ scale: 1.5, opacity: 0 }}
-              transition={{ duration: 2.0, delay: 0.6, repeat: Infinity, ease: 'easeOut' }}
-              style={{ width: '130px', height: '130px' }}
-            />
-            <motion.div
-              className="absolute rounded-full border border-white/5 bg-transparent"
-              initial={{ scale: 0.95, opacity: 0.8 }}
-              animate={{ scale: 1.5, opacity: 0 }}
-              transition={{ duration: 2.0, delay: 1.2, repeat: Infinity, ease: 'easeOut' }}
-              style={{ width: '130px', height: '130px' }}
-            />
-          </>
+        {/* Inner Glowing Core */}
+        <div 
+          className={`rounded-full bg-white flex items-center justify-center z-20 border border-cyan-300 shadow-[0_0_20px_#00d8ff,inset_0_0_8px_#00d8ff] transition-all duration-500 ${
+            speaking ? 'w-13 h-13' : (listening ? 'w-14 h-14' : 'w-12 h-12')
+          } ${listening ? 'animate-pulse' : ''}`}
+        >
+          {/* Reactor Inner Triangular Nodes detail */}
+          <div className="w-4 h-4 rounded-full border border-cyan-400/20 opacity-30" />
+        </div>
+
+        {/* Orbiting particles (Thinking state) */}
+        {thinking && (
+          <div className="absolute inset-0 z-30">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#00d8ff]"
+                style={{
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                }}
+                animate={{
+                  rotate: [i * 90, i * 90 + 360],
+                  x: [40 * Math.cos((i * 90 * Math.PI)/180), 40 * Math.cos(((i * 90 + 360) * Math.PI)/180)],
+                  y: [40 * Math.sin((i * 90 * Math.PI)/180), 40 * Math.sin(((i * 90 + 360) * Math.PI)/180)],
+                }}
+                transition={{
+                  duration: 2.0,
+                  repeat: Infinity,
+                  ease: 'linear'
+                }}
+              />
+            ))}
+          </div>
         )}
 
-        {/* Ambient colored lighting behind photo container */}
-        <div 
-          className={`absolute rounded-full transition-all duration-1000 blur-xl opacity-35 ${
-            speaking ? 'bg-gradient-to-tr from-cyan-500/20 to-purple-500/20 scale-110' :
-            listening ? 'bg-[#4da3ff]/15 scale-105' :
-            thinking ? 'bg-zinc-500/10 scale-100 animate-pulse' :
-            'bg-white/[0.02] scale-95'
-          }`}
-          style={{ width: '150px', height: '150px' }}
-        />
-
-        {/* Real Photo Portrait Circle Frame */}
+        {/* Rotating Coils and Outer Tracks Layer */}
         <motion.div 
-          animate={{
-            y: [0, -4, 0],
-            scale: speaking ? [1, 1.02, 1] : [1, 1.01, 1]
+          animate={{ 
+            rotate: thinking ? 360 : (listening ? -360 : 360) 
           }}
-          transition={{
-            duration: speaking ? 3.0 : 6.0,
-            repeat: Infinity,
-            ease: 'easeInOut'
+          transition={{ 
+            duration: thinking ? 4.5 : (listening ? 8.0 : 25.0), 
+            repeat: Infinity, 
+            ease: "linear" 
           }}
-          className={`w-[115px] h-[115px] rounded-full overflow-hidden border bg-[#050505] relative z-20 flex items-center justify-center transition-all duration-500 ${
-            speaking ? 'border-white/40 shadow-[0_0_25px_rgba(255,255,255,0.06)]' :
-            listening ? 'border-[#4da3ff]/30 shadow-[0_0_20px_rgba(77,163,255,0.12)]' :
-            'border-white/10 shadow-lg'
-          }`}
-          style={{ backdropFilter: 'blur(8px)' }}
+          className="absolute inset-0 w-full h-full z-10"
         >
-          {processedImage ? (
-            <img
-              src={processedImage}
-              alt="Yatnesh AI Assistant"
-              className="w-full h-full object-cover scale-118 origin-bottom filter brightness-95"
-            />
-          ) : (
-            <div className="w-full h-full bg-[#111111] animate-pulse" />
-          )}
+          <svg viewBox="0 0 100 100" className="w-full h-full">
+            {/* Core track ring */}
+            <circle cx="50" cy="50" r="23" fill="none" stroke="#00d8ff" strokeWidth="0.6" strokeOpacity="0.3" />
+            
+            {/* 10 copper spokes/coils details */}
+            {Array.from({ length: 10 }).map((_, i) => {
+              const angle = (i * 36) * Math.PI / 180;
+              const x1 = 50 + 26 * Math.cos(angle);
+              const y1 = 50 + 26 * Math.sin(angle);
+              const x2 = 50 + 33 * Math.cos(angle);
+              const y2 = 50 + 33 * Math.sin(angle);
+              return (
+                <line 
+                  key={i} 
+                  x1={x1} y1={y1} x2={x2} y2={y2} 
+                  stroke="#00d8ff" 
+                  strokeWidth="2.2" 
+                  strokeOpacity={speaking ? 0.95 : (listening ? 0.85 : 0.65)}
+                  style={{ filter: 'drop-shadow(0 0 1.5px #00d8ff)' }}
+                />
+              );
+            })}
 
-          {/* Subtle diagonal glossy shimmer sweep */}
-          <motion.div
-            animate={{ x: ['-120%', '120%'] }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', repeatDelay: 2.0 }}
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12 pointer-events-none"
-          />
+            {/* Middle Outer Segmented Ring */}
+            <circle 
+              cx="50" 
+              cy="50" 
+              r="40" 
+              fill="none" 
+              stroke="#00d8ff" 
+              strokeWidth="1.2" 
+              strokeDasharray="18 8 36 8" 
+              strokeOpacity="0.4"
+            />
+
+            {/* Outer track boundary */}
+            <circle cx="50" cy="50" r="44" fill="none" stroke="#00d8ff" strokeWidth="0.5" strokeOpacity="0.2" />
+          </svg>
         </motion.div>
 
-      </div>
-
-      {/* Siri-style dynamic mini sound waves */}
-      <div className="flex gap-1 items-end h-5 mt-4 select-none pointer-events-none z-10">
-        {Array.from({ length: 9 }).map((_, idx) => {
-          let bounceHeights = [4, 6, 4];
-          if (speaking) {
-            bounceHeights = [
-              4, 
-              [16, 10, 20, 14, 8, 18, 12][idx % 7], 
-              4
-            ];
-          } else if (listening) {
-            bounceHeights = [4, [8, 6, 10, 7][idx % 4], 4];
-          }
-
-          const duration = speaking 
-            ? (0.4 + (idx % 4) * 0.08) 
-            : (1.2 + (idx % 3) * 0.15);
-
-          return (
-            <motion.div
-              key={idx}
-              className={`w-0.75 rounded-full transition-all duration-300 ${
-                speaking ? 'bg-white shadow-[0_0_6px_rgba(255,255,255,0.3)]' :
-                listening ? 'bg-[#4da3ff] shadow-[0_0_6px_rgba(77,163,255,0.2)]' :
-                'bg-zinc-800'
-              }`}
-              animate={{ height: bounceHeights }}
-              transition={{
-                duration: duration,
-                repeat: Infinity,
-                ease: 'easeInOut'
-              }}
-              style={{ height: '4px' }}
+        {/* Counter-rotating Outer Ring Layer */}
+        <motion.div 
+          animate={{ 
+            rotate: thinking ? -360 : (listening ? 360 : -360) 
+          }}
+          transition={{ 
+            duration: thinking ? 7.0 : (listening ? 12.0 : 35.0), 
+            repeat: Infinity, 
+            ease: "linear" 
+          }}
+          className="absolute inset-0 w-full h-full z-0"
+        >
+          <svg viewBox="0 0 100 100" className="w-full h-full">
+            <circle 
+              cx="50" 
+              cy="50" 
+              r="46" 
+              fill="none" 
+              stroke="#00d8ff" 
+              strokeWidth="0.6" 
+              strokeDasharray="5 15 10 10" 
+              strokeOpacity="0.25"
             />
-          );
-        })}
+          </svg>
+        </motion.div>
+
+      </motion.div>
+
+      {/* High-tech status label */}
+      <div className="mt-4 font-mono text-[9px] tracking-widest text-zinc-500 uppercase font-bold">
+        {speaking ? 'EMITTING FEEDBACK' : (listening ? 'CAPURING STIMULUS' : (thinking ? 'QUERING DATA' : 'PORTAL STANDBY'))}
       </div>
 
     </div>

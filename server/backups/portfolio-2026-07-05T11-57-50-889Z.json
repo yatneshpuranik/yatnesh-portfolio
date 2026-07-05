@@ -1,0 +1,546 @@
+{
+  "users": [
+    {
+      "_id": "6a45665f78497507fe076326",
+      "username": "admin",
+      "email": "admin@portfolio.com",
+      "password": "$2a$10$YXxE8/OrfhwCdCzoDGZpReebfI5XhbutV3LpEDSD3cFI8XZKQSAdq",
+      "createdAt": "2026-07-01T19:11:27.974Z",
+      "updatedAt": "2026-07-01T19:11:27.974Z",
+      "__v": 0
+    },
+    {
+      "_id": "6a456e20d06ff67ef2fbe75e",
+      "username": "yatnesh",
+      "email": "yatneshpuranik@gmail.com",
+      "password": "$2a$10$4wkEvC2sG0fVoevXx.Qv7.lBgMdE6nFWhsfhnVGO5/JtHJHkspm5O",
+      "createdAt": "2026-07-01T19:44:32.468Z",
+      "updatedAt": "2026-07-01T20:09:18.673Z",
+      "__v": 0
+    }
+  ],
+  "settings": [
+    {
+      "_id": "6a4573eed1c3381a748cafdd",
+      "siteName": "Yatnesh Puranik Portfolio",
+      "title": "Yatnesh Puranik | Full Stack Developer (MERN)",
+      "tagline": "Building scalable production-grade SaaS applications using MERN, Next.js and TypeScript.",
+      "aboutMe": "I'm Yatnesh Puranik, a Full Stack Developer focused on building scalable MERN applications and AI-powered products. During my internship at Three Syntax, I've contributed to a production-grade Multi-Tenant CRM while also building personal projects like an AI Interview Platform and intelligent web applications. I enjoy turning complex ideas into clean, performant user experiences and continuously improving through real-world engineering challenges.",
+      "profilePhoto": "",
+      "resumeUrl": "https://res.cloudinary.com/demo/image/upload/v1620000000/sample.pdf",
+      "contactEmail": "yatneshpuranik@gmail.com",
+      "seoTitle": "Yatnesh Puranik | Portfolio",
+      "seoDescription": "Full Stack Developer (MERN) Portfolio & Resume website. Built with React 19, Tailwind CSS v4, Express and MongoDB.",
+      "seoKeywords": [
+        "Yatnesh Puranik",
+        "MERN Stack Developer",
+        "Full Stack Engineer",
+        "NextJS Developer",
+        "Indore"
+      ],
+      "createdAt": "2026-07-01T20:09:18.813Z",
+      "updatedAt": "2026-07-01T20:09:18.813Z",
+      "__v": 0
+    }
+  ],
+  "profiles": [
+    {
+      "_id": "6a4573eed1c3381a748cafdb",
+      "fullName": "Yatnesh Puranik",
+      "title": "Full Stack Developer (MERN)",
+      "subTitle": "Building scalable SaaS products.",
+      "bio": "I'm Yatnesh Puranik, a Full Stack Developer focused on building scalable MERN applications and AI-powered products. During my internship at Three Syntax, I've contributed to a production-grade Multi-Tenant CRM while also building personal projects like an AI Interview Platform and intelligent web applications. I enjoy turning complex ideas into clean, performant user experiences and continuously improving through real-world engineering challenges.",
+      "avatarUrl": "",
+      "location": "India",
+      "createdAt": "2026-07-01T20:09:18.805Z",
+      "updatedAt": "2026-07-01T20:09:18.805Z",
+      "__v": 0
+    }
+  ],
+  "skills": [
+    {
+      "_id": "6a4573eed1c3381a748cafdf",
+      "name": "React",
+      "proficiency": 92,
+      "category": "Frontend",
+      "icon": "Atom",
+      "order": 0,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.822Z",
+      "updatedAt": "2026-07-01T20:09:18.822Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cafe0",
+      "name": "Vite",
+      "proficiency": 85,
+      "category": "Frontend",
+      "icon": "Layers",
+      "order": 1,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.822Z",
+      "updatedAt": "2026-07-01T20:09:18.822Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cafe1",
+      "name": "Tailwind",
+      "proficiency": 92,
+      "category": "Frontend",
+      "icon": "Wind",
+      "order": 2,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.822Z",
+      "updatedAt": "2026-07-01T20:09:18.822Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cafe2",
+      "name": "Redux",
+      "proficiency": 85,
+      "category": "Frontend",
+      "icon": "HardDrive",
+      "order": 3,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.822Z",
+      "updatedAt": "2026-07-01T20:09:18.822Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cafe3",
+      "name": "Framer Motion",
+      "proficiency": 88,
+      "category": "Frontend",
+      "icon": "Component",
+      "order": 4,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.822Z",
+      "updatedAt": "2026-07-01T20:09:18.822Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cafe4",
+      "name": "Node",
+      "proficiency": 88,
+      "category": "Backend",
+      "icon": "Cpu",
+      "order": 0,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.822Z",
+      "updatedAt": "2026-07-01T20:09:18.822Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cafe5",
+      "name": "Express",
+      "proficiency": 90,
+      "category": "Backend",
+      "icon": "Server",
+      "order": 1,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.822Z",
+      "updatedAt": "2026-07-01T20:09:18.822Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cafe6",
+      "name": "MongoDB",
+      "proficiency": 85,
+      "category": "Backend",
+      "icon": "Database",
+      "order": 2,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.822Z",
+      "updatedAt": "2026-07-01T20:09:18.822Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cafe7",
+      "name": "JWT",
+      "proficiency": 90,
+      "category": "Backend",
+      "icon": "Key",
+      "order": 3,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.822Z",
+      "updatedAt": "2026-07-01T20:09:18.822Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cafe8",
+      "name": "REST APIs",
+      "proficiency": 92,
+      "category": "Backend",
+      "icon": "Braces",
+      "order": 4,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.822Z",
+      "updatedAt": "2026-07-01T20:09:18.822Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cafe9",
+      "name": "Git",
+      "proficiency": 88,
+      "category": "Tools",
+      "icon": "GitFork",
+      "order": 0,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.822Z",
+      "updatedAt": "2026-07-01T20:09:18.822Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cafea",
+      "name": "Github",
+      "proficiency": 90,
+      "category": "Tools",
+      "icon": "Github",
+      "order": 1,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.822Z",
+      "updatedAt": "2026-07-01T20:09:18.822Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cafeb",
+      "name": "Docker",
+      "proficiency": 75,
+      "category": "Tools",
+      "icon": "Box",
+      "order": 2,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.822Z",
+      "updatedAt": "2026-07-01T20:09:18.822Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cafec",
+      "name": "Postman",
+      "proficiency": 88,
+      "category": "Tools",
+      "icon": "Eye",
+      "order": 3,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.822Z",
+      "updatedAt": "2026-07-01T20:09:18.822Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cafed",
+      "name": "Cloudinary",
+      "proficiency": 80,
+      "category": "Tools",
+      "icon": "Image",
+      "order": 4,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.822Z",
+      "updatedAt": "2026-07-01T20:09:18.822Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cafee",
+      "name": "Vercel",
+      "proficiency": 82,
+      "category": "Tools",
+      "icon": "Globe",
+      "order": 5,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.823Z",
+      "updatedAt": "2026-07-01T20:09:18.823Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cafef",
+      "name": "Redis",
+      "proficiency": 65,
+      "category": "Currently Learning",
+      "icon": "Zap",
+      "order": 0,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.823Z",
+      "updatedAt": "2026-07-01T20:09:18.823Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748caff0",
+      "name": "BullMQ",
+      "proficiency": 60,
+      "category": "Currently Learning",
+      "icon": "Workflow",
+      "order": 1,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.823Z",
+      "updatedAt": "2026-07-01T20:09:18.823Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748caff1",
+      "name": "System Design",
+      "proficiency": 70,
+      "category": "Currently Learning",
+      "icon": "LayoutGrid",
+      "order": 2,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.823Z",
+      "updatedAt": "2026-07-01T20:09:18.823Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748caff2",
+      "name": "AWS",
+      "proficiency": 55,
+      "category": "Currently Learning",
+      "icon": "Cloud",
+      "order": 3,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.823Z",
+      "updatedAt": "2026-07-01T20:09:18.823Z"
+    }
+  ],
+  "experiences": [
+    {
+      "_id": "6a4573eed1c3381a748caff4",
+      "company": "Three Syntax",
+      "role": "Full Stack Developer Intern",
+      "location": "Remote",
+      "type": "Remote",
+      "startDate": "2026-06-01T00:00:00.000Z",
+      "currentlyWorking": true,
+      "description": "<ul class=\"list-disc pl-4 space-y-1.5 text-xs font-semibold text-[#94A3B8]\">\n      <li>Developed production-grade frontend modules for Multi-Tenant CRM.</li>\n      <li>Integrated backend APIs and authentication workflows.</li>\n      <li>Built reusable UI components improving development speed.</li>\n      <li>Collaborated with Agile team for feature planning and reviews.</li>\n      <li>Worked with React, Next.js, NestJS, PostgreSQL and Turborepo.</li>\n    </ul>",
+      "technologies": [
+        "Next.js",
+        "NestJS",
+        "PostgreSQL",
+        "Prisma",
+        "TurboRepo",
+        "Tailwind CSS"
+      ],
+      "order": 0,
+      "createdAt": "2026-07-01T20:09:18.831Z",
+      "updatedAt": "2026-07-01T20:09:18.831Z",
+      "__v": 0
+    }
+  ],
+  "projects": [
+    {
+      "_id": "6a4573eed1c3381a748caff6",
+      "title": "Multi-Tenant Sales CRM",
+      "slug": "multi-tenant-sales-crm",
+      "summary": "Production-grade SaaS CRM supporting multi-tenancy, authentication, role-based access control, sales pipelines, reusable dashboard modules and scalable architecture.",
+      "description": "This multi-tenant CRM is engineered for high performance, utilizing NestJS and Prisma to guarantee complete tenant isolation while delivering real-world sales metrics.",
+      "bannerImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+      "images": [],
+      "githubLink": "https://github.com/yatneshpuranik",
+      "liveLink": "",
+      "technologies": [
+        "Next.js",
+        "NestJS",
+        "PostgreSQL",
+        "Prisma",
+        "TurboRepo"
+      ],
+      "isFeatured": true,
+      "category": "Development",
+      "order": 0,
+      "problem": "Modern sales teams require modular pipelines and client management tools, but existing solutions often lack secure data isolation, cost-efficient scaling, and department-level modularity within a single deployment.",
+      "solution": "We designed a multi-tenant CRM featuring strict database-level isolation, granular Role-Based Access Control (RBAC), customizable sales pipelines, and departmental organization workspaces.",
+      "featuresList": "- **Tenant isolation**: Strong partitioning policies in PostgreSQL.\n- **JWT Authentication & RBAC**: Granular permission models for admins, managers, and agents.\n- **Department management**: Isolate workflows across different corporate divisions.\n- **Invitation workflows**: Secure member invitations using hash verification signatures.",
+      "architecture": "The system utilizes a modern monorepo layout:\n- **Monorepo Structure**: Managed via **Turborepo** for optimized caching and fast dependency sharing.\n- **Frontend**: Built with **Next.js** for SSR dashboard elements and fast data loading.\n- **Backend API**: Engineered with **NestJS** utilizing modular controllers and dependency injection.\n- **Database Layer**: **PostgreSQL** paired with **Prisma ORM** for type-safe queries.\n- **Caching**: **Redis** cache store for active user sessions and auth validation tokens.",
+      "challenges": "Structuring department-level invitation flows and secure database isolation without exposing boundaries or causing performance degradation.",
+      "learned": "Implementing PostgreSQL row-level isolation policies with Prisma and orchestrating clean pipeline workflows inside Turborepo monorepos.",
+      "timeline": "June 2026 - Present",
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.837Z",
+      "updatedAt": "2026-07-01T20:09:18.837Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748caff7",
+      "title": "WorkSync",
+      "slug": "worksync",
+      "summary": "A collaborative workspace platform inspired by Trello, GitHub and Discord.",
+      "description": "WorkSync provides real-time workspace sync across project tasks, active member feeds, and channel chats.",
+      "bannerImage": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+      "images": [],
+      "githubLink": "https://github.com/yatneshpuranik",
+      "liveLink": "",
+      "technologies": [
+        "MERN",
+        "Socket.io",
+        "TypeScript"
+      ],
+      "isFeatured": true,
+      "category": "Development",
+      "order": 1,
+      "problem": "Teams frequently split their focus across separate platforms (Trello for tasks, Discord for chat, GitHub for code). Switching contexts reduces output.",
+      "solution": "WorkSync unifies task management, live messaging, and VCS status feeds in a single web dashboard.",
+      "featuresList": "- **Kanban Board**: Drag-and-drop tasks, custom status flows, and assignee assignments.\n- **Real-time Workspace Chat**: Live team channels built with WebSockets.\n- **GitHub Integration**: Listen to repo webhooks to show commit status in the activity feed.\n- **Role Management**: Workspace creator can manage member invites and roles.\n- **Notifications**: Instant updates on task assignments and activity.",
+      "architecture": "- **Frontend**: Single Page React App leveraging **TypeScript** and tailwind CSS.\n- **Backend Server**: **Express.js** and **Node.js** running WebSocket protocols.\n- **Real-time Layer**: Synchronized via **Socket.io** connections for immediate cross-client DOM updates.\n- **Database**: **MongoDB** storing chat logs, user profiles, and active workspace boards.",
+      "challenges": "Maintaining consistent socket connection states across rapid route changes and synchronizing task positioning drag-and-drop state dynamically.",
+      "learned": "Optimizing WebSocket events to reduce network overhead and implementing React Query cache updates on live events.",
+      "timeline": "March 2026 - May 2026",
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.837Z",
+      "updatedAt": "2026-07-01T20:09:18.837Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748caff8",
+      "title": "AI Mock Interview Platform",
+      "slug": "ai-mock-interview",
+      "summary": "AI-powered interview preparation platform with resume analysis, AI-generated interview questions, voice interaction, interview history and personalized reports.",
+      "description": "AI Mock Interview uses artificial intelligence models to parse developer resumes and conduct interactive mock interviews, rendering final diagnostic reviews.",
+      "bannerImage": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80",
+      "images": [],
+      "githubLink": "https://github.com/yatneshpuranik",
+      "liveLink": "",
+      "technologies": [
+        "MERN",
+        "Speech APIs",
+        "OpenRouter AI"
+      ],
+      "isFeatured": true,
+      "category": "Development",
+      "order": 2,
+      "problem": "Mock interviews are hard to schedule, expensive, and rarely provide objective, granular reviews on communication vs. content correctness.",
+      "solution": "An automated AI interviewer that listens, transcribes speech, reviews replies, and grades using generative AI algorithms.",
+      "featuresList": "- **Resume Parsing**: Direct upload and text extraction.\n- **AI Question Generation**: Context-aware questions generated via OpenRouter AI.\n- **Voice Interview**: Speech-to-Text (STT) and Text-to-Speech (TTS) mock dialogues.\n- **Interview Report**: Detailed analytics on grammar, speed, and answer correctness.\n- **History Logs**: Review past sessions to analyze improvements.",
+      "architecture": "- **Frontend**: **React** incorporating browser-native Web Speech recognition API.\n- **Backend API**: **Express.js** handling resume text processing.\n- **AI Interface**: Communicates with **OpenRouter AI (GPT/Claude API)** to evaluate answers.\n- **Database**: **MongoDB** storing transcript records and performance scores.",
+      "challenges": "Processing live browser speech recognition streams and matching text results to AI prompt templates under low latency.",
+      "learned": "Tuning prompt instructions to minimize latency and designing responsive voice visualizers using Framer Motion.",
+      "timeline": "Jan 2026 - Feb 2026",
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.838Z",
+      "updatedAt": "2026-07-01T20:09:18.838Z"
+    }
+  ],
+  "educations": [
+    {
+      "_id": "6a4573eed1c3381a748caffa",
+      "institution": "Indore Institute of Science and Technology",
+      "degree": "B.Tech",
+      "fieldOfStudy": "Computer Science Engineering",
+      "startDate": "2023-07-01T00:00:00.000Z",
+      "endDate": "2027-06-30T00:00:00.000Z",
+      "grade": "7.95 CGPA",
+      "description": "",
+      "order": 0,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.843Z",
+      "updatedAt": "2026-07-01T20:09:18.843Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748caffb",
+      "institution": "CBSE School",
+      "degree": "Higher Secondary",
+      "fieldOfStudy": "Science",
+      "startDate": "2021-07-01T00:00:00.000Z",
+      "endDate": "2023-06-30T00:00:00.000Z",
+      "grade": "77.8%",
+      "description": "",
+      "order": 1,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.843Z",
+      "updatedAt": "2026-07-01T20:09:18.843Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748caffc",
+      "institution": "CBSE School",
+      "degree": "Secondary",
+      "fieldOfStudy": "General",
+      "startDate": "2020-07-01T00:00:00.000Z",
+      "endDate": "2021-06-30T00:00:00.000Z",
+      "grade": "86.4%",
+      "description": "",
+      "order": 2,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.843Z",
+      "updatedAt": "2026-07-01T20:09:18.843Z"
+    }
+  ],
+  "researchPapers": [
+    {
+      "_id": "6a4573eed1c3381a748caffe",
+      "title": "Price Prediction in E-Commerce using Machine Learning",
+      "abstract": "This research centers around designing pricing engines for online retail marketplaces. It maps customer demand, retail competition, and historic sales records using machine learning algorithms to automate profit margin optimizations.",
+      "authors": [
+        "Yatnesh Puranik"
+      ],
+      "journal": "Presented at IgniteX 2025",
+      "volume": "",
+      "pages": "",
+      "year": 2025,
+      "pdfUrl": "https://res.cloudinary.com/demo/image/upload/v1620000000/sample.pdf",
+      "externalLink": "",
+      "problemStatement": "E-commerce retailers struggle to determine optimal pricing in response to rapid changes in competitor prices, demand elasticity, and inventory levels, leading to either lost margins or low sales volumes.",
+      "methodology": "We deployed regression algorithms (Random Forest Regressor, XGBoost, and Linear models) to map historic sales velocities and predict optimal dynamic pricing increments.",
+      "architecture": "Data collection from open e-commerce APIs, processed in Python, and integrated into a Flask dynamic pricing API endpoint querying custom ML models.",
+      "results": "The Random Forest pricing model achieved a 15% increase in gross profit margins in simulation trials compared to traditional flat-pricing strategies.",
+      "conclusion": "Dynamic pricing powered by ML regression offers real-time margin protections without causing customer cart-abandonment rates to spike.",
+      "citation": "Puranik, Y. (2025). Price Prediction in E-Commerce using Machine Learning. IgniteX 2025 Conference Proceedings.",
+      "presentedAt": "Presented at IgniteX 2025",
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.848Z",
+      "updatedAt": "2026-07-01T20:09:18.848Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cafff",
+      "title": "HydroBloom",
+      "abstract": "HydroBloom details algorithmic automation for water quality inspection and nutrient dosage cycles in indoor agricultural environments. It uses statistical models to secure crop health and maximize yield rates.",
+      "authors": [
+        "Yatnesh Puranik"
+      ],
+      "journal": "Research Paper",
+      "volume": "",
+      "pages": "",
+      "year": 2025,
+      "pdfUrl": "https://res.cloudinary.com/demo/image/upload/v1620000000/sample.pdf",
+      "externalLink": "",
+      "problemStatement": "Urban indoor gardens and vertical farms often fail due to improper nutrient balance, lack of soil moisture monitoring, and inconsistent irrigation, which require manual labor and specialized knowledge.",
+      "methodology": "Designed an automated hydroponics sensory loop using microcontrollers that continuously checks pH values, electrical conductivity, and temperature, trigger-releasing precise water volumes.",
+      "architecture": "Sensory node microcontroller cluster sending telemetry over MQTT to a Node.js dashboard, coupled with automated relay pumps.",
+      "results": "Achieved a 30% reduction in water waste and completed automated harvesting cycles with 100% plant survival rate.",
+      "conclusion": "IoT-driven closed-loop sensory irrigation lowers operating costs and secures high growth rates for urban agricultural installations.",
+      "citation": "Puranik, Y. (2025). HydroBloom: Closed-Loop Automated Hydroponic Systems. Research Archive.",
+      "presentedAt": "Research Paper",
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.848Z",
+      "updatedAt": "2026-07-01T20:09:18.848Z"
+    }
+  ],
+  "certificates": [
+    {
+      "_id": "6a4573eed1c3381a748cb001",
+      "title": "IgniteX Research Paper Participation",
+      "issuer": "IgniteX",
+      "credentialUrl": "",
+      "order": 0,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.850Z",
+      "updatedAt": "2026-07-01T20:09:18.850Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cb002",
+      "title": "ICAT Participation",
+      "issuer": "ICAT",
+      "credentialUrl": "",
+      "order": 1,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.851Z",
+      "updatedAt": "2026-07-01T20:09:18.851Z"
+    }
+  ],
+  "socials": [
+    {
+      "_id": "6a4573eed1c3381a748cb004",
+      "name": "GitHub",
+      "url": "https://github.com/yatneshpuranik",
+      "icon": "Github",
+      "order": 0,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.855Z",
+      "updatedAt": "2026-07-01T20:09:18.855Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cb005",
+      "name": "LinkedIn",
+      "url": "https://linkedin.com/in/yatneshpuranik",
+      "icon": "Linkedin",
+      "order": 1,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.855Z",
+      "updatedAt": "2026-07-01T20:09:18.855Z"
+    },
+    {
+      "_id": "6a4573eed1c3381a748cb006",
+      "name": "Email",
+      "url": "mailto:yatneshpuranik@gmail.com",
+      "icon": "Mail",
+      "order": 2,
+      "__v": 0,
+      "createdAt": "2026-07-01T20:09:18.855Z",
+      "updatedAt": "2026-07-01T20:09:18.855Z"
+    }
+  ],
+  "resumes": []
+}

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import MainLayout from '../layout/MainLayout';
 import { fetchResearchPaperBySlug } from '../services/api';
+import { stripMarkdown } from '../utils/markdown';
 import { ArrowLeft, BookOpen, Download, Clipboard, Check, Award, Layers, X, Sparkles, TrendingUp } from 'lucide-react';
 import toast from 'react-hot-toast';
 import Reveal from '../components/UI/Reveal';
@@ -170,7 +171,7 @@ const ResearchPublication = () => {
             className="p-5 rounded-xl border border-white/[0.08] bg-[#0d1628] hover:border-primary/40 cursor-pointer transition-all duration-300"
           >
             <p className="text-[10px] font-mono text-primary font-bold uppercase tracking-widest mb-2">Problem Statement</p>
-            <p className="text-xs text-[#94A3B8] leading-relaxed line-clamp-3">{paper.problemStatement || 'Click to view details.'}</p>
+            <p className="text-xs text-[#94A3B8] leading-relaxed line-clamp-3">{stripMarkdown(paper.problemStatement) || 'Click to view details.'}</p>
           </div>
 
           <div 
@@ -178,7 +179,7 @@ const ResearchPublication = () => {
             className="p-5 rounded-xl border border-white/[0.08] bg-[#0d1628] hover:border-primary/40 cursor-pointer transition-all duration-300"
           >
             <p className="text-[10px] font-mono text-primary font-bold uppercase tracking-widest mb-2">Methodology & Experiments</p>
-            <p className="text-xs text-[#94A3B8] leading-relaxed line-clamp-3">{paper.methodology || 'Click to view details.'}</p>
+            <p className="text-xs text-[#94A3B8] leading-relaxed line-clamp-3">{stripMarkdown(paper.methodology) || 'Click to view details.'}</p>
           </div>
         </div>
 
@@ -192,7 +193,7 @@ const ResearchPublication = () => {
                 <BookOpen className="w-5 h-5 text-primary" /> Abstract Summary
               </h2>
               <p className="text-xs text-gray-300 leading-relaxed bg-[#08111f]/60 p-6 rounded-xl border border-white/[0.08] italic">
-                {paper.abstract}
+                {stripMarkdown(paper.abstract)}
               </p>
             </div>
           </Reveal>
@@ -285,7 +286,7 @@ const ResearchPublication = () => {
                   <span className="text-xs font-mono text-primary group-hover:underline">Explore Details</span>
                 </h2>
                 <p className="text-xs text-[#94A3B8] leading-relaxed line-clamp-3">
-                  {paper.architecture}
+                  {stripMarkdown(paper.architecture)}
                 </p>
               </div>
             </Reveal>
@@ -311,7 +312,7 @@ const ResearchPublication = () => {
           onClose={() => setActiveModal(null)}
           title="Problem Statement & Objective"
         >
-          <p>{paper.problemStatement}</p>
+          <p className="whitespace-pre-line">{stripMarkdown(paper.problemStatement)}</p>
         </Modal>
 
         <Modal 
@@ -319,11 +320,11 @@ const ResearchPublication = () => {
           onClose={() => setActiveModal(null)}
           title="Experimental Methodology"
         >
-          <p>{paper.methodology}</p>
+          <p className="whitespace-pre-line">{stripMarkdown(paper.methodology)}</p>
           {paper.results && (
             <div className="mt-4 pt-4 border-t border-white/[0.04]">
               <p className="font-extrabold uppercase tracking-wider text-white text-[10px] mb-2">Experimental Results</p>
-              <p>{paper.results}</p>
+              <p className="whitespace-pre-line">{stripMarkdown(paper.results)}</p>
             </div>
           )}
         </Modal>
@@ -333,11 +334,11 @@ const ResearchPublication = () => {
           onClose={() => setActiveModal(null)}
           title="Model System Architecture"
         >
-          <p>{paper.architecture}</p>
+          <p className="whitespace-pre-line">{stripMarkdown(paper.architecture)}</p>
           {paper.conclusion && (
             <div className="mt-4 pt-4 border-t border-white/[0.04]">
               <p className="font-extrabold uppercase tracking-wider text-white text-[10px] mb-2">Conclusion</p>
-              <p>{paper.conclusion}</p>
+              <p className="whitespace-pre-line">{stripMarkdown(paper.conclusion)}</p>
             </div>
           )}
         </Modal>

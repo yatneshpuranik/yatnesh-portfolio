@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import MainLayout from '../layout/MainLayout';
 import { fetchProjectBySlug } from '../services/api';
+import { stripMarkdown } from '../utils/markdown';
 import { ArrowLeft, Github, Globe, Calendar, X, Sparkles, Layers, CheckCircle2, AlertTriangle, ShieldCheck, Award, FolderOpen, FileCode, Database } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import Reveal from '../components/UI/Reveal';
@@ -308,7 +309,7 @@ const ProjectCaseStudy = () => {
             className="p-5 rounded-xl border border-white/[0.08] bg-[#0d1628] hover:border-primary/45 cursor-pointer transition-all duration-300 space-y-2"
           >
             <p className="text-[10px] font-mono text-primary font-extrabold uppercase tracking-wider">Problem Statement</p>
-            <p className="text-xs text-[#94A3B8] leading-relaxed line-clamp-3">{project.problem || 'Click to view details.'}</p>
+            <p className="text-xs text-[#94A3B8] leading-relaxed line-clamp-3">{stripMarkdown(project.problem) || 'Click to view details.'}</p>
           </div>
 
           <div 
@@ -316,7 +317,7 @@ const ProjectCaseStudy = () => {
             className="p-5 rounded-xl border border-white/[0.08] bg-[#0d1628] hover:border-primary/45 cursor-pointer transition-all duration-300 space-y-2"
           >
             <p className="text-[10px] font-mono text-primary font-extrabold uppercase tracking-wider">Proposed Solution</p>
-            <p className="text-xs text-[#94A3B8] leading-relaxed line-clamp-3">{project.solution || 'Click to view details.'}</p>
+            <p className="text-xs text-[#94A3B8] leading-relaxed line-clamp-3">{stripMarkdown(project.solution) || 'Click to view details.'}</p>
           </div>
 
           <div 
@@ -332,7 +333,7 @@ const ProjectCaseStudy = () => {
             className="p-5 rounded-xl border border-white/[0.08] bg-[#0d1628] hover:border-primary/45 cursor-pointer transition-all duration-300 space-y-2"
           >
             <p className="text-[10px] font-mono text-primary font-extrabold uppercase tracking-wider">Key Challenges & Learnings</p>
-            <p className="text-xs text-[#94A3B8] leading-relaxed line-clamp-3">{project.challenges || 'Click to view details.'}</p>
+            <p className="text-xs text-[#94A3B8] leading-relaxed line-clamp-3">{stripMarkdown(project.challenges) || 'Click to view details.'}</p>
           </div>
         </div>
 
@@ -342,8 +343,8 @@ const ProjectCaseStudy = () => {
             <h2 className="text-xl font-extrabold text-white flex items-center gap-2">
               <Layers className="w-5 h-5 text-primary" /> Case Study Overview
             </h2>
-            <div className="prose prose-invert max-w-none text-xs text-[#94A3B8] leading-relaxed bg-[#08111f]/60 p-6 rounded-xl border border-white/[0.08]">
-              <ReactMarkdown>{project.description}</ReactMarkdown>
+            <div className="prose prose-invert max-w-none text-xs text-[#94A3B8] leading-relaxed bg-[#08111f]/60 p-6 rounded-xl border border-white/[0.08] whitespace-pre-line">
+              {stripMarkdown(project.description)}
             </div>
           </div>
         </Reveal>
@@ -444,7 +445,7 @@ const ProjectCaseStudy = () => {
       >
         <div className="flex gap-3 items-start p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-200">
           <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
-          <p>{project.problem || 'N/A'}</p>
+          <p className="whitespace-pre-line">{stripMarkdown(project.problem) || 'N/A'}</p>
         </div>
       </Modal>
 
@@ -456,12 +457,14 @@ const ProjectCaseStudy = () => {
         <div className="space-y-4">
           <div className="flex gap-3 items-start p-4 bg-green-500/10 border border-green-500/20 rounded-xl text-green-200">
             <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
-            <p>{project.solution || 'N/A'}</p>
+            <p className="whitespace-pre-line">{stripMarkdown(project.solution) || 'N/A'}</p>
           </div>
           {project.featuresList && (
             <div className="pt-4 border-t border-white/[0.04]">
               <p className="font-extrabold text-[10px] uppercase tracking-widest text-[#F5F7FA] mb-2">Key Features List</p>
-              <ReactMarkdown>{project.featuresList}</ReactMarkdown>
+              <div className="whitespace-pre-line text-xs text-[#94A3B8] leading-relaxed">
+                {stripMarkdown(project.featuresList)}
+              </div>
             </div>
           )}
         </div>

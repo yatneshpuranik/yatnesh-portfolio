@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import axios from 'axios';
-import { Mail, MapPin, Send, Loader2, CheckCircle2 } from 'lucide-react';
+import { Mail, MapPin, Send, Loader2, CheckCircle2, Phone, Linkedin, MessageSquare, MessageCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import Reveal from '../UI/Reveal';
 
@@ -35,16 +35,16 @@ const Contact = ({ settings }) => {
   const onSubmit = async (data) => {
     setSubmitting(true);
     try {
-      const res = await axios.post('/api/contact', data);
+      const res = await axios.post('/contact', data);
       if (res.data.success) {
         toast.success('Message synchronized successfully.');
         setSubmitted(true);
         reset();
       } else {
-        toast.error('Local gateway error. Retrying connection.');
+        toast.error('Message failed to send. Please try WhatsApp/email directly.');
       }
     } catch (error) {
-      toast.error('Handshake failure. Message saved locally.');
+      toast.error('Message failed to send. Please try WhatsApp/email directly.');
       console.error(error);
     } finally {
       setSubmitting(false);
@@ -99,6 +99,67 @@ const Contact = ({ settings }) => {
                     <p className="text-sm font-semibold">India (Remote/Hybrid)</p>
                   </div>
                 </div>
+
+                <div className="flex items-center gap-4 p-4 rounded-xl border border-white/[0.08] bg-[#101010]/80 backdrop-blur-md">
+                  <span className="p-3 rounded-lg bg-white/[0.03] border border-white/[0.08] text-white shrink-0">
+                    <Phone className="w-5 h-5" />
+                  </span>
+                  <div>
+                    <p className="text-xs text-gray-500 font-mono">Call Me</p>
+                    <a href="tel:+917067655707" className="text-sm font-semibold hover:text-[#d4af37] transition-colors">
+                      +91 70676 55707
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.2}>
+              <div className="space-y-4 pt-2">
+                <p className="text-xs font-mono text-gray-500 uppercase tracking-widest">Direct Channels</p>
+                <div className="flex items-center space-x-3.5 pt-1">
+                  
+                  {/* WhatsApp */}
+                  <a
+                    href="https://wa.me/917067655707?text=Hi%20Yatnesh%2C%20I%20saw%20your%20portfolio..."
+                    target="_blank"
+                    rel="noreferrer"
+                    className="p-3 rounded-lg border border-white/[0.08] bg-white/[0.03] text-gray-400 hover:text-[#d4af37] hover:border-[#d4af37]/45 hover:bg-[#d4af37]/5 transition-all cursor-pointer"
+                    title="Chat on WhatsApp"
+                  >
+                    <MessageSquare className="w-5 h-5" />
+                  </a>
+
+                  {/* LinkedIn */}
+                  <a
+                    href="https://linkedin.com/in/yatneshpuranik"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="p-3 rounded-lg border border-white/[0.08] bg-white/[0.03] text-gray-400 hover:text-[#d4af37] hover:border-[#d4af37]/45 hover:bg-[#d4af37]/5 transition-all cursor-pointer"
+                    title="Connect on LinkedIn"
+                  >
+                    <Linkedin className="w-5 h-5" />
+                  </a>
+
+                  {/* SMS */}
+                  <a
+                    href="sms:+917067655707"
+                    className="p-3 rounded-lg border border-white/[0.08] bg-white/[0.03] text-gray-400 hover:text-[#d4af37] hover:border-[#d4af37]/45 hover:bg-[#d4af37]/5 transition-all cursor-pointer"
+                    title="Send SMS"
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                  </a>
+
+                  {/* Phone */}
+                  <a
+                    href="tel:+917067655707"
+                    className="p-3 rounded-lg border border-white/[0.08] bg-white/[0.03] text-gray-400 hover:text-[#d4af37] hover:border-[#d4af37]/45 hover:bg-[#d4af37]/5 transition-all cursor-pointer"
+                    title="Call Phone"
+                  >
+                    <Phone className="w-5 h-5" />
+                  </a>
+
+                </div>
               </div>
             </Reveal>
           </div>
@@ -128,7 +189,7 @@ const Contact = ({ settings }) => {
                     
                     {/* Name */}
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider font-mono">Your Name</label>
+                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider font-heading">Your Name</label>
                       <input
                         type="text"
                         {...register('name')}
@@ -142,7 +203,7 @@ const Contact = ({ settings }) => {
 
                     {/* Email */}
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider font-mono">Email Address</label>
+                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider font-heading">Email Address</label>
                       <input
                         type="email"
                         {...register('email')}
@@ -156,7 +217,7 @@ const Contact = ({ settings }) => {
 
                     {/* Subject */}
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider font-mono">Subject</label>
+                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider font-heading">Subject</label>
                       <input
                         type="text"
                         {...register('subject')}
@@ -170,7 +231,7 @@ const Contact = ({ settings }) => {
 
                     {/* Message */}
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider font-mono">Message</label>
+                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider font-heading">Message</label>
                       <textarea
                         rows="5"
                         {...register('message')}

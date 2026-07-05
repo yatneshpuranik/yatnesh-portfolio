@@ -30,10 +30,18 @@ const createMessage = async (req, res, next) => {
       </p>
     `;
 
-    sendEmail({
-      subject: `Portfolio Contact: ${subject || 'New Message'}`,
-      html: mailHtml,
-    }).catch(err => console.error('Failed to send mail notification:', err.message));
+    try {
+      await sendEmail({
+        subject: `Portfolio Contact: ${subject || 'New Message'}`,
+        html: mailHtml,
+      });
+    } catch (mailError) {
+      console.error('Failed to send mail notification:', mailError);
+      return res.status(500).json({ 
+        success: false, 
+        error: 'Email dispatch failed. Please try WhatsApp/email directly.' 
+      });
+    }
 
     res.status(201).json({ success: true, data: newMessage });
   } catch (error) {

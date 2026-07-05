@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import axios from 'axios';
 import {
-  Sparkles, X, Mic, MicOff, Send, Terminal
+  X, Mic, MicOff, Send, Terminal
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
@@ -88,6 +88,19 @@ const splitIntoSentences = (text) => {
   const clean = text.replace(/```[a-z]*\n[\s\S]*?\n```/g, '').trim();
   const sentenceRegex = /(?<!\b(?:e\.g|i\.e|mr|mrs|ms|dr|vs|prof|std|approx)\.)(?<=[.!?])\s+/g;
   return clean.split(sentenceRegex).map(s => s.trim()).filter(Boolean);
+};
+
+const stripMarkdown = (text) => {
+  if (!text) return '';
+  return text
+    .replace(/\*\*([^*]+)\*\*/g, '$1') // remove bold asterisks
+    .replace(/__([^_]+)__/g, '$1')     // remove bold underscores
+    .replace(/\*([^*]+)\*/g, '$1')     // remove italic asterisks
+    .replace(/_([^_]+)_/g, '$1')       // remove italic underscores
+    .replace(/`([^`]+)`/g, '$1')       // remove code backticks
+    .replace(/^\s*[-*+]\s+/gm, '• ')   // change bullet lists to bullet symbol
+    .replace(/^\s*#+\s+/gm, '')        // remove headers markers
+    .replace(/[*_#`~]/g, '');          // strip any stray markdown characters
 };
 
 // Global SpeechRecognition Singleton
@@ -236,10 +249,12 @@ const AIAssistant = () => {
       setIsListening(false);
 
       // Loop SpeechRecognition to maintain hands-free loop
-      if (voiceActive && !isThinking && isOpen) {
-        const restartDelay = (window.speechSynthesis && window.speechSynthesis.speaking) ? 1400 : 500;
+      const isSpeechActive = isSpeaking || (window.speechSynthesis && window.speechSynthesis.speaking);
+      if (voiceActive && !isThinking && !isSpeechActive && isOpen) {
+        const restartDelay = isSpeechActive ? 1400 : 500;
         const timeoutId = setTimeout(() => {
-          if (voiceActive && !isThinking && isOpen) {
+          const checkSpeechActive = isSpeaking || (window.speechSynthesis && window.speechSynthesis.speaking);
+          if (voiceActive && !isThinking && !checkSpeechActive && isOpen) {
             try {
               const rec = initGlobalRecognition();
               if (rec) rec.start();
@@ -251,6 +266,7 @@ const AIAssistant = () => {
         typewriterTimeoutsRef.current.push(timeoutId);
       }
     }
+
   };
 
   // Bind single-mount callbacks for Speech Recognition
@@ -429,6 +445,7 @@ const AIAssistant = () => {
     };
 
     currentUtteranceRef.current = utterance;
+    window.speechSynthesis.cancel();
     window.speechSynthesis.speak(utterance);
   }, [stopListening, advanceAfterSpeech]);
 
@@ -527,6 +544,8 @@ const AIAssistant = () => {
   const handleSend = useCallback(async (queryText) => {
     const query = queryText?.trim();
     if (!query) return;
+    setInput('');
+
 
     const startTime = Date.now();
     abortActiveSpeech();
@@ -557,7 +576,7 @@ const AIAssistant = () => {
       typewriterTimeoutsRef.current.push(logTimeout);
     });
 
-    if (lowercaseQuery.includes('internship') || lowercaseQuery.includes('experience')) {
+    if (lowercaseQuery.includes('go to experience')) {
       setTimeout(() => {
         handleNavCommand('experience', 'Porting screen to experience log.');
         setIsThinking(false);
@@ -565,7 +584,7 @@ const AIAssistant = () => {
       }, 800);
       return;
     }
-    if (lowercaseQuery.includes('project') || lowercaseQuery.includes('best project')) {
+    if (lowercaseQuery.includes('go to projects')) {
       setTimeout(() => {
         handleNavCommand('projects', 'Transporting user to case study cards.');
         setIsThinking(false);
@@ -573,23 +592,15 @@ const AIAssistant = () => {
       }, 800);
       return;
     }
-    if (lowercaseQuery.includes('skills') || lowercaseQuery.includes('technology')) {
+    if (lowercaseQuery.includes('go to skills')) {
       setTimeout(() => {
-        handleNavCommand('skills', 'Opening full technology matrices.');
+        handleNavCommand('skills', 'Opening full technology focus cards.');
         setIsThinking(false);
         setLatency(Date.now() - startTime);
       }, 800);
       return;
     }
-    if (lowercaseQuery.includes('research') || lowercaseQuery.includes('paper')) {
-      setTimeout(() => {
-        handleNavCommand('research', 'Porting interface to publications.');
-        setIsThinking(false);
-        setLatency(Date.now() - startTime);
-      }, 800);
-      return;
-    }
-    if (lowercaseQuery.includes('contact') || lowercaseQuery.includes('email')) {
+    if (lowercaseQuery.includes('go to contact')) {
       setTimeout(() => {
         handleNavCommand('contact', 'Scrolling client to mail terminal.');
         setIsThinking(false);
@@ -597,14 +608,8 @@ const AIAssistant = () => {
       }, 800);
       return;
     }
-    if (lowercaseQuery.includes('resume') || lowercaseQuery.includes('cv')) {
-      setTimeout(() => {
-        handleNavCommand('hero', 'Downloading resume file.', 'https://res.cloudinary.com/bpv3iunv/image/upload/v1782990790/ResumeYatneshMERN_2_sul1q7.pdf');
-        setIsThinking(false);
-        setLatency(Date.now() - startTime);
-      }, 800);
-      return;
-    }
+
+
 
     try {
       const res = await axios.post('/chat', {
@@ -615,7 +620,19 @@ const AIAssistant = () => {
       setLatency(Date.now() - startTime);
 
       if (res.data.success) {
-        const replyText = res.data.reply;
+        let replyText = res.data.reply;
+
+        // Parse and log lead capturing tags
+        const leadRegex = /\[LEAD:\s*([^\]]+)\]/i;
+        const leadMatch = replyText.match(leadRegex);
+        if (leadMatch) {
+          console.log("Hiring Lead Captured:", leadMatch[1]);
+          replyText = replyText.replace(leadRegex, '').trim();
+          toast.success("Lead details logged successfully!");
+        }
+
+        // Clean markdown characters from AI response text
+        replyText = stripMarkdown(replyText);
 
         setIsThinking(false);
         playSynthSound('received');
@@ -662,29 +679,11 @@ const AIAssistant = () => {
     }
   }, [abortActiveSpeech, addLog]);
 
-  const getOrbStateClass = useCallback(() => {
-    if (isThinking) return 'bg-[#141414] border-white/20 scale-105 shadow-md';
-    if (isSpeaking) return 'bg-white border-white scale-105 shadow-lg';
-    if (isListening) return 'bg-[#4da3ff] border-[#4da3ff] scale-110 shadow-lg';
-    return 'bg-black border-[#2a2a2a] hover:border-white shadow-md';
-  }, [isThinking, isSpeaking, isListening]);
 
-  // Memoized orb button render
-  const orbButton = useMemo(() => {
-    if (isOpen) return null;
-    return (
-      <button
-        onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 w-14 h-14 rounded-full border shadow-2xl flex items-center justify-center transition-all duration-300 relative group shrink-0 ${getOrbStateClass()}`}
-        aria-label="Toggle AI Voice Assistant"
-      >
-        {(isListening || isSpeaking || isThinking) && (
-          <span className="absolute -inset-1.5 rounded-full bg-white/10 blur-sm animate-ping pointer-events-none" />
-        )}
-        <Sparkles className={`w-5 h-5 animate-pulse ${isSpeaking ? 'text-black' : 'text-white'}`} />
-      </button>
-    );
-  }, [isOpen, isListening, isSpeaking, isThinking, getOrbStateClass]);
+
+  // Memoized orb button render removed (null)
+  const orbButton = null;
+
 
   return (
     <div className="z-50">
