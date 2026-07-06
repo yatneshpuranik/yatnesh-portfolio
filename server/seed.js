@@ -545,8 +545,30 @@ const seed = async () => {
 
     // Seed/Upsert Certificates
     const certificatesList = [
-      { title: 'IgniteX Research Paper Participation', issuer: 'IgniteX', order: 0 },
-      { title: 'ICAT Participation', issuer: 'ICAT', order: 1 },
+      {
+        title: 'Frontend Developer (React) Certificate',
+        issuer: 'HackerRank',
+        issueDate: new Date('2026-07-01'),
+        credentialUrl: 'https://res.cloudinary.com/bpv3iunv/image/upload/v1783346704/frontend_developer_react_certificate_cjzwyk.pdf',
+        order: 0,
+      },
+      {
+        title: 'JavaScript (Basic) Certificate',
+        issuer: 'HackerRank',
+        issueDate: new Date('2026-07-01'),
+        credentialUrl: 'https://res.cloudinary.com/bpv3iunv/image/upload/v1783346706/ea0e27ee685ffdba9ac21165fab5014a8e8e1651ac3e2cceeeeec34d405b623a_jlxaqi.png',
+        order: 1,
+      },
+      { 
+        title: 'IgniteX Research Paper Participation', 
+        issuer: 'IgniteX', 
+        order: 2 
+      },
+      { 
+        title: 'ICAT Participation', 
+        issuer: 'ICAT', 
+        order: 3 
+      },
     ];
 
     for (const cert of certificatesList) {

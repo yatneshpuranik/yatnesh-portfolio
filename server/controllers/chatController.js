@@ -5,6 +5,7 @@ const Skill = require('../models/Skill');
 const Experience = require('../models/Experience');
 const Education = require('../models/Education');
 const Setting = require('../models/Setting');
+const Certificate = require('../models/Certificate');
 
 // @desc    Represent Yatnesh via portfolio-trained chat assistant
 // @route   POST /api/chat
@@ -18,7 +19,7 @@ const handleChat = async (req, res, next) => {
 
   try {
     // 1. Fetch all portfolio data from database
-    const [profile, projects, papers, skills, experiences, educations, settings] = await Promise.all([
+    const [profile, projects, papers, skills, experiences, educations, settings, certificates] = await Promise.all([
       Profile.findOne(),
       Project.find().sort({ order: 1 }),
       ResearchPaper.find().sort({ year: -1 }),
@@ -26,6 +27,7 @@ const handleChat = async (req, res, next) => {
       Experience.find().sort({ order: 1 }),
       Education.find().sort({ order: 1 }),
       Setting.findOne(),
+      Certificate.find().sort({ order: 1 }),
     ]);
 
     // 2. Format a structured portfolio context block
@@ -119,6 +121,13 @@ ${papers.map(p => `- Publication: ${p.title}
 ---
 EDUCATION HISTORY:
 ${educations.map(edu => `- ${edu.degree} in ${edu.fieldOfStudy} from ${edu.institution} (${edu.startDate ? new Date(edu.startDate).getFullYear() : ''} - ${edu.endDate ? new Date(edu.endDate).getFullYear() : ''}) | Score: ${edu.grade}`).join('\n')}
+
+---
+CERTIFICATIONS & ACHIEVEMENTS:
+${certificates.map(c => `- Certificate: ${c.title}
+  Issuer: ${c.issuer}
+  Issue Date: ${c.issueDate ? new Date(c.issueDate).toLocaleDateString(undefined, { month: 'long', year: 'numeric' }) : 'N/A'}
+  Credential/Verification URL: ${c.credentialUrl || 'N/A'}`).join('\n')}
 `;
 
     // 3. Check for API key configuration

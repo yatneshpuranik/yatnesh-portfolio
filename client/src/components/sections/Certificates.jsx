@@ -12,7 +12,7 @@ const Certificates = ({ certificates }) => {
   return (
     <section id="certificates" className="py-28 border-t border-white/[0.08] text-left select-none relative">
       <div className="space-y-12">
-        
+
         {/* Title */}
         <div className="flex items-center space-x-4">
           <h2 className="text-3xl font-bold tracking-tight text-white font-heading">Certifications & Achievements</h2>
@@ -24,7 +24,7 @@ const Certificates = ({ certificates }) => {
           {certificates.map((cert, index) => (
             <Reveal key={cert._id} delay={index * 0.08}>
               <div className="p-6 rounded-2xl border border-white/[0.08] bg-[#101010]/80 backdrop-blur-md hover:border-white/30 hover:shadow-[0_20px_45px_rgba(0,0,0,0.8)] transition-all duration-400 flex items-start gap-4 shadow-xl group">
-                
+
                 {/* Glowing Award Icon */}
                 <span className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.08] text-white shrink-0 group-hover:scale-103 transition-transform duration-300">
                   <Award className="w-5 h-5 animate-pulse" />
@@ -51,7 +51,7 @@ const Certificates = ({ certificates }) => {
                         className="text-[10px] font-mono text-gray-400 hover:text-white flex items-center gap-1 transition-colors cursor-pointer"
                       >
                         <LinkIcon className="w-3 h-3 text-white" />
-                        <span>View Credentials</span>
+                        <span>View </span>
                       </a>
                     )}
                   </div>
