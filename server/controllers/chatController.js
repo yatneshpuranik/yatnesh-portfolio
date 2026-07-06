@@ -127,6 +127,7 @@ CERTIFICATIONS & ACHIEVEMENTS:
 ${certificates.map(c => `- Certificate: ${c.title}
   Issuer: ${c.issuer}
   Issue Date: ${c.issueDate ? new Date(c.issueDate).toLocaleDateString(undefined, { month: 'long', year: 'numeric' }) : 'N/A'}
+  Description: ${c.description || 'N/A'}
   Credential/Verification URL: ${c.credentialUrl || 'N/A'}`).join('\n')}
 `;
 
