@@ -353,3 +353,109 @@ section {
   will-change: transform;
   transition: background 1.5s ease-in-out;
 }
+
+/* Mobile Overrides (viewport below 768px) */
+@media (max-width: 767px) {
+  section {
+    padding-top: 3.5rem !important;
+    padding-bottom: 3.5rem !important;
+  }
+
+  body {
+    font-size: 16px !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Mobile Title Override */
+  .mobile-hero-title {
+    font-size: 44px !important;
+    line-height: 1.12 !important;
+  }
+
+  .mobile-section-title {
+    font-size: 30px !important;
+    line-height: 1.2 !important;
+  }
+
+  .mobile-body {
+    font-size: 16px !important;
+  }
+
+  .mobile-caption {
+    font-size: 14px !important;
+  }
+
+  /* Force container padding override to 20px (px-5) */
+  .main-content-container {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+}
+
+/* Voice assistant Arc Reactor glow visualizer */
+.arc-reactor-outer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  margin: 1.5rem auto;
+}
+
+.arc-reactor-core {
+  width: 48px;
+  height: 48px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(6, 182, 212, 0.8) 55%, rgba(2, 132, 199, 0.3) 100%);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 25px 8px rgba(6, 182, 212, 0.65),
+    inset 0 0 10px 2px rgba(255, 255, 255, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  z-index: 10;
+}
+
+.arc-reactor-vein {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(6, 182, 212, 0.5);
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+  animation: spinSlow 12s linear infinite;
+  z-index: 5;
+}
+
+.arc-reactor-ring-pulsing {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(6, 182, 212, 0.8);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.arc-pulse-1 {
+  animation: arcReactorPulse 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.arc-pulse-2 {
+  animation: arcReactorPulse 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite 0.8s;
+}
+
+.arc-pulse-3 {
+  animation: arcReactorPulse 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite 1.6s;
+}
+
+@keyframes arcReactorPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}

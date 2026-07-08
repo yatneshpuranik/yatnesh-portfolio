@@ -345,7 +345,7 @@ const AIAssistant = () => {
   // Auto-scroll on dialogue updates
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [visibleSentences]);
+  }, [visibleSentences, isThinking]);
 
   // Character-by-Character Typewriter callback
   const typeSentence = useCallback((text, id) => {
@@ -689,10 +689,10 @@ const AIAssistant = () => {
     <div className="z-50">
       {orbButton}
 
-      {/* Full-Screen Holographic AI Control Center */}
+      {/* 1. Desktop Holographic AI Control Center (hidden on mobile) */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-2xl animate-in fade-in duration-300 font-sans select-none text-left"
+          className="fixed inset-0 z-50 hidden md:flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-2xl animate-in fade-in duration-300 font-sans select-none text-left"
           onClick={() => {
             setIsOpen(false);
             deactivateVoiceMode();
@@ -865,6 +865,175 @@ const AIAssistant = () => {
                 <span>SECURE MODE:</span>
                 <span className="text-white">ON</span>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 2. Mobile Redesigned AI Console (hidden on desktop) */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-50 flex flex-col bg-[#070708]/98 backdrop-blur-3xl md:hidden font-sans select-none text-left"
+          onClick={() => {
+            setIsOpen(false);
+            deactivateVoiceMode();
+          }}
+        >
+          {/* Main Fullscreen console container */}
+          <div
+            className="flex flex-col h-full w-full relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* 1. 40% Jarvis Header */}
+            <div className="h-[40vh] border-b border-white/[0.08] bg-[#090909]/95 px-5 py-4 flex flex-col justify-between z-30 shrink-0 relative">
+              {/* Top Row: Title + Status + Close Button */}
+              <div className="w-full flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse" />
+                  <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest font-bold">Online</span>
+                </div>
+                
+                <button
+                  onClick={() => {
+                    setIsOpen(false);
+                    deactivateVoiceMode();
+                  }}
+                  className="p-2.5 rounded-xl border border-white/[0.08] bg-white/[0.02] text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  aria-label="Close Assistant Console"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Arc Reactor & Mode display (Centered in 40% height header) */}
+              <div className="flex-grow flex flex-col items-center justify-center py-2">
+                <div className="arc-reactor-outer" style={{ margin: '0' }}>
+                  <div className="arc-reactor-vein" />
+                  <div className="arc-reactor-core" style={{
+                    background: 'radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(6, 182, 212, 0.8) 55%, rgba(2, 132, 199, 0.3) 100%)',
+                    boxShadow: '0 0 25px 8px rgba(6, 182, 212, 0.65), inset 0 0 10px 2px rgba(255, 255, 255, 0.8)',
+                    border: '2px solid rgba(255, 255, 255, 0.4)'
+                  }} />
+                  {isListening && (
+                    <>
+                      <div className="arc-reactor-ring-pulsing arc-pulse-1" style={{ border: '2px solid rgba(6, 182, 212, 0.8)', boxShadow: '0 0 20px rgba(6, 182, 212, 0.6)' }} />
+                      <div className="arc-reactor-ring-pulsing arc-pulse-2" style={{ border: '2px solid rgba(6, 182, 212, 0.8)', boxShadow: '0 0 20px rgba(6, 182, 212, 0.6)' }} />
+                      <div className="arc-reactor-ring-pulsing arc-pulse-3" style={{ border: '2px solid rgba(6, 182, 212, 0.8)', boxShadow: '0 0 20px rgba(6, 182, 212, 0.6)' }} />
+                    </>
+                  )}
+                </div>
+                
+                <span className="text-[10px] font-mono text-cyan-400 tracking-widest uppercase font-bold animate-pulse mt-2">
+                  {isListening ? 'Listening' : (isThinking ? 'Thinking' : (isSpeaking ? 'Speaking' : 'Standby'))}
+                </span>
+              </div>
+            </div>
+
+            {/* 2. 50% Conversation Messages (Scrollable) */}
+            <div className="h-[50vh] overflow-y-auto px-5 py-6 flex flex-col justify-start relative scrollbar-none">
+              {visibleSentences.length === 0 ? (
+                <div className="text-zinc-650 font-mono text-center text-xs italic tracking-wider animate-pulse font-bold my-auto py-12">
+                  {isThinking ? 'Accessing Jarvis databases...' : 'Jarvis terminal online. Say "Go to projects" or type a command...'}
+                </div>
+              ) : (
+                <div className="flex flex-col space-y-5 items-start w-full relative">
+                  <AnimatePresence mode="popLayout">
+                    {visibleSentences.map((s, idx) => {
+                      const isCurrent = s.status === 'typing';
+                      return (
+                        <motion.div
+                          key={s.id}
+                          initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                          animate={{
+                            opacity: isCurrent ? 1.0 : 0.35,
+                            y: 0,
+                            scale: isCurrent ? 1.0 : 0.98
+                          }}
+                          exit={{ opacity: 0, y: -10, scale: 0.96 }}
+                          transition={{ duration: 0.3, ease: 'easeOut' }}
+                          className={`flex items-start justify-start w-full origin-left transition-colors duration-200 ${
+                            isCurrent ? 'text-white font-semibold drop-shadow-[0_0_8px_rgba(255,255,255,0.1)]' : 'text-gray-500'
+                          }`}
+                        >
+                          <span className="font-mono text-white/20 text-[9px] mt-1.5 mr-3 select-none">
+                            [{String(idx + 1).padStart(2, '0')}]
+                          </span>
+                          <p className="font-sans text-[15px] leading-relaxed tracking-wide font-normal">
+                            {isCurrent ? s.typedText : s.fullText}
+                            {isCurrent && (
+                              <span className="inline-block w-1.5 h-3.5 bg-white ml-1 animate-pulse select-none align-middle">█</span>
+                            )}
+                          </p>
+                        </motion.div>
+                      );
+                    })}
+                  </AnimatePresence>
+
+                  {/* ChatGPT style Typing Indicator when thinking */}
+                  {isThinking && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="flex items-center space-x-1.5 pl-8 mt-2"
+                    >
+                      <span className="text-[10px] font-mono text-zinc-550 uppercase tracking-widest font-bold">Jarvis is responding</span>
+                      <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    </motion.div>
+                  )}
+                  <div ref={messageEndRef} />
+                </div>
+              )}
+            </div>
+
+            {/* 3. 10% Input Area */}
+            <div className="h-[10vh] border-t border-white/[0.08] bg-[#090909]/95 flex items-center px-4 gap-3 shrink-0">
+              <div className="relative flex-1 flex items-center">
+                <textarea
+                  placeholder={voiceActive ? "Voice link active..." : "Type command..."}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSend(input);
+                    }
+                  }}
+                  rows={1}
+                  className="w-full pl-5 pr-5 py-2.5 rounded-full border border-white/10 bg-[#111112] text-sm focus:outline-none focus:border-white/30 text-white transition-all font-sans resize-none overflow-hidden max-h-10 leading-normal"
+                  aria-label="Text command input field"
+                />
+              </div>
+
+              {voiceActive ? (
+                <button
+                  onClick={deactivateVoiceMode}
+                  className="p-2.5 rounded-full border border-red-500/20 bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-all cursor-pointer shrink-0"
+                  title="Mute Voice Link"
+                  aria-label="Deactivate Voice Mode"
+                >
+                  <MicOff className="w-4 h-4 animate-pulse" />
+                </button>
+              ) : (
+                <button
+                  onClick={activateVoiceMode}
+                  className="p-2.5 rounded-full border border-white/10 bg-black hover:bg-white hover:text-black text-white transition-all cursor-pointer shrink-0"
+                  title="Activate Voice Link"
+                  aria-label="Activate Voice Mode"
+                >
+                  <Mic className="w-4 h-4" />
+                </button>
+              )}
+
+              <button
+                onClick={() => handleSend(input)}
+                disabled={isThinking || !input.trim()}
+                className="p-2.5 rounded-full bg-white hover:bg-zinc-200 text-black disabled:opacity-30 transition-all cursor-pointer shrink-0 shadow-md"
+                aria-label="Send Input Parameters"
+              >
+                <Send className="w-4 h-4" />
+              </button>
             </div>
           </div>
         </div>

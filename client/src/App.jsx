@@ -29,6 +29,20 @@ import ManageMessages from './admin/ManageMessages';
 import ManageSettings from './admin/ManageSettings';
 import ManageCertificates from './admin/ManageCertificates';
 
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
+// Reusable Scroll Restoration Component
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [pathname]);
+
+  return null;
+};
+
 // Initialize React Query Client
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,6 +59,7 @@ const App = () => {
       <ThemeProvider>
         <AuthProvider>
           <Router>
+            <ScrollToTop />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/pdf-preview" element={<PDFView />} />

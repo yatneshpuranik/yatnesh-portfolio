@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Award, Calendar, Link as LinkIcon } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Reveal from '../UI/Reveal';
 
 /**
@@ -7,6 +8,8 @@ import Reveal from '../UI/Reveal';
  * Re-themed to Minimal Premium Monochrome.
  */
 const Certificates = ({ certificates }) => {
+  const [mobileVisible, setMobileVisible] = useState(3);
+
   if (!certificates || certificates.length === 0) return null;
 
   return (
@@ -15,12 +18,12 @@ const Certificates = ({ certificates }) => {
 
         {/* Title */}
         <div className="flex items-center space-x-4">
-          <h2 className="text-3xl font-bold tracking-tight text-white font-heading">Certifications & Achievements</h2>
+          <h2 className="text-3xl font-bold tracking-tight text-white font-heading mobile-section-title">Certifications & Achievements</h2>
           <div className="h-[1px] bg-gradient-to-r from-white/20 to-transparent flex-grow" />
         </div>
 
-        {/* Certificates Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* 1. Desktop Grid Layout */}
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-6">
           {certificates.map((cert, index) => (
             <Reveal key={cert._id} delay={index * 0.08}>
               <div className="p-6 rounded-2xl border border-white/[0.08] bg-[#101010]/80 backdrop-blur-md hover:border-white/30 hover:shadow-[0_20px_45px_rgba(0,0,0,0.8)] transition-all duration-400 flex items-start gap-4 shadow-xl group">
@@ -41,8 +44,8 @@ const Certificates = ({ certificates }) => {
 
                   <div className="flex flex-wrap items-center gap-4 pt-2 border-t border-white/[0.04]">
                     {cert.issueDate && (
-                      <span className="text-[10px] font-mono text-gray-500 flex items-center gap-1.5">
-                        <Calendar className="w-3.5 h-3.5 text-gray-500" />
+                      <span className="text-[10px] font-mono text-gray-550 flex items-center gap-1.5">
+                        <Calendar className="w-3.5 h-3.5 text-gray-550" />
                         Issued: {new Date(cert.issueDate).toLocaleDateString(undefined, { month: 'short', year: 'numeric' })}
                       </span>
                     )}
@@ -64,6 +67,62 @@ const Certificates = ({ certificates }) => {
               </div>
             </Reveal>
           ))}
+        </div>
+
+        {/* 2. Mobile Layout */}
+        <div className="block md:hidden space-y-4">
+          <div className="flex flex-col gap-4">
+            <AnimatePresence mode="popLayout">
+              {certificates.slice(0, mobileVisible).map((cert, index) => {
+                const cardContent = (
+                  <div className="p-5 rounded-xl border border-white/[0.08] bg-[#101010]/80 flex items-center gap-4 active:scale-[0.98] transition-transform duration-300">
+                    <span className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06] text-white shrink-0">
+                      <Award className="w-4 h-4 text-white" />
+                    </span>
+                    <div className="text-left space-y-0.5 min-w-0 flex-1">
+                      <h3 className="text-xs font-extrabold text-white truncate font-heading">🏆 {cert.title}</h3>
+                      <p className="text-[10px] font-medium text-gray-400 font-mono truncate">{cert.issuer}</p>
+                    </div>
+                  </div>
+                );
+
+                return (
+                  <motion.div
+                    key={cert._id}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.35, ease: 'easeOut', delay: (index % 3) * 0.05 }}
+                  >
+                    {cert.credentialUrl ? (
+                      <a
+                        href={cert.credentialUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="block cursor-pointer select-none"
+                      >
+                        {cardContent}
+                      </a>
+                    ) : (
+                      cardContent
+                    )}
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </div>
+
+          {/* Consistent Load More Button */}
+          {mobileVisible < certificates.length && (
+            <div className="flex justify-center pt-8">
+              <button
+                onClick={() => setMobileVisible(prev => prev + 3)}
+                className="px-6 py-3 rounded-full border border-white/10 bg-[#111116] active:scale-95 text-[#F8FAFC] text-xs font-mono font-bold uppercase tracking-widest transition-all duration-300 shadow-lg cursor-pointer hover:border-white"
+              >
+                Load More
+              </button>
+            </div>
+          )}
         </div>
 
       </div>

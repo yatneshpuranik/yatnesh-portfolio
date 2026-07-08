@@ -99,7 +99,7 @@ const Hero = React.memo(({ profile, settings, socials }) => {
             {/* Name Heading: 2 lines, large, margin-bottom 20px */}
             <motion.h1
               variants={itemVariants}
-              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05] font-heading mb-5"
+              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05] font-heading mb-5 mobile-hero-title"
             >
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E5E5E5] to-zinc-400 block font-extrabold">
                 Full Stack <br />Developer
@@ -111,7 +111,12 @@ const Hero = React.memo(({ profile, settings, socials }) => {
               variants={itemVariants}
               className="text-sm sm:text-base leading-relaxed text-gray-400 max-w-md font-light font-sans mx-auto lg:mx-0 mb-6 w-full box-border"
             >
-              2+ years building web systems — from a self-initiated Multi-Tenant SaaS CRM project engineered to production-grade scalability standards, to advanced interactive AI tools. I ship fast and think in systems.
+              <span className="block md:hidden text-xs">
+                Full Stack Developer building SaaS systems, AI voice agents, and highly scalable web architectures.
+              </span>
+              <span className="hidden md:block">
+                2+ years building web systems — from a self-initiated Multi-Tenant SaaS CRM project engineered to production-grade scalability standards, to advanced interactive AI tools. I ship fast and think in systems.
+              </span>
             </motion.p>
 
             {/* Buttons Row: margin-bottom 16px */}
@@ -166,14 +171,14 @@ const Hero = React.memo(({ profile, settings, socials }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6, duration: 1.0 }}
-          className="flex items-start justify-center pointer-events-none order-2 h-[400px] sm:h-[480px] lg:h-full relative overflow-visible pt-0"
+          className="flex items-start justify-center pointer-events-none order-2 h-[340px] sm:h-[420px] lg:h-full relative overflow-visible pt-0 w-[78%] mx-auto lg:w-full"
           style={{ backgroundImage: 'none', boxShadow: 'none', border: 'none' }}
         >
           <Hero3D avatarUrl={profile?.avatarUrl} />
         </motion.div>
 
         {/* COLUMN 3: FAR RIGHT (Info stacks) - Top-aligned pt-0, borderless plain text */}
-        <div className="flex flex-col justify-start h-full pt-0 space-y-6 order-3 text-center lg:text-left items-center lg:items-start z-10 w-full max-w-full lg:max-w-sm box-border px-4 sm:px-6 lg:px-0">
+        <div className="hidden lg:flex flex-col justify-start h-full pt-0 space-y-6 order-3 text-center lg:text-left items-center lg:items-start z-10 w-full max-w-full lg:max-w-sm box-border px-4 sm:px-6 lg:px-0">
 
           <div className="w-full space-y-6 max-w-sm lg:max-w-none">
             {/* ABOUT ME block */}

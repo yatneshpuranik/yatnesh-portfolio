@@ -57,7 +57,7 @@ const Contact = ({ settings }) => {
         
         {/* Title */}
         <div className="flex items-center space-x-4 text-left">
-          <h2 className="text-3xl font-bold tracking-tight font-heading text-white">Get In Touch</h2>
+          <h2 className="text-3xl font-bold tracking-tight font-heading text-white mobile-section-title">Get In Touch</h2>
           <div className="h-[1px] bg-gradient-to-r from-white/20 to-transparent flex-grow" />
         </div>
 

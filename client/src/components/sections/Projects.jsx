@@ -50,7 +50,7 @@ const ProjectCard = ({ project, onClick, getTagColor }) => {
         transformStyle: 'preserve-3d'
       }}
       whileHover={{ y: -6 }}
-      className="w-[300px] sm:w-[380px] shrink-0 snap-start bg-[#101010]/80 backdrop-blur-xl rounded-2xl overflow-hidden cursor-pointer flex flex-col group/card border border-white/[0.08] hover:border-[#2d4fc7]/30 hover:shadow-[0_20px_45px_rgba(226,54,54,0.02)] transition-all duration-500"
+      className="w-full md:w-[380px] md:shrink-0 snap-start bg-[#101010]/80 backdrop-blur-xl rounded-2xl overflow-hidden cursor-pointer flex flex-col group/card border border-white/[0.08] hover:border-[#2d4fc7]/30 hover:shadow-[0_20px_45px_rgba(226,54,54,0.02)] transition-all duration-500"
     >
       {/* Banner Thumbnail */}
       <div className="h-44 overflow-hidden relative border-b border-white/[0.06] bg-[#090909] shrink-0 select-none">
@@ -132,6 +132,7 @@ const Projects = ({ projects }) => {
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
   const [selectedProject, setSelectedProject] = useState(null);
+  const [mobileVisible, setMobileVisible] = useState(2);
   
   // Carousel State
   const carouselRef = useRef(null);
@@ -171,92 +172,166 @@ const Projects = ({ projects }) => {
       
       <div className="space-y-12">
         
-        {/* Title & Search Toolbar */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="flex items-center space-x-4 grow">
-            <h2 className="text-3xl font-bold tracking-tight text-white flex items-center gap-2 font-heading">
-              <span>Featured Projects</span>
-            </h2>
-            <div className="h-[1px] bg-gradient-to-r from-[#2d4fc7]/40 via-[#e23636]/20 to-transparent flex-grow" />
-          </div>
-
-          <div className="relative w-full md:w-80 shrink-0">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-            <input
-              type="text"
-              placeholder="Search by tech or title..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 text-xs rounded-lg border border-white/[0.08] bg-black text-[#F8FAFC] focus:outline-none focus:border-white/40 transition-colors font-mono"
-            />
-          </div>
+        {/* Title */}
+        <div className="flex items-center space-x-4">
+          <h2 className="text-3xl font-bold tracking-tight text-white flex items-center gap-2 font-heading mobile-section-title">
+            <span>Featured Projects</span>
+          </h2>
+          <div className="h-[1px] bg-gradient-to-r from-[#2d4fc7]/40 via-[#e23636]/20 to-transparent flex-grow" />
         </div>
 
-        {/* Live Status Ticker */}
-        <div className="flex items-center space-x-2.5 px-4 py-2 rounded-xl bg-[#111116] border border-white/[0.06] w-fit font-mono text-[9px] text-zinc-300 select-none">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span>Currently building: <span className="text-white font-bold">{CURRENT_STATUS}</span></span>
-        </div>
-
-        {/* Category filters */}
-        <div className="flex flex-wrap gap-2 pt-2">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer
-                ${activeCategory === cat 
-                  ? 'bg-white text-black border border-white' 
-                  : 'border border-white/[0.08] bg-[#101010]/80 text-gray-400 hover:border-white/35 hover:text-white'
-                }
-              `}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Carousel Slider with snap controls */}
-        <div className="relative group/carousel w-full">
-          
-          {/* Left Arrow */}
-          <button 
-            onClick={() => handleScroll('left')}
-            className="absolute -left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black border border-white/[0.08] flex items-center justify-center text-gray-400 hover:text-white hover:border-white/50 transition-all z-20 opacity-0 group-hover/carousel:opacity-100 shadow-xl cursor-pointer hidden md:flex"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-
-          {/* Right Arrow */}
-          <button 
-            onClick={() => handleScroll('right')}
-            className="absolute -right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black border border-white/[0.08] flex items-center justify-center text-gray-400 hover:text-white hover:border-white/50 transition-all z-20 opacity-0 group-hover/carousel:opacity-100 shadow-xl cursor-pointer hidden md:flex"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-
-          {/* Carousel container */}
-          <div 
-            ref={carouselRef}
-            className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 relative z-10"
-          >
-            {filtered.map((project) => (
-              <ProjectCard 
-                key={project._id} 
-                project={project} 
-                onClick={() => setSelectedProject(project)}
-                getTagColor={getTagColor}
+        {/* 1. Desktop Layout (Carousel with filters & case studies modal) */}
+        <div className="hidden md:block space-y-12">
+          {/* Search Toolbar */}
+          <div className="flex flex-row items-center justify-between gap-6">
+            <div className="grow" />
+            <div className="relative w-80 shrink-0">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-550" />
+              <input
+                type="text"
+                placeholder="Search by tech or title..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full pl-10 pr-4 py-2.5 text-xs rounded-lg border border-white/[0.08] bg-black text-[#F8FAFC] focus:outline-none focus:border-white/40 transition-colors font-mono"
               />
+            </div>
+          </div>
+
+          {/* Live Status Ticker */}
+          <div className="flex items-center space-x-2.5 px-4 py-2 rounded-xl bg-[#111116] border border-white/[0.06] w-fit font-mono text-[9px] text-zinc-300 select-none">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span>Currently building: <span className="text-white font-bold">{CURRENT_STATUS}</span></span>
+          </div>
+
+          {/* Category filters */}
+          <div className="flex flex-wrap gap-2 pt-2">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer
+                  ${activeCategory === cat 
+                    ? 'bg-white text-black border border-white' 
+                    : 'border border-white/[0.08] bg-[#101010]/80 text-gray-400 hover:border-white/35 hover:text-white'
+                  }
+                `}
+              >
+                {cat}
+              </button>
             ))}
           </div>
+
+          {/* Carousel Slider with snap controls */}
+          <div className="relative group/carousel w-full">
+            
+            {/* Left Arrow */}
+            <button 
+              onClick={() => handleScroll('left')}
+              className="absolute -left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black border border-white/[0.08] flex items-center justify-center text-gray-400 hover:text-white hover:border-white/50 transition-all z-20 opacity-0 group-hover/carousel:opacity-100 shadow-xl cursor-pointer hidden md:flex"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+
+            {/* Right Arrow */}
+            <button 
+              onClick={() => handleScroll('right')}
+              className="absolute -right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black border border-white/[0.08] flex items-center justify-center text-gray-400 hover:text-white hover:border-white/50 transition-all z-20 opacity-0 group-hover/carousel:opacity-100 shadow-xl cursor-pointer hidden md:flex"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+
+            {/* Carousel container */}
+            <div 
+              ref={carouselRef}
+              className="flex flex-row gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 relative z-10 w-full"
+            >
+              {filtered.map((project) => (
+                <ProjectCard 
+                  key={project._id} 
+                  project={project} 
+                  onClick={() => setSelectedProject(project)}
+                  getTagColor={getTagColor}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* 2. Mobile Layout (Summary cards with Load More - No Modal) */}
+        <div className="block md:hidden space-y-6">
+          <div className="flex flex-col gap-6">
+            <AnimatePresence mode="popLayout">
+              {projects.slice(0, mobileVisible).map((project, index) => (
+                <motion.div
+                  key={project._id}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.35, ease: 'easeOut', delay: (index % 2) * 0.05 }}
+                  onClick={() => navigate(`/project/${project.slug}`)}
+                  className="bg-[#101010]/80 border border-white/[0.08] rounded-xl overflow-hidden cursor-pointer flex flex-col active:scale-[0.98] transition-all duration-300"
+                >
+                  {/* Project Thumbnail */}
+                  <div className="h-40 overflow-hidden relative bg-[#090909]">
+                    <img 
+                      src={project.bannerImage} 
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <span className="absolute top-3 left-3 text-[8px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-black/80 border border-white/10 text-white">
+                      {project.category || 'Saas'}
+                    </span>
+                  </div>
+
+                  {/* Details */}
+                  <div className="p-5 space-y-4 text-left">
+                    <div className="space-y-1.5">
+                      <h3 className="text-base font-bold text-white flex items-center justify-between font-heading">
+                        <span>{project.title}</span>
+                      </h3>
+                      <p className="text-xs text-gray-400 font-light leading-relaxed font-sans line-clamp-2">
+                        {project.summary || (project.problem ? stripMarkdown(project.problem) : '')}
+                      </p>
+                    </div>
+
+                    {/* Technologies & CTA Row */}
+                    <div className="flex items-center justify-between pt-3 border-t border-white/[0.04]">
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.technologies && project.technologies.slice(0, 2).map((tech) => (
+                          <span key={tech} className="px-2 py-0.5 rounded text-[9px] font-mono bg-black border border-white/[0.06] text-gray-400">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                      <span className="text-[10px] font-mono font-bold text-[#b5b5b5] flex items-center gap-0.5">
+                        View Details <ArrowUpRight className="w-3 h-3 text-[#b5b5b5]" />
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+
+          {/* Consistent Load More Button */}
+          {mobileVisible < projects.length && (
+            <div className="flex justify-center pt-8">
+              <button
+                onClick={() => setMobileVisible(prev => prev + 2)}
+                className="px-6 py-3 rounded-full border border-white/10 bg-[#111116] active:scale-95 text-[#F8FAFC] text-xs font-mono font-bold uppercase tracking-widest transition-all duration-300 shadow-lg cursor-pointer hover:border-white"
+              >
+                Load More
+              </button>
+            </div>
+          )}
         </div>
 
       </div>
 
-      {/* Carousel details modal */}
+      {/* Carousel details modal (Desktop only) */}
       <AnimatePresence>
         {selectedProject && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
@@ -301,7 +376,7 @@ const Projects = ({ projects }) => {
 
               {/* Stacks badges */}
               <div className="space-y-2 text-left">
-                <p className="text-[10px] font-mono text-gray-550 uppercase tracking-widest font-bold">Tech Stack</p>
+                <p className="text-[10px] font-mono text-gray-555 uppercase tracking-widest font-bold">Tech Stack</p>
                 <div className="flex flex-wrap gap-1.5">
                   {selectedProject.technologies.map(tech => (
                     <span key={tech} className="px-2.5 py-1 rounded-md text-[10px] font-mono bg-black border border-white/[0.08] text-[#B5B5B5]">

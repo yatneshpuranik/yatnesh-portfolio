@@ -1,6 +1,17 @@
 import React from 'react';
 
 const Hero3D = ({ avatarUrl }) => {
+  const [isLargeScreen, setIsLargeScreen] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div
       className="w-full h-full relative flex items-start justify-center select-none z-10 mx-auto"
@@ -9,12 +20,12 @@ const Hero3D = ({ avatarUrl }) => {
       {avatarUrl ? (
         <div className="relative w-full h-full flex items-start justify-center overflow-visible">
           
-          {/* Ambient Blue Glow: Positioned beneath the image fade zone (bottom 40% height) */}
+          {/* Ambient Blue Glow: Positioned beneath the image fade zone (bottom 55% height) */}
           <div 
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full lg:w-[450px] h-[40%] pointer-events-none z-0"
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full lg:w-[480px] h-[55%] pointer-events-none z-0"
             style={{
-              background: 'linear-gradient(to bottom, transparent 0%, rgba(37, 99, 235, 0.15) 50%, rgba(37, 99, 235, 0.08) 80%, transparent 100%)',
-              filter: 'blur(16px)',
+              background: 'linear-gradient(to bottom, transparent 0%, rgba(37, 99, 235, 0.16) 45%, rgba(37, 99, 235, 0.06) 75%, transparent 100%)',
+              filter: 'blur(28px)',
               mixBlendMode: 'screen',
             }}
           />
@@ -32,8 +43,12 @@ const Hero3D = ({ avatarUrl }) => {
               border: 'none',
               mixBlendMode: 'normal',
               filter: 'contrast(1.08) brightness(0.95) drop-shadow(4px 0px 12px rgba(212, 175, 55, 0.08))',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 55%, rgba(0,0,0,0.7) 70%, rgba(0,0,0,0.3) 85%, transparent 100%)',
-              maskImage: 'linear-gradient(to bottom, black 0%, black 55%, rgba(0,0,0,0.7) 70%, rgba(0,0,0,0.3) 85%, transparent 100%)'
+              WebkitMaskImage: isLargeScreen 
+                ? 'linear-gradient(to bottom, black 0%, black 62%, rgba(0, 0, 0, 0.75) 66%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0.08) 72%, transparent 74%, transparent 100%)'
+                : 'linear-gradient(to bottom, black 0%, black 76%, rgba(0, 0, 0, 0.75) 80%, rgba(0, 0, 0, 0.3) 84%, rgba(0, 0, 0, 0.08) 86%, transparent 88%, transparent 100%)',
+              maskImage: isLargeScreen 
+                ? 'linear-gradient(to bottom, black 0%, black 62%, rgba(0, 0, 0, 0.75) 66%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0.08) 72%, transparent 74%, transparent 100%)'
+                : 'linear-gradient(to bottom, black 0%, black 76%, rgba(0, 0, 0, 0.75) 80%, rgba(0, 0, 0, 0.3) 84%, rgba(0, 0, 0, 0.08) 86%, transparent 88%, transparent 100%)',
             }}
           />
         </div>

@@ -84,280 +84,342 @@ const Experience = ({ experiences }) => {
         
         {/* Title */}
         <div className="flex items-center space-x-4">
-          <h2 className="text-3xl font-bold tracking-tight text-white font-heading">Experience</h2>
+          <h2 className="text-3xl font-bold tracking-tight text-white font-heading mobile-section-title">Experience</h2>
           <div className="h-[1px] bg-gradient-to-r from-white/20 to-transparent flex-grow" />
         </div>
 
-        {/* VS Code Window Container */}
-        <Reveal delay={0.1}>
-          <div className="w-full rounded-xl border border-white/[0.08] bg-[#101010] backdrop-blur-md code-editor-shadow overflow-hidden flex flex-col min-h-[500px]">
-            
-            {/* Title Bar (macOS style window decorations) */}
-            <div className="h-11 border-b border-white/[0.08] bg-[#090909] px-4 flex items-center justify-between shrink-0 select-none">
-              <div className="flex items-center space-x-2">
-                <span className="w-3 h-3 rounded-full bg-white/10 border border-white/20" />
-                <span className="w-3 h-3 rounded-full bg-white/10 border border-white/20" />
-                <span className="w-3 h-3 rounded-full bg-white/10 border border-white/20" />
-              </div>
-              <span className="text-[11px] font-mono font-medium text-gray-550 tracking-wide">
-                workspace://yatnesh/experience
-              </span>
-              <div className="w-12" />
-            </div>
-
-            {/* Editor Workspace: Explorer + Editor Code Area */}
-            <div className="flex-1 flex flex-col md:flex-row overflow-x-auto">
+        {/* 1. Desktop Layout (VS Code Window Editor) */}
+        <div className="hidden md:block">
+          <Reveal delay={0.1}>
+            <div className="w-full rounded-xl border border-white/[0.08] bg-[#101010] backdrop-blur-md code-editor-shadow overflow-hidden flex flex-col min-h-[500px]">
               
-              {/* Left Explorer Sidebar */}
-              <div className="w-full md:w-60 border-b md:border-b-0 md:border-r border-white/[0.08] bg-[#090909]/80 p-4 shrink-0 flex flex-col space-y-4">
-                <div className="flex items-center justify-between text-[10px] font-extrabold uppercase tracking-widest text-[#B5B5B5] select-none">
-                  <span>Workspace Explorer</span>
-                  <Icons.FolderOpen className="w-3.5 h-3.5 text-white" />
+              {/* Title Bar (macOS style window decorations) */}
+              <div className="h-11 border-b border-white/[0.08] bg-[#090909] px-4 flex items-center justify-between shrink-0 select-none">
+                <div className="flex items-center space-x-2">
+                  <span className="w-3 h-3 rounded-full bg-white/10 border border-white/20" />
+                  <span className="w-3 h-3 rounded-full bg-white/10 border border-white/20" />
+                  <span className="w-3 h-3 rounded-full bg-white/10 border border-white/20" />
                 </div>
-
-                <div className="space-y-3 text-xs font-mono font-medium">
-                  {experiences.map((exp, idx) => {
-                    const isSelectedCompany = idx === activeIdx;
-                    return (
-                      <div key={exp._id} className="flex items-start gap-2.5">
-                        
-                        {/* Dynamic timeline flow track segment */}
-                        <div className="flex flex-col items-center shrink-0 w-3 pt-2">
-                          <span className={`w-2 h-2 rounded-full border transition-all ${
-                            isSelectedCompany 
-                              ? 'bg-white border-white shadow-[0_0_8px_rgba(255,255,255,0.3)] animate-pulse' 
-                              : 'bg-transparent border-white/10'
-                          }`} />
-                          {idx < experiences.length - 1 && (
-                            <div className="w-[1px] h-12 bg-white/10 relative overflow-hidden my-1">
-                              {isSelectedCompany && (
-                                <motion.div 
-                                  animate={{ y: ['-100%', '100%'] }} 
-                                  transition={{ duration: 2.2, repeat: Infinity, ease: 'linear' }}
-                                  className="absolute inset-x-0 h-4 bg-gradient-to-b from-transparent via-white to-transparent" 
-                                />
-                              )}
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Company trigger content block */}
-                        <div className="flex-1 space-y-1">
-                          <button
-                            onClick={() => {
-                              setActiveIdx(idx);
-                              setActiveFile('contributions.js');
-                            }}
-                            className={`w-full flex items-center space-x-2 px-2 py-1 rounded transition-colors text-left cursor-pointer ${
-                              isSelectedCompany ? 'text-white font-bold bg-white/[0.03] border border-white/20' : 'text-gray-400 hover:text-white'
-                            }`}
-                          >
-                            {getCompanyLogo(exp.company, 'sm')}
-                            <span className="truncate">{exp.company.toLowerCase().replace(/\s+/g, '-')}</span>
-                          </button>
-
-                          {/* Virtual Files inside Active Folder */}
-                          {isSelectedCompany && (
-                            <div className="pl-4 space-y-1 border-l border-white/[0.06] ml-4 mt-1">
-                              <button
-                                onClick={() => setActiveFile('contributions.js')}
-                                className={`w-full flex items-center space-x-2 px-2 py-0.5 rounded transition-colors text-left cursor-pointer ${
-                                  activeFile === 'contributions.js' ? 'bg-white/10 text-white font-bold' : 'text-gray-550 hover:text-white'
-                                }`}
-                              >
-                                <Icons.FileCode className="w-3.5 h-3.5 text-yellow-500 shrink-0" />
-                                <span>contributions.js</span>
-                              </button>
-                              <button
-                                onClick={() => setActiveFile('architecture-isolation.json')}
-                                className={`w-full flex items-center space-x-2 px-2 py-0.5 rounded transition-colors text-left cursor-pointer ${
-                                  activeFile === 'architecture-isolation.json' ? 'bg-white/10 text-white font-bold' : 'text-gray-550 hover:text-white'
-                                }`}
-                              >
-                                <Icons.FileJson className="w-3.5 h-3.5 text-white shrink-0" />
-                                <span>architecture.json</span>
-                              </button>
-                              <button
-                                onClick={() => setActiveFile('impact-metrics.json')}
-                                className={`w-full flex items-center space-x-2 px-2 py-0.5 rounded transition-colors text-left cursor-pointer ${
-                                  activeFile === 'impact-metrics.json' ? 'bg-white/10 text-white font-bold' : 'text-gray-550 hover:text-white'
-                                }`}
-                              >
-                                <Icons.FileSpreadsheet className="w-3.5 h-3.5 text-white shrink-0" />
-                                <span>impact.json</span>
-                              </button>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                <span className="text-[11px] font-mono font-medium text-gray-550 tracking-wide">
+                  workspace://yatnesh/experience
+                </span>
+                <div className="w-12" />
               </div>
 
-              {/* Right Active Editor Area */}
-              <div className="flex-grow flex flex-col bg-[#101010] min-w-0">
+              {/* Editor Workspace: Explorer + Editor Code Area */}
+              <div className="flex-1 flex flex-col md:flex-row overflow-x-auto">
                 
-                {/* Editor Tabs Bar */}
-                <div className="h-9 bg-[#090909] border-b border-white/[0.08] flex items-end px-2 overflow-x-auto scrollbar-none shrink-0 select-none">
-                  <div className="flex items-center space-x-1.5 px-3 py-1.5 rounded-t-lg bg-[#101010] border-t border-l border-r border-white/[0.08] text-[11px] font-mono text-white">
-                    {activeFile === 'contributions.js' ? (
-                      <Icons.FileCode className="w-3 h-3 text-yellow-500 shrink-0" />
-                    ) : (
-                      <Icons.FileJson className="w-3 h-3 text-white shrink-0" />
-                    )}
-                    <span>{activeFile}</span>
-                    <Icons.X className="w-3 h-3 text-gray-550 ml-1.5" />
+                {/* Left Explorer Sidebar */}
+                <div className="w-full md:w-60 border-b md:border-b-0 md:border-r border-white/[0.08] bg-[#090909]/80 p-4 shrink-0 flex flex-col space-y-4">
+                  <div className="flex items-center justify-between text-[10px] font-extrabold uppercase tracking-widest text-[#B5B5B5] select-none">
+                    <span>Workspace Explorer</span>
+                    <Icons.FolderOpen className="w-3.5 h-3.5 text-white" />
+                  </div>
+
+                  <div className="space-y-3 text-xs font-mono font-medium">
+                    {experiences.map((exp, idx) => {
+                      const isSelectedCompany = idx === activeIdx;
+                      return (
+                        <div key={exp._id} className="flex items-start gap-2.5">
+                          
+                          {/* Dynamic timeline flow track segment */}
+                          <div className="flex flex-col items-center shrink-0 w-3 pt-2">
+                            <span className={`w-2 h-2 rounded-full border transition-all ${
+                              isSelectedCompany 
+                                ? 'bg-white border-white shadow-[0_0_8px_rgba(255,255,255,0.3)] animate-pulse' 
+                                : 'bg-transparent border-white/10'
+                            }`} />
+                            {idx < experiences.length - 1 && (
+                              <div className="w-[1px] h-12 bg-white/10 relative overflow-hidden my-1">
+                                {isSelectedCompany && (
+                                  <motion.div 
+                                    animate={{ y: ['-100%', '100%'] }} 
+                                    transition={{ duration: 2.2, repeat: Infinity, ease: 'linear' }}
+                                    className="absolute inset-x-0 h-4 bg-gradient-to-b from-transparent via-white to-transparent" 
+                                  />
+                                )}
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Company trigger content block */}
+                          <div className="flex-1 space-y-1">
+                            <button
+                              onClick={() => {
+                                setActiveIdx(idx);
+                                setActiveFile('contributions.js');
+                              }}
+                              className={`w-full flex items-center space-x-2 px-2 py-1 rounded transition-colors text-left cursor-pointer ${
+                                isSelectedCompany ? 'text-white font-bold bg-white/[0.03] border border-white/20' : 'text-gray-400 hover:text-white'
+                              }`}
+                            >
+                              {getCompanyLogo(exp.company, 'sm')}
+                              <span className="truncate">{exp.company.toLowerCase().replace(/\s+/g, '-')}</span>
+                            </button>
+
+                            {/* Virtual Files inside Active Folder */}
+                            {isSelectedCompany && (
+                              <div className="pl-4 space-y-1 border-l border-white/[0.06] ml-4 mt-1">
+                                <button
+                                  onClick={() => setActiveFile('contributions.js')}
+                                  className={`w-full flex items-center space-x-2 px-2 py-0.5 rounded transition-colors text-left cursor-pointer ${
+                                    activeFile === 'contributions.js' ? 'bg-white/10 text-white font-bold' : 'text-gray-550 hover:text-white'
+                                  }`}
+                                >
+                                  <Icons.FileCode className="w-3.5 h-3.5 text-yellow-500 shrink-0" />
+                                  <span>contributions.js</span>
+                                </button>
+                                <button
+                                  onClick={() => setActiveFile('architecture-isolation.json')}
+                                  className={`w-full flex items-center space-x-2 px-2 py-0.5 rounded transition-colors text-left cursor-pointer ${
+                                    activeFile === 'architecture-isolation.json' ? 'bg-white/10 text-white font-bold' : 'text-gray-550 hover:text-white'
+                                  }`}
+                                >
+                                  <Icons.FileJson className="w-3.5 h-3.5 text-white shrink-0" />
+                                  <span>architecture.json</span>
+                                </button>
+                                <button
+                                  onClick={() => setActiveFile('impact-metrics.json')}
+                                  className={`w-full flex items-center space-x-2 px-2 py-0.5 rounded transition-colors text-left cursor-pointer ${
+                                    activeFile === 'impact-metrics.json' ? 'bg-white/10 text-white font-bold' : 'text-gray-550 hover:text-white'
+                                  }`}
+                                >
+                                  <Icons.FileSpreadsheet className="w-3.5 h-3.5 text-white shrink-0" />
+                                  <span>impact.json</span>
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
 
-                {/* Editor Code Pane */}
-                <div className="p-6 flex flex-col min-h-[380px] flex-1">
+                {/* Right Active Editor Area */}
+                <div className="flex-grow flex flex-col bg-[#101010] min-w-0">
                   
-                  {/* Premium details card (rendered inside editor body) */}
-                  {activeFile === 'contributions.js' && (
-                    <div className="mb-6 p-4 rounded-xl border border-white/[0.06] bg-[#090909]/60 backdrop-blur-md flex items-center gap-4 relative overflow-hidden group select-none">
-                      {/* Decorative gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                      
-                      {getCompanyLogo(activeExp.company, 'lg')}
-                      
-                      <div className="flex-1 text-left">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <h4 className="font-heading font-extrabold text-sm text-white">{activeExp.company}</h4>
-                          <span className="px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20 text-[9px] font-heading font-bold text-cyan-400 uppercase tracking-widest">
-                            {activeExp.type || 'Internship'}
-                          </span>
-                        </div>
-                        <p className="text-[11px] text-zinc-400 mt-1 font-sans font-light">{activeExp.role}</p>
-                        <p className="text-[9px] text-zinc-500 font-mono mt-0.5">
-                          {formatDate(activeExp.startDate)} - {activeExp.currentlyWorking ? 'Present' : formatDate(activeExp.endDate)}
-                        </p>
-                      </div>
+                  {/* Editor Tabs Bar */}
+                  <div className="h-9 bg-[#090909] border-b border-white/[0.08] flex items-end px-2 overflow-x-auto scrollbar-none shrink-0 select-none">
+                    <div className="flex items-center space-x-1.5 px-3 py-1.5 rounded-t-lg bg-[#101010] border-t border-l border-r border-white/[0.08] text-[11px] font-mono text-white">
+                      {activeFile === 'contributions.js' ? (
+                        <Icons.FileCode className="w-3 h-3 text-yellow-500 shrink-0" />
+                      ) : (
+                        <Icons.FileJson className="w-3 h-3 text-white shrink-0" />
+                      )}
+                      <span>{activeFile}</span>
+                      <Icons.X className="w-3 h-3 text-gray-550 ml-1.5" />
                     </div>
-                  )}
-
-                  <div className="flex overflow-x-auto flex-1">
-                    {/* Line Numbers Gutter */}
-                    <div className="w-10 flex flex-col select-none text-right pr-4 border-r border-white/[0.04] text-[11px] sm:text-xs font-mono text-gray-600 font-medium">
-                      {lines.map((ln) => (
-                        <div key={ln}>{ln}</div>
-                      ))}
-                    </div>
-
-                    {/* Active File Content Renderer */}
-                    <div className="pl-6 flex-grow min-w-0 text-left overflow-x-auto select-text selection:bg-[#3B82F6]/20">
-                      
-                      {activeFile === 'contributions.js' && (
-                        <div className="font-mono text-[11px] sm:text-xs md:text-sm leading-relaxed text-[#94a3b8] space-y-1">
-                          {/* Comments Block */}
-                          <div><span className="text-[#6A9955]">{`/**`}</span></div>
-                          <div><span className="text-[#6A9955]">{` * @company ${activeExp.company}`}</span></div>
-                          <div><span className="text-[#6A9955]">{` * @role ${activeExp.role} (${activeExp.type})`}</span></div>
-
-                        <div><span className="text-[#6A9955]">{` * @duration ${formatDate(activeExp.startDate)} - ${activeExp.currentlyWorking ? 'Present' : formatDate(activeExp.endDate)}`}</span></div>
-                        <div><span className="text-[#6A9955]">{` * @location ${activeExp.location}`}</span></div>
-                        <div><span className="text-[#6A9955]">{` */`}</span></div>
-                        
-                        <div className="h-2" />
-                        
-                        <div>
-                          <span className="text-[#C586C0]">import</span>{` `}
-                          <span className="text-[#9CDCFE]">{`{ Developer }`}</span>{` `}
-                          <span className="text-[#C586C0]">from</span>{` `}
-                          <span className="text-[#CE9178]">'yatnesh'</span>{`;`}
-                        </div>
-                        
-                        <div className="h-2" />
-                        
-                        <div>
-                          <span className="text-[#569CD6]">const</span>{` `}
-                          <span className="text-[#9CDCFE]">internship</span>{` = `}
-                          <span className="text-[#569CD6]">new</span>{` `}
-                          <span className="text-[#4EC9B0]">Developer</span>{`({`}
-                        </div>
-                        <div className="pl-4">
-                          <span className="text-[#9CDCFE]">company</span>{`: `}
-                          <span className="text-[#CE9178]">"${activeExp.company}"</span>{`,`}
-                        </div>
-                        <div className="pl-4">
-                          <span className="text-[#9CDCFE]">role</span>{`: `}
-                          <span className="text-[#CE9178]">"${activeExp.role}"</span>
-                        </div>
-                        <div>{`});`}</div>
-                        
-                        <div className="h-4" />
-                        
-                        <div>
-                          <span className="text-[#9CDCFE]">internship</span>{`.`}
-                          <span className="text-[#DCDCAA]">contributions</span>{` = [`}
-                        </div>
-                        {bullets.map((bullet, idx) => (
-                          <div key={idx} className="pl-4 flex items-start">
-                            <span className="text-gray-600 shrink-0 select-none mr-1.5">{`-`}</span>
-                            <span className="text-[#CE9178]">"{stripMarkdown(bullet)}"</span>
-                            {idx < bullets.length - 1 ? <span className="text-[#94a3b8]">{`,`}</span> : ''}
-                          </div>
-                        ))}
-                        <div>{`];`}</div>
-
-                        <div className="h-4" />
-                        
-                        <div>
-                          <span className="text-[#9CDCFE]">internship</span>{`.`}
-                          <span className="text-[#DCDCAA]">techStack</span>{` = [`}
-                        </div>
-                        <div className="pl-4 flex flex-wrap gap-x-2 gap-y-0.5">
-                          {activeExp.technologies.map((tech, idx) => (
-                            <span key={tech}>
-                              <span className="text-[#CE9178]">"${tech}"</span>
-                              {idx < activeExp.technologies.length - 1 ? <span className="text-[#94a3b8]">{`,`}</span> : ''}
-                            </span>
-                          ))}
-                        </div>
-                        <div>{`];`}</div>
-                      </div>
-                    )}
-
-                    {activeFile === 'architecture-isolation.json' && (
-                      <div className="font-mono text-[11px] sm:text-xs md:text-sm leading-relaxed text-[#94a3b8] space-y-1">
-                        <div>{`{`}</div>
-                        {Object.entries(architectureDetails).map(([key, val], idx, arr) => (
-                          <div key={key} className="pl-4">
-                            <span className="text-[#9CDCFE]">"{key}"</span>{`: `}
-                            <span className="text-[#CE9178]">"${val}"</span>
-                            {idx < arr.length - 1 ? <span className="text-[#94a3b8]">{`,`}</span> : ''}
-                          </div>
-                        ))}
-                        <div>{`}`}</div>
-                      </div>
-                    )}
-
-                    {activeFile === 'impact-metrics.json' && (
-                      <div className="font-mono text-[11px] sm:text-xs md:text-sm leading-relaxed text-[#94a3b8] space-y-1">
-                        <div>{`{`}</div>
-                        {Object.entries(impactDetails).map(([key, val], idx, arr) => (
-                          <div key={key} className="pl-4">
-                            <span className="text-[#9CDCFE]">"{key}"</span>{`: `}
-                            <span className="text-[#CE9178]">"${val}"</span>
-                            {idx < arr.length - 1 ? <span className="text-[#94a3b8]">{`,`}</span> : ''}
-                          </div>
-                        ))}
-                        <div>{`}`}</div>
-                      </div>
-                    )}
-
                   </div>
 
+                  {/* Editor Code Pane */}
+                  <div className="p-6 flex flex-col min-h-[380px] flex-1">
+                    
+                    {/* Premium details card (rendered inside editor body) */}
+                    {activeFile === 'contributions.js' && (
+                      <div className="mb-6 p-4 rounded-xl border border-white/[0.06] bg-[#090909]/60 backdrop-blur-md flex items-center gap-4 relative overflow-hidden group select-none">
+                        {/* Decorative gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                        
+                        {getCompanyLogo(activeExp.company, 'lg')}
+                        
+                        <div className="flex-1 text-left">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <h4 className="font-heading font-extrabold text-sm text-white">{activeExp.company}</h4>
+                            <span className="px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20 text-[9px] font-heading font-bold text-cyan-400 uppercase tracking-widest">
+                              {activeExp.type || 'Internship'}
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-zinc-400 mt-1 font-sans font-light">{activeExp.role}</p>
+                          <p className="text-[9px] text-zinc-500 font-mono mt-0.5">
+                            {formatDate(activeExp.startDate)} - {activeExp.currentlyWorking ? 'Present' : formatDate(activeExp.endDate)}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="flex overflow-x-auto flex-1">
+                      {/* Line Numbers Gutter */}
+                      <div className="w-10 flex flex-col select-none text-right pr-4 border-r border-white/[0.04] text-[11px] sm:text-xs font-mono text-gray-600 font-medium">
+                        {lines.map((ln) => (
+                          <div key={ln}>{ln}</div>
+                        ))}
+                      </div>
+
+                      {/* Active File Content Renderer */}
+                      <div className="pl-6 flex-grow min-w-0 text-left overflow-x-auto select-text selection:bg-[#3B82F6]/20">
+                        
+                        {activeFile === 'contributions.js' && (
+                          <div className="font-mono text-[11px] sm:text-xs md:text-sm leading-relaxed text-[#94a3b8] space-y-1">
+                            {/* Comments Block */}
+                            <div><span className="text-[#6A9955]">{`/**`}</span></div>
+                            <div><span className="text-[#6A9955]">{` * @company ${activeExp.company}`}</span></div>
+                            <div><span className="text-[#6A9955]">{` * @role ${activeExp.role} (${activeExp.type})`}</span></div>
+
+                            <div><span className="text-[#6A9955]">{` * @duration ${formatDate(activeExp.startDate)} - ${activeExp.currentlyWorking ? 'Present' : formatDate(activeExp.endDate)}`}</span></div>
+                            <div><span className="text-[#6A9955]">{` * @location ${activeExp.location}`}</span></div>
+                            <div><span className="text-[#6A9955]">{` */`}</span></div>
+                            
+                            <div className="h-2" />
+                            
+                            <div>
+                              <span className="text-[#C586C0]">import</span>{` `}
+                              <span className="text-[#9CDCFE]">{`{ Developer }`}</span>{` `}
+                              <span className="text-[#C586C0]">from</span>{` `}
+                              <span className="text-[#CE9178]">'yatnesh'</span>{`;`}
+                            </div>
+                            
+                            <div className="h-2" />
+                            
+                            <div>
+                              <span className="text-[#569CD6]">const</span>{` `}
+                              <span className="text-[#9CDCFE]">internship</span>{` = `}
+                              <span className="text-[#569CD6]">new</span>{` `}
+                              <span className="text-[#4EC9B0]">Developer</span>{`({`}
+                            </div>
+                            <div className="pl-4">
+                              <span className="text-[#9CDCFE]">company</span>{`: `}
+                              <span className="text-[#CE9178]">"${activeExp.company}"</span>{`,`}
+                            </div>
+                            <div className="pl-4">
+                              <span className="text-[#9CDCFE]">role</span>{`: `}
+                              <span className="text-[#CE9178]">"${activeExp.role}"</span>
+                            </div>
+                            <div>{`});`}</div>
+                            
+                            <div className="h-4" />
+                            
+                            <div>
+                              <span className="text-[#9CDCFE]">internship</span>{`.`}
+                              <span className="text-[#DCDCAA]">contributions</span>{` = [`}
+                            </div>
+                            {bullets.map((bullet, idx) => (
+                              <div key={idx} className="pl-4 flex items-start">
+                                <span className="text-gray-600 shrink-0 select-none mr-1.5">{`-`}</span>
+                                <span className="text-[#CE9178]">"{stripMarkdown(bullet)}"</span>
+                                {idx < bullets.length - 1 ? <span className="text-[#94a3b8]">{`,`}</span> : ''}
+                              </div>
+                            ))}
+                            <div>{`];`}</div>
+
+                            <div className="h-4" />
+                            
+                            <div>
+                              <span className="text-[#9CDCFE]">internship</span>{`.`}
+                              <span className="text-[#DCDCAA]">techStack</span>{` = [`}
+                            </div>
+                            <div className="pl-4 flex flex-wrap gap-x-2 gap-y-0.5">
+                              {activeExp.technologies.map((tech, idx) => (
+                                <span key={tech}>
+                                  <span className="text-[#CE9178]">"${tech}"</span>
+                                  {idx < activeExp.technologies.length - 1 ? <span className="text-[#94a3b8]">{`,`}</span> : ''}
+                                </span>
+                              ))}
+                            </div>
+                            <div>{`];`}</div>
+                          </div>
+                        )}
+
+                        {activeFile === 'architecture-isolation.json' && (
+                          <div className="font-mono text-[11px] sm:text-xs md:text-sm leading-relaxed text-[#94a3b8] space-y-1">
+                            <div>{`{`}</div>
+                            {Object.entries(architectureDetails).map(([key, val], idx, arr) => (
+                              <div key={key} className="pl-4">
+                                <span className="text-[#9CDCFE]">"{key}"</span>{`: `}
+                                <span className="text-[#CE9178]">"${val}"</span>
+                                {idx < arr.length - 1 ? <span className="text-[#94a3b8]">{`,`}</span> : ''}
+                              </div>
+                            ))}
+                            <div>{`}`}</div>
+                          </div>
+                        )}
+
+                        {activeFile === 'impact-metrics.json' && (
+                          <div className="font-mono text-[11px] sm:text-xs md:text-sm leading-relaxed text-[#94a3b8] space-y-1">
+                            <div>{`{`}</div>
+                            {Object.entries(impactDetails).map(([key, val], idx, arr) => (
+                              <div key={key} className="pl-4">
+                                <span className="text-[#9CDCFE]">"{key}"</span>{`: `}
+                                <span className="text-[#CE9178]">"${val}"</span>
+                                {idx < arr.length - 1 ? <span className="text-[#94a3b8]">{`,`}</span> : ''}
+                              </div>
+                            ))}
+                            <div>{`}`}</div>
+                          </div>
+                        )}
+
+                      </div>
+                    </div>
+                  </div>
                 </div>
-
               </div>
-
             </div>
-          </div>
+          </Reveal>
         </div>
 
-        </Reveal>
+        {/* 2. Mobile Layout (Centered Vertical Timeline) */}
+        <div className="block md:hidden relative pt-6 space-y-12">
+          {/* Timeline centered track line */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-white/[0.04] -translate-x-1/2 pointer-events-none" />
+          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-white/20 via-white/10 to-transparent -translate-x-1/2 origin-top pointer-events-none" />
+
+          {experiences.map((exp, index) => {
+            const expBullets = getCleanBullets(exp.description);
+            return (
+              <div key={exp._id} className="relative w-full flex flex-col items-center">
+                {/* Centered marker year bubble or logo */}
+                <div className="absolute left-1/2 top-2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#0a0a0f] border-2 border-white/20 z-10 flex items-center justify-center shadow-[0_0_8px_rgba(255,255,255,0.15)]">
+                  {getCompanyLogo(exp.company, 'sm')}
+                </div>
+
+                {/* Card container */}
+                <div className="w-full pt-14 text-center px-2">
+                  <Reveal delay={index * 0.08}>
+                    <div className="glass-card p-6 rounded-2xl border border-white/[0.06] bg-[#101010]/80 backdrop-blur-md text-center space-y-4">
+                      <div>
+                        <span className="px-2.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20 text-[9px] font-heading font-bold text-cyan-400 uppercase tracking-widest">
+                          {exp.type || 'Internship'}
+                        </span>
+                        
+                        <h3 className="text-base font-bold text-white mt-3 leading-snug">
+                          {exp.role}
+                        </h3>
+                        
+                        <span className="text-xs font-mono font-bold text-zinc-300 uppercase tracking-wide block mt-1">
+                          {exp.company}
+                        </span>
+                        
+                        <p className="text-[9px] text-zinc-500 font-mono mt-1">
+                          {formatDate(exp.startDate)} - {exp.currentlyWorking ? 'Present' : formatDate(exp.endDate)}
+                        </p>
+                      </div>
+
+                      {/* Bulleted achievements */}
+                      <div className="text-left text-xs leading-relaxed text-[#94A3B8] font-normal pt-3 border-t border-white/[0.04] space-y-2">
+                        {expBullets.map((bullet, bIdx) => (
+                          <div key={bIdx} className="flex items-start gap-2">
+                            <span className="text-gray-550 select-none mt-1 shrink-0">•</span>
+                            <span>{stripMarkdown(bullet)}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Tech stack badges */}
+                      <div className="flex flex-wrap justify-center gap-1.5 pt-3">
+                        {exp.technologies.map((tech) => (
+                          <span key={tech} className="px-2.5 py-1 rounded text-[9px] font-mono bg-black border border-white/[0.06] text-gray-400">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </Reveal>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
       </div>
     </section>
   );

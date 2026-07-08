@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-
 const techData = [
   {
     name: 'React',
@@ -191,17 +190,17 @@ const Skills = () => {
         
         {/* Title */}
         <div className="flex items-center space-x-4">
-          <h2 className="text-3xl font-bold tracking-tight text-white font-heading">Technology Focus</h2>
+          <h2 className="text-3xl font-bold tracking-tight text-white font-heading mobile-section-title">Technology Focus</h2>
           <div className="h-[1px] bg-gradient-to-r from-white/20 to-transparent flex-grow" />
         </div>
 
-        {/* Staggered Technology Cards Grid */}
+        {/* 1. Desktop Layout (With description) */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+          className="hidden md:grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
         >
           {techData.map((tech) => (
             <motion.div
@@ -211,7 +210,7 @@ const Skills = () => {
                 y: -4,
                 boxShadow: `0 12px 30px -5px ${tech.glowColor}, 0 0 15px rgba(255,255,255,0.01)`
               }}
-              className={`p-6 rounded-xl border bg-[#101010]/45 backdrop-blur-md flex flex-col gap-4 text-left transition-all duration-300 relative overflow-hidden group border-white/[0.08] ${tech.borderGlow}`}
+              className={`p-6 rounded-xl border bg-[#101010]/45 backdrop-blur-md flex flex-col items-center md:items-start gap-4 text-center md:text-left transition-all duration-300 relative overflow-hidden group border-white/[0.08] ${tech.borderGlow}`}
             >
               {/* Radial gradient background light */}
               <div 
@@ -233,6 +232,28 @@ const Skills = () => {
                   {tech.desc}
                 </p>
               </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* 2. Mobile Layout (No description, compact 2-column cards) */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid md:hidden grid-cols-2 gap-4"
+        >
+          {techData.map((tech) => (
+            <motion.div
+              key={tech.name}
+              variants={cardVariants}
+              className={`p-4 rounded-xl border bg-[#101010]/45 backdrop-blur-md flex items-center gap-3 transition-all duration-300 border-white/[0.08] ${tech.borderGlow}`}
+            >
+              <div className="w-8 h-8 rounded-lg bg-black border border-white/[0.04] flex items-center justify-center shrink-0">
+                {tech.logo}
+              </div>
+              <span className="font-heading font-extrabold text-xs text-white truncate">{tech.name}</span>
             </motion.div>
           ))}
         </motion.div>

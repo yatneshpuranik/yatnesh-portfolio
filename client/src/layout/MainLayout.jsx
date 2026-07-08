@@ -345,10 +345,10 @@ const MainLayout = ({ children }) => {
           {/* Right Actions */}
           <div className="flex items-center space-x-4">
 
-            {/* Talk with AI premium button */}
+            {/* Talk with AI premium button (Hidden on Mobile) */}
             <button
               onClick={() => window.dispatchEvent(new CustomEvent('open-ai-chat'))}
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg border border-white/10 bg-white/[0.03] text-[10px] font-heading text-white hover:bg-white hover:text-black font-bold uppercase tracking-wider transition-all duration-300 hover:scale-105 hover:border-white/30 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] cursor-pointer"
+              className="hidden md:flex items-center gap-1.5 px-4 py-1.5 rounded-lg border border-white/10 bg-white/[0.03] text-[10px] font-heading text-white hover:bg-white hover:text-black font-bold uppercase tracking-wider transition-all duration-300 hover:scale-105 hover:border-white/30 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] cursor-pointer"
             >
               <Sparkles className="w-3 h-3 text-white" />
               <span>Talk with AI</span>
@@ -359,7 +359,7 @@ const MainLayout = ({ children }) => {
                 href={settings.resumeUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="hidden sm:flex items-center gap-1.5 px-4 py-1.5 rounded-lg border border-white/10 bg-white/[0.03] text-[10px] font-mono text-white hover:bg-white hover:text-black font-bold uppercase tracking-wider transition-all"
+                className="hidden md:flex items-center gap-1.5 px-4 py-1.5 rounded-lg border border-white/10 bg-white/[0.03] text-[10px] font-mono text-white hover:bg-white hover:text-black font-bold uppercase tracking-wider transition-all"
               >
                 <FileText className="w-3.5 h-3.5" />
                 <span>Resume</span>
@@ -389,7 +389,7 @@ const MainLayout = ({ children }) => {
       </header>
 
 
-      {/* Slide-in Mobile Drawer Overlay */}
+      {/* Slide-in Mobile Fullscreen Navigation Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <>
@@ -399,56 +399,77 @@ const MainLayout = ({ children }) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+              className="fixed inset-0 bg-black/90 backdrop-blur-md z-45 md:hidden"
             />
-            {/* Drawer */}
+            {/* Fullscreen Drawer panel */}
             <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed right-0 top-0 bottom-0 w-64 bg-[#101010]/95 backdrop-blur-xl border-l border-white/[0.06] z-50 p-6 flex flex-col justify-between md:hidden"
+              initial={{ y: '100%', opacity: 0.9 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: '100%', opacity: 0.9 }}
+              transition={{ type: "spring", stiffness: 260, damping: 28 }}
+              className="fixed inset-0 bg-[#070708]/98 border-t border-white/[0.06] z-50 p-6 flex flex-col justify-between md:hidden overflow-y-auto"
             >
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {/* Header brand */}
-                <div className="flex items-center justify-between">
-                  <span className="font-mono font-bold text-white tracking-widest uppercase">System Menu</span>
+                <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
+                  <span className="font-mono font-bold text-white tracking-widest uppercase text-sm">System Navigation</span>
                   <button
                     onClick={() => setMobileMenuOpen(false)}
-                    className="p-1 rounded hover:bg-white/5 text-gray-400 cursor-pointer"
+                    className="p-2 rounded-lg border border-white/[0.08] bg-white/[0.02] text-gray-400 hover:text-white cursor-pointer"
                   >
-                    <X className="w-4.5 h-4.5" />
+                    <X className="w-5 h-5" />
                   </button>
                 </div>
 
-                {/* Nav Links */}
-                <nav className="flex flex-col space-y-4">
+                {/* Nav Links + Talk with AI & Resume */}
+                <nav className="flex flex-col space-y-3 pt-2">
                   {navLinks.map((link) => (
                     <a
                       key={link.name}
                       href={link.path}
                       onClick={(e) => handleNavClick(e, link.path)}
-                      className="flex items-center gap-3 p-3 rounded-lg border border-white/[0.02] hover:bg-white/5 text-sm font-semibold uppercase tracking-wider text-gray-400 hover:text-white transition-all cursor-pointer"
+                      className="flex items-center gap-4 p-4 rounded-xl border border-white/[0.04] bg-white/[0.02] hover:bg-white/5 text-base font-semibold uppercase tracking-wider text-gray-300 hover:text-white transition-all cursor-pointer"
                     >
-                      {link.icon}
+                      {React.cloneElement(link.icon, { className: "w-5 h-5 text-white/60" })}
                       <span>{link.name}</span>
                     </a>
                   ))}
+
+                  {/* Talk with AI inline action */}
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      setTimeout(() => {
+                        window.dispatchEvent(new CustomEvent('open-ai-chat'));
+                      }, 100);
+                    }}
+                    className="flex items-center gap-4 p-4 rounded-xl border border-cyan-500/20 bg-cyan-500/[0.02] hover:bg-cyan-500/10 text-base font-semibold uppercase tracking-wider text-cyan-400 hover:text-cyan-300 transition-all cursor-pointer text-left w-full"
+                  >
+                    <Sparkles className="w-5 h-5 text-cyan-400" />
+                    <span>Talk with AI</span>
+                  </button>
+
+                  {/* Resume inline link */}
+                  {settings?.resumeUrl && (
+                    <a
+                      href={settings.resumeUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-4 p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/[0.02] hover:bg-emerald-500/10 text-base font-semibold uppercase tracking-wider text-emerald-400 hover:text-emerald-300 transition-all cursor-pointer"
+                    >
+                      <FileText className="w-5 h-5 text-emerald-400" />
+                      <span>Resume</span>
+                    </a>
+                  )}
                 </nav>
               </div>
 
-              {/* Bottom Resume link */}
-              {settings?.resumeUrl && (
-                <a
-                  href={settings.resumeUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-full flex items-center justify-center gap-1.5 py-3 rounded-lg bg-white text-black text-xs font-mono font-bold uppercase tracking-wider hover:bg-zinc-200 transition-all cursor-pointer"
-                >
-                  <FileText className="w-4 h-4" />
-                  <span>Download Resume</span>
-                </a>
-              )}
+              {/* Drawer footer info */}
+              <div className="pt-6 border-t border-white/[0.04] text-center">
+                <span className="font-mono text-[10px] text-zinc-600 uppercase tracking-widest font-bold">
+                  Yatnesh Puranik • Portfolio System V2
+                </span>
+              </div>
             </motion.div>
           </>
         )}
@@ -456,7 +477,7 @@ const MainLayout = ({ children }) => {
 
       {/* Main viewport */}
       <main className="pt-20 min-h-screen relative z-10 select-text pb-20 md:pb-8">
-        <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 xl:px-20 py-8">
+        <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 xl:px-20 py-8 main-content-container">
           {children}
         </div>
       </main>
@@ -479,10 +500,9 @@ const MainLayout = ({ children }) => {
 
       {/* Footer */}
       <footer className="border-t border-white/[0.08] bg-[#050505] py-12 text-center text-xs text-[#94A3B8] relative z-10 select-none">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} Yatnesh Puranik. Core MERN Architecture.</p>
-          <div className="flex items-center space-x-4">
-            <span className="text-gray-600">Built with Vite × Framer Motion</span>
+        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center">
+          <p className="w-full md:w-auto text-center md:text-left">© {new Date().getFullYear()} Yatnesh Puranik. Core MERN Architecture.</p>
+          <div className="flex items-center justify-center space-x-4 w-full md:w-auto">
           </div>
         </div>
       </footer>
