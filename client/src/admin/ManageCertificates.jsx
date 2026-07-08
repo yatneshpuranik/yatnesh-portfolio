@@ -17,6 +17,7 @@ const ManageCertificates = () => {
   const [issueDate, setIssueDate] = useState('');
   const [credentialUrl, setCredentialUrl] = useState('');
   const [order, setOrder] = useState(0);
+  const [description, setDescription] = useState('');
 
   const { data: certificates, isLoading } = useQuery({
     queryKey: ['admin-certificates-list'],
@@ -65,6 +66,7 @@ const ManageCertificates = () => {
     setIssueDate('');
     setCredentialUrl('');
     setOrder(0);
+    setDescription('');
     setModalOpen(true);
   };
 
@@ -75,6 +77,7 @@ const ManageCertificates = () => {
     setIssueDate(cert.issueDate ? new Date(cert.issueDate).toISOString().split('T')[0] : '');
     setCredentialUrl(cert.credentialUrl || '');
     setOrder(cert.order || 0);
+    setDescription(cert.description || '');
     setModalOpen(true);
   };
 
@@ -96,6 +99,7 @@ const ManageCertificates = () => {
       issuer,
       issueDate: issueDate || null,
       credentialUrl,
+      description,
       order: parseInt(order) || 0,
     };
 
@@ -238,6 +242,17 @@ const ManageCertificates = () => {
                       min="0"
                     />
                   </div>
+                </div>
+
+                {/* Description */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Description</label>
+                  <textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-200 dark:border-gray-855 bg-transparent h-20 resize-none"
+                    placeholder="Demonstrates containerization concepts, building Docker images, etc."
+                  />
                 </div>
 
                 {/* Credential URL / Upload */}

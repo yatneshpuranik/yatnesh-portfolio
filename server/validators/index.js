@@ -95,6 +95,7 @@ const certificateValidator = [
   body('title').trim().notEmpty().withMessage('Certificate title is required'),
   body('issuer').trim().notEmpty().withMessage('Issuer name is required'),
   body('credentialUrl').optional({ checkFalsy: true }).trim(),
+  body('description').optional({ checkFalsy: true }).trim(),
   body('order').optional().isInt({ min: 0 }).withMessage('Order must be a positive integer'),
   validateResults,
 ];

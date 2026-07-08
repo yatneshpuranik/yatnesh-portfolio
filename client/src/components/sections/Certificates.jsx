@@ -35,6 +35,10 @@ const Certificates = ({ certificates }) => {
                   <h3 className="text-sm font-extrabold text-[#F8FAFC] group-hover:text-white transition-colors font-heading leading-snug">{cert.title}</h3>
                   <p className="text-xs font-semibold text-white/80 font-mono tracking-wider">{cert.issuer}</p>
 
+                  {cert.description && (
+                    <p className="text-xs text-gray-400 font-sans leading-relaxed pt-1">{cert.description}</p>
+                  )}
+
                   <div className="flex flex-wrap items-center gap-4 pt-2 border-t border-white/[0.04]">
                     {cert.issueDate && (
                       <span className="text-[10px] font-mono text-gray-500 flex items-center gap-1.5">

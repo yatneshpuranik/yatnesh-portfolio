@@ -17,13 +17,14 @@ const getCertificates = async (req, res, next) => {
 // @access  Private
 const createCertificate = async (req, res, next) => {
   try {
-    const { title, issuer, issueDate, credentialUrl, order } = req.body;
+    const { title, issuer, issueDate, credentialUrl, description, order } = req.body;
 
     const certificate = await Certificate.create({
       title,
       issuer,
       issueDate: issueDate || null,
       credentialUrl,
+      description: description || '',
       order: order || 0,
     });
 
@@ -45,7 +46,7 @@ const updateCertificate = async (req, res, next) => {
       throw new Error('Certificate not found');
     }
 
-    const { title, issuer, issueDate, credentialUrl, order } = req.body;
+    const { title, issuer, issueDate, credentialUrl, description, order } = req.body;
 
     certificate = await Certificate.findByIdAndUpdate(
       req.params.id,
@@ -54,6 +55,7 @@ const updateCertificate = async (req, res, next) => {
         issuer,
         issueDate: issueDate || null,
         credentialUrl,
+        description: description || '',
         order: order || 0,
       },
       { new: true, runValidators: true }

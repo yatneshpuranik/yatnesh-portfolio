@@ -546,12 +546,28 @@ const seed = async () => {
     // Seed/Upsert Certificates
     const certificatesList = [
       {
+        title: 'Docker Foundations Professional Certificate',
+        issuer: 'Docker',
+        issueDate: new Date('2026-07-01'),
+        credentialUrl: 'https://res.cloudinary.com/bpv3iunv/image/upload/v1783372864/CertificateOfCompletion_Docker_Foundations_Professional_Certificate_wnwoly.pdf',
+        description: 'Demonstrates core containerization concepts, building and managing Docker images, multi-container orchestration with Docker Compose, and container security best practices.',
+        order: 0,
+      },
+      {
+        title: 'Career Essentials in GitHub Professional Certificate',
+        issuer: 'GitHub',
+        issueDate: new Date('2026-07-01'),
+        credentialUrl: 'https://res.cloudinary.com/bpv3iunv/image/upload/v1783372864/CertificateOfCompletion_Career_Essentials_in_GitHub_Professional_Certificate_znqpsa.pdf',
+        description: 'Validates proficiency in version control, collaborative workflows, branch management, pull requests, issue tracking, and GitHub Actions for continuous integration.',
+        order: 1,
+      },
+      {
         title: 'Problem Solving (Intermediate) Certificate',
         issuer: 'HackerRank',
         issueDate: new Date('2026-07-01'),
         credentialUrl: 'https://res.cloudinary.com/bpv3iunv/image/upload/v1783352620/problem_solving_intermediate_certificate_tbf8qb.pdf',
         description: 'Demonstrates intermediate proficiency in algorithms, data structures (such as hash maps, trees, and graphs), time/space complexity analysis, and complex problem-solving techniques.',
-        order: 0,
+        order: 2,
       },
       {
         title: 'Node.js (Intermediate) Certificate',
@@ -559,7 +575,7 @@ const seed = async () => {
         issueDate: new Date('2026-07-01'),
         credentialUrl: 'https://res.cloudinary.com/bpv3iunv/image/upload/v1783352660/nodejs_intermediate_certificate_ixijwl.pdf',
         description: 'Validates understanding of event loop mechanics, event emitters, stream/buffer operations, asynchronous control flows, child processes, clustering, and optimization of Node.js servers.',
-        order: 1,
+        order: 3,
       },
       {
         title: 'REST API (Intermediate) Certificate',
@@ -567,7 +583,7 @@ const seed = async () => {
         issueDate: new Date('2026-07-01'),
         credentialUrl: 'https://res.cloudinary.com/bpv3iunv/image/upload/v1783352644/rest_api_intermediate_certificate_kqtbdp.pdf',
         description: 'Covers advanced RESTful design patterns, HTTP status codes, query filtering/pagination, error handling, rate limiting, request validation, middleware layers, and API performance optimization.',
-        order: 2,
+        order: 4,
       },
       {
         title: 'SQL (Intermediate) Certificate',
@@ -575,7 +591,7 @@ const seed = async () => {
         issueDate: new Date('2026-07-01'),
         credentialUrl: 'https://res.cloudinary.com/bpv3iunv/image/upload/v1783360980/sql_intermediate_certificate_ip4rih.pdf',
         description: 'Demonstrates intermediate proficiency in complex SQL query construction, joins, subqueries, aggregations, data modification, and database design concepts.',
-        order: 3,
+        order: 5,
       },
       {
         title: 'Frontend Developer (React) Certificate',
@@ -583,7 +599,7 @@ const seed = async () => {
         issueDate: new Date('2026-07-01'),
         credentialUrl: 'https://res.cloudinary.com/bpv3iunv/image/upload/v1783346704/frontend_developer_react_certificate_cjzwyk.pdf',
         description: 'Covers frontend design patterns, state management, component lifecycles, React hooks, DOM manipulation, responsive layouts, and performance optimization.',
-        order: 4,
+        order: 6,
       },
       {
         title: 'JavaScript (Basic) Certificate',
@@ -591,21 +607,18 @@ const seed = async () => {
         issueDate: new Date('2026-07-01'),
         credentialUrl: 'https://res.cloudinary.com/bpv3iunv/image/upload/v1783346706/ea0e27ee685ffdba9ac21165fab5014a8e8e1651ac3e2cceeeeec34d405b623a_jlxaqi.png',
         description: 'Demonstrates basic familiarity with core JavaScript mechanics, syntax, variables, basic array operations, loops, and conditional structures.',
-        order: 5,
+        order: 7,
       },
       {
         title: 'IgniteX Research Paper Participation',
         issuer: 'IgniteX',
         description: 'Participation in IgniteX Research competition.',
-        order: 6,
-      },
-      {
-        title: 'ICAT Participation',
-        issuer: 'ICAT',
-        description: 'Participation in ICAT conference/seminar.',
-        order: 7,
+        order: 8,
       },
     ];
+
+    // Explicitly clean up removed certificates (like ICAT) from DB
+    await Certificate.deleteOne({ title: 'ICAT Participation' });
 
     for (const cert of certificatesList) {
       await upsertRecord(Certificate, { title: cert.title }, cert);

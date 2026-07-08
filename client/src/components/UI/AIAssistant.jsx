@@ -716,7 +716,7 @@ const AIAssistant = () => {
             </button>
 
             {/* COLUMN 1 (LEFT): Real Photo & circular waveform animations */}
-            <div className="w-full lg:col-span-3 border-b lg:border-b-0 lg:border-r border-[#2a2a2a] flex flex-col items-center justify-center p-6 bg-[#0b0b0b]/60 shrink-0 relative">
+            <div className="w-full lg:col-span-3 flex flex-col items-center justify-center p-6 bg-gradient-to-b lg:bg-gradient-to-r from-black/30 via-black/15 to-transparent shrink-0 relative">
               <div className="relative w-full flex items-center justify-center">
                 <Avatar3D
                   isSpeaking={isSpeaking}
