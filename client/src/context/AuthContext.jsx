@@ -4,7 +4,7 @@ import axios from 'axios';
 const AuthContext = createContext();
 
 // Configure base URL for axios based on env
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL;
 axios.defaults.baseURL = API_URL;
 axios.defaults.withCredentials = true; // For cookie support
 
