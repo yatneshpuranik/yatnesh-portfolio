@@ -1,16 +1,16 @@
 {
-  "name": "Yatnesh Puranik | Software Engineer & Researcher",
-  "short_name": "Yatnesh",
+  "name": "Yatnesh Puranik | Full Stack Software Engineer",
+  "short_name": "Yatnesh Puranik",
   "icons": [
     {
-      "src": "/android-chrome-192x192.png",
+      "src": "yatnesh.jpg",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/jpg"
     },
     {
-      "src": "/android-chrome-512x512.png",
+      "src": "yatnesh.jpg",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/jpg"
     }
   ],
   "theme_color": "#0F172A",
