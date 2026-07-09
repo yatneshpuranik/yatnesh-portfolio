@@ -195,7 +195,7 @@ const seed = async () => {
     // Define exact Cloudinary URLs as provided by the user
     const avatarUrl = 'https://res.cloudinary.com/bpv3iunv/image/upload/v1783104592/yatnesh-Photoroom_mwiudd.png';
     const profilePhoto = 'https://res.cloudinary.com/bpv3iunv/image/upload/v1782903562/yatnesh.jpg';
-    const resumeUrl = 'https://res.cloudinary.com/bpv3iunv/image/upload/v1782990790/ResumeYatneshMERN_2_sul1q7.pdf';
+    const resumeUrl = 'https://res.cloudinary.com/bpv3iunv/image/upload/v1783600158/Yatnesh-Puranik_cbpvry.pdf';
 
     console.log('Using Avatar URL (Navbar):', avatarUrl);
     console.log('Using Profile Photo URL (Hero):', profilePhoto);
